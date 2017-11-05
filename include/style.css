@@ -1,0 +1,138 @@
+@media all
+{
+	.slideshow.original
+	{
+		overflow: hidden;
+		position: relative;
+		text-align: center;
+		width: 100%;
+	}
+
+		.slideshow.original > div
+		{
+			display: none;
+			left: 0;
+			position: absolute;
+			right: 0;
+			top: 0;
+		}
+
+			.slideshow.original > div.active
+			{
+				display: block;
+			}
+
+			.slideshow.original img
+			{
+				height: 100%;
+				object-fit: contain;
+				width: 100%;
+			}
+
+			.slideshow.original .content
+			{
+				left: 25%;
+				position: absolute;
+				right: 25%;
+				top: 0;
+			}
+
+				.slideshow.original .content.left
+				{
+					left: 7%;
+					right: 43%;
+				}
+
+				.slideshow.original .content.right
+				{
+					left: 43%;
+					right: 7%;
+				}
+
+				.slideshow.original .content > div
+				{
+					background: rgba(0, 0, 0, .2);
+					color: #fff;
+					font-size: 1.3em;
+					padding: 2em;
+					-webkit-transform: translateY(50%);
+					transform: translateY(50%);
+				}
+
+					.slideshow.original .content p
+					{
+						margin-top: 1em;
+					}
+
+					.slideshow.original .content > div > a
+					{
+						display: block;
+						margin-top: 1em;
+						text-align: right;
+					}
+
+		.slideshow.original .controls.fa
+		{
+			background: #000;
+			border-radius: 1.7em;
+			color: #fff;
+			font-size: 2em;
+			opacity: .2;
+			position: absolute;
+			top: 46%;
+		}
+
+			.slideshow.original .controls.fa:hover
+			{
+				opacity: .7;
+			}
+
+			.slideshow.original .controls.arrow_left
+			{
+				left: 2%;
+				padding: .35em .6em .35em .45em;
+			}
+
+			.slideshow.original .controls.arrow_right
+			{
+				padding: .35em .45em .35em .6em;
+				right: 2%;
+			}
+
+		.slideshow.original ul.controls
+		{
+			bottom: 1em;
+			left: 0;
+			position: absolute;
+			right: 0;
+			text-align: center;
+		}
+
+			.slideshow.original .controls li
+			{
+				background: #fff;
+				border: .2em solid #fff !important;
+				border-radius: 1em;
+				cursor: pointer;
+				display: inline-block;
+				height: 1.2em;
+				margin: 0 .5em;
+				outline: none;
+				width: 1.2em;
+			}
+
+				.slideshow.original .controls li:hover
+				{
+					background: #bbb;
+				}
+
+				.slideshow.original .controls li.active
+				{
+					background: #666;
+				}
+
+	.is_mobile .slideshow.original ul.controls
+	{
+		display: none !important;
+	}
+}
