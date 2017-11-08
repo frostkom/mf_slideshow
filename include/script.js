@@ -2,12 +2,11 @@ jQuery.fn.mf_slideshow = function(o)
 {
 	var dom_obj = this,
 		slide_now = parseInt(dom_obj.children('div.active').attr('rel')),
-		slide_timeout;
-
-	var autoPlay = dom_obj.attr('data-autoplay') || script_slideshow.autoplay,
-		viewDuration = dom_obj.attr('data-duration') || script_slideshow.duration,
-		fadeDuration = parseInt(dom_obj.attr('data-fade') || script_slideshow.fade),
-		showControls = dom_obj.attr('data-show_controls') || script_slideshow.show_controls,
+		slide_timeout,
+		autoplay = dom_obj.attr('data-autoplay') || script_slideshow.autoplay,
+		duration = dom_obj.attr('data-duration') || script_slideshow.duration,
+		fade = parseInt(dom_obj.attr('data-fade') || script_slideshow.fade),
+		show_controls = dom_obj.attr('data-show_controls') || script_slideshow.show_controls,
 		random = dom_obj.attr('data-random') || script_slideshow.random,
 		height_ratio = dom_obj.attr('data-height_ratio') || script_slideshow.height_ratio,
 		height_ratio_mobile = dom_obj.attr('data-height_ratio_mobile') || script_slideshow.height_ratio_mobile;
@@ -20,7 +19,7 @@ jQuery.fn.mf_slideshow = function(o)
 
 	function change_slide(slide_new)
 	{
-		if(autoPlay == 1)
+		if(autoplay == 1)
 		{
 			clearTimeout(slide_timeout);
 		}
@@ -32,20 +31,20 @@ jQuery.fn.mf_slideshow = function(o)
 
 		if(slide_new != slide_now)
 		{
-			dom_obj.children('div[rel=' + slide_now + ']').fadeOut(fadeDuration);
-			dom_obj.children('div[rel=' + slide_new + ']').fadeIn(fadeDuration);
+			dom_obj.children('div[rel=' + slide_now + ']').fadeOut(fade);
+			dom_obj.children('div[rel=' + slide_new + ']').fadeIn(fade);
 
 			dom_obj.find('li[rel=' + slide_new + ']').addClass('active').siblings('li').removeClass('active');
 		}
 
 		slide_now = slide_new;
 
-		if(autoPlay == 1)
+		if(autoplay == 1)
 		{
 			slide_timeout = setTimeout(function()
 			{
 				change_slide(slide_now + 1);
-			}, viewDuration);
+			}, duration);
 		}
 	}
 
@@ -82,7 +81,7 @@ jQuery.fn.mf_slideshow = function(o)
 
 	if(slider_amount > 1)
 	{
-		if(showControls != true && showControls != 'yes')
+		if(show_controls != true && show_controls != 'yes')
 		{
 			dom_obj.find(".controls").addClass('hide');
 		}
@@ -92,7 +91,7 @@ jQuery.fn.mf_slideshow = function(o)
 			slide_preload(jQuery(this).children('img').attr('src'));
 		});
 
-		if(autoPlay == 1)
+		if(autoplay == 1)
 		{
 			change_slide(random == 1 ? Math.round(Math.random() * slider_amount) : slide_now);
 		}

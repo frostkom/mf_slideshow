@@ -9,7 +9,6 @@ function set_slide_sizes_flickity(retry)
 				height_ratio = dom_obj.attr('data-height_ratio') || script_slideshow_flickity.height_ratio,
 				height_ratio_mobile = dom_obj.attr('data-height_ratio_mobile') || script_slideshow_flickity.height_ratio_mobile,
 				dom_height = jQuery("body").hasClass('is_mobile') ? dom_obj_width * height_ratio_mobile : dom_obj_width * height_ratio;
-				//slideshow_height = dom_obj_width * (dom_obj.attr('data-height_ratio') || script_slideshow_flickity.height_ratio);
 
 			dom_obj.css(
 			{
@@ -35,34 +34,36 @@ function set_slide_sizes_flickity(retry)
 
 function on_load_flickity()
 {
-	set_slide_sizes_flickity(true);
-
-	jQuery(".slideshow.flickity").each(function()
+	if(jQuery(".slideshow.flickity").length > 0)
 	{
-		var dom_obj = jQuery(this);
+		set_slide_sizes_flickity(true);
 
-		var initialIndex = dom_obj.children(".gallery-img div.active").attr('rel'),
-			autoPlay = dom_obj.attr('data-autoplay') || script_slideshow_flickity.autoplay,
-			duration = dom_obj.attr('data-duration') || script_slideshow_flickity.duration,
-			showControls = dom_obj.attr('data-show_controls') || script_slideshow_flickity.show_controls;
-
-		jQuery(this).flickity(
+		jQuery(".slideshow.flickity").each(function()
 		{
-			wrapAround: true,
-			//,cellAlign: 'left'
-			initialIndex: initialIndex,
-			//,contain: true
-			//,freeScroll: true
-			autoPlay: (autoPlay == 1 ? duration : false),
-			prevNextButtons: showControls,
-			pageDots: showControls
-		});
-	});
+			var dom_obj = jQuery(this),
+				slide_now = dom_obj.children(".gallery-img div.active").attr('rel'),
+				autoplay = dom_obj.attr('data-autoplay') || script_slideshow_flickity.autoplay,
+				duration = dom_obj.attr('data-duration') || script_slideshow_flickity.duration,
+				show_controls = dom_obj.attr('data-show_controls') || script_slideshow_flickity.show_controls;
 
-	jQuery(window).on('resize', function()
-	{
-		set_slide_sizes_flickity(false);
-	});
+			jQuery(this).flickity(
+			{
+				wrapAround: true,
+				//,cellAlign: 'left'
+				initialIndex: slide_now,
+				//,contain: true
+				//,freeScroll: true
+				autoPlay: (autoplay == 1 ? duration : false),
+				prevNextButtons: show_controls,
+				pageDots: show_controls
+			});
+		});
+
+		jQuery(window).on('resize', function()
+		{
+			set_slide_sizes_flickity(false);
+		});
+	}
 }
 
 jQuery(function($)

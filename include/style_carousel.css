@@ -2,99 +2,70 @@
 {
 	.slideshow.carousel
 	{
-		margin: 0 auto;
-		width: 250px;
 		height: 200px;
-		position: relative;
+		margin: 0 auto;
+		overflow: hidden;
 		perspective: 1000px;
+		width: 250px;
 	}
 
 		.slideshow.carousel > div
 		{
-			height: 100%;
-			width: 100%;
-			position: absolute;
 			transform-style: preserve-3d;
 			transition: transform 1s;
 		}
 
 			.slideshow.carousel .item
 			{
+				color: #fff;
 				display: block;
-				position: absolute;
-				background: #000;
-				width: 250px;
-				height: 200px;
-				line-height: 200px;
 				font-size: 5em;
+				opacity: .95;
+				position: absolute;
 				text-align: center;
-				color: #FFF;
-				opacity: 0.95;
-				border-radius: 10px;
 			}
 
-				/*.a
+				.slideshow.carousel .item img
 				{
-					transform: rotateY(0deg) translateZ(250px);
+					border-radius: .1em;
+					height: 100%;
+					object-fit: contain;
+					width: 100%;
+					-webkit-transform: scale(.7);
+					-moz-transform: scale(.7);
+					-o-transform: scale(.7);
+					transform: scale(.7);
 				}
-				
-				.b
-				{
-					transform: rotateY(60deg) translateZ(250px);
-				}
-
-				.c
-				{
-					transform: rotateY(120deg) translateZ(250px);
-				}
-
-				.d
-				{
-					transform: rotateY(180deg) translateZ(250px);
-				}
-
-				.e
-				{
-					transform: rotateY(240deg) translateZ(250px);
-				}
-
-				.f
-				{
-					transform: rotateY(300deg) translateZ(250px);
-				}*/
 
 			.slideshow.carousel .controls
 			{
-				color: #444;
-				position: absolute;
-				top: 100px;
-				padding: 1em 2em;
+				background: #000;
+				border-radius: 1.7em;
+				color: #fff;
 				cursor: pointer;
-				background: #ccc;
-				border-radius: 5px;
-				border-top: 1px solid #FFF;
-				box-shadow: 0 5px 0 #999;
-				transition: box-shadow .1s, top .1s;
+				font-size: 2em;
+				opacity: .2;
+				padding: 1em 1.2em;
+				position: absolute;
+				top: 50%;
+				-webkit-transform: translateY(-50%);
+				-moz-transform: translateY(-50%);
+				-o-transform: translateY(-50%);
+				transform: translateY(-50%);
 			}
 
 				.slideshow.carousel .controls:hover
 				{
-					color: #000;
-				}
-
-				.slideshow.carousel .controls:active
-				{
-					top: 104px;
-					box-shadow: 0 1px 0 #999;
+					opacity: .7;
 				}
 
 					.slideshow.carousel .next
 					{
-						right: 5em;
+						right: 2%;
 					}
 					
 					.slideshow.carousel .prev
 					{
-						left: 5em;
+						left: 2%;
 					}
 }
