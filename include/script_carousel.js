@@ -14,7 +14,7 @@ function set_slide_sizes_carousel(retry)
 			dom_obj_parent.css(
 			{
 				'height': dom_height + 'px'
-			});			
+			});
 
 			dom_obj.css(
 			{
