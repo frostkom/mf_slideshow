@@ -130,9 +130,4 @@
 				{
 					background: #666;
 				}
-
-	.is_mobile .slideshow.original ul.controls
-	{
-		display: none !important;
-	}
 }
