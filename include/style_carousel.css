@@ -40,7 +40,7 @@
 			.slideshow.carousel .controls
 			{
 				background: #000;
-				border-radius: 1.7em;
+				border-radius: 50%;
 				color: #fff;
 				cursor: pointer;
 				font-size: 2em;

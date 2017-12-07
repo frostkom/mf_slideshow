@@ -74,7 +74,7 @@
 		.slideshow.original .controls.fa
 		{
 			background: #000;
-			border-radius: 1.7em;
+			border-radius: 50%;
 			color: #fff;
 			font-size: 2em;
 			opacity: .4;
@@ -112,7 +112,7 @@
 			{
 				background: #fff;
 				border: .2em solid #fff !important;
-				border-radius: 1em;
+				border-radius: 50%;
 				cursor: pointer;
 				display: inline-block;
 				height: 1.2em;
