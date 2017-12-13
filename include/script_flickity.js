@@ -15,7 +15,7 @@ function set_slide_sizes_flickity(retry)
 				'height': dom_height + 'px'
 			});
 
-			dom_obj.find('.gallery-img img').css(
+			dom_obj.find('.carousel-cell img').css(
 			{
 				'height': dom_height + 'px',
 				'max-height': dom_height + 'px'
@@ -41,7 +41,7 @@ function on_load_flickity()
 		jQuery(".slideshow.flickity").each(function()
 		{
 			var dom_obj = jQuery(this),
-				slide_now = dom_obj.children(".gallery-img div.active").attr('rel'),
+				slide_now = dom_obj.children(".carousel-cell div.active").attr('rel'),
 				autoplay = dom_obj.attr('data-autoplay') || script_slideshow_flickity.autoplay,
 				duration = dom_obj.attr('data-duration') || script_slideshow_flickity.duration,
 				show_controls = dom_obj.attr('data-show_controls') || script_slideshow_flickity.show_controls;
@@ -49,10 +49,10 @@ function on_load_flickity()
 			jQuery(this).flickity(
 			{
 				wrapAround: true,
-				//,cellAlign: 'left'
+				/*,cellAlign: 'left'*/
 				initialIndex: slide_now,
-				//,contain: true
-				//,freeScroll: true
+				/*,contain: true
+				,freeScroll: true*/
 				autoPlay: (autoplay == 1 ? duration : false),
 				prevNextButtons: show_controls,
 				pageDots: show_controls

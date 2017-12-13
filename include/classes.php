@@ -47,7 +47,7 @@ class mf_slideshow
 				{
 					if($data['settings']['slideshow_style'] == 'flickity')
 					{
-						$images .= "<div class='gallery-img'".($i == $active_i ? " class='active'" : "")." rel='".$i."'><img src='".$image."'></div>";
+						$images .= "<div class='carousel-cell'".($i == $active_i ? " class='active'" : "")." rel='".$i."'><img src='".$image."'></div>";
 					}
 
 					else if($data['settings']['slideshow_style'] == 'carousel')

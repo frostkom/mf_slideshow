@@ -62,15 +62,14 @@ function init_slideshow()
 		if(in_array('original', $setting_slideshow_style))
 		{
 			mf_enqueue_style('style_slideshow', $plugin_include_url."style.css", $plugin_version);
-			//mf_enqueue_script('script_liquid', $plugin_include_url."imgLiquid-min.js", '0.9.944');
 			mf_enqueue_script('script_slideshow', $plugin_include_url."script.js", $arr_settings, $plugin_version);
 		}
 
 		if(in_array('flickity', $setting_slideshow_style))
 		{
-			mf_enqueue_style('style_flickity', $plugin_include_url."flickity.css", $plugin_version);
+			mf_enqueue_style('style_flickity', $plugin_include_url."lib/flickity.min.css", $plugin_version);
 			mf_enqueue_style('style_slideshow_flickity', $plugin_include_url."style_flickity.css", $plugin_version);
-			mf_enqueue_script('script_flickity', $plugin_include_url."flickity.pkgd.js", $plugin_version);
+			mf_enqueue_script('script_flickity', $plugin_include_url."lib/flickity.pkgd.min.js", $plugin_version);
 			mf_enqueue_script('script_slideshow_flickity', $plugin_include_url."script_flickity.js", $arr_settings, $plugin_version);
 		}
 

@@ -59,7 +59,7 @@ function on_load_carousel()
 				height_ratio = dom_obj.attr('data-height_ratio') || script_slideshow_carousel.height_ratio,
 				height_ratio_mobile = dom_obj.attr('data-height_ratio_mobile') || script_slideshow_carousel.height_ratio_mobile;
 
-			/*var slide_now = dom_obj.children(".gallery-img div.active").attr('rel'),
+			/*var slide_now = dom_obj.children(".carousel-cell div.active").attr('rel'),
 				show_controls = dom_obj.attr('data-show_controls') || script_slideshow_carousel.show_controls;*/
 
 			var count_deg = 0;
