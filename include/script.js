@@ -11,12 +11,6 @@ jQuery.fn.mf_slideshow = function(o)
 		height_ratio = dom_obj.attr('data-height_ratio') || script_slideshow.height_ratio,
 		height_ratio_mobile = dom_obj.attr('data-height_ratio_mobile') || script_slideshow.height_ratio_mobile;
 
-	function slide_preload(url)
-	{
-		var img = new Image();
-		img.src = url;
-	}
-
 	function change_slide(slide_new)
 	{
 		if(autoplay == 1)
@@ -88,7 +82,7 @@ jQuery.fn.mf_slideshow = function(o)
 
 		dom_obj.children('div').each(function()
 		{
-			slide_preload(jQuery(this).children('img').attr('src'));
+			preload(jQuery(this).children('img').attr('src'));
 		});
 
 		if(autoplay == 1)
