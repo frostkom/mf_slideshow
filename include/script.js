@@ -112,6 +112,36 @@ jQuery.fn.mf_slideshow = function(o)
 	{
 		set_slide_sizes(false);
 	});
+
+	dom_obj.swipe("destroy").swipe(
+	{
+		swipeStatus: function(event, phase, direction, distance)
+		{
+			if(direction == 'left' || direction == 'right')
+			{
+				switch(phase)
+				{
+					/*case 'start': break;
+					case 'move': break;*/
+
+					case 'end':
+						if(direction == "left")
+						{
+							change_slide(slide_now - 1);
+						}
+
+						else
+						{
+							change_slide(slide_now + 1);
+						}
+					break;
+				}
+			}
+		},
+		/*threshold: threshold,*/
+		fingers: 1,
+		allowPageScroll: 'vertical'
+	});
 };
 
 function on_load_slideshow()

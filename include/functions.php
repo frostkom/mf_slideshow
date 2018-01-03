@@ -62,6 +62,7 @@ function init_slideshow()
 		if(in_array('original', $setting_slideshow_style))
 		{
 			mf_enqueue_style('style_slideshow', $plugin_include_url."style.css", $plugin_version);
+			mf_enqueue_script('script_swipe', $plugin_include_url."lib/jquery.touchSwipe.min.js", $plugin_version);
 			mf_enqueue_script('script_slideshow', $plugin_include_url."script.js", $arr_settings, $plugin_version);
 		}
 
