@@ -1,4 +1,4 @@
-jQuery.fn.mf_slideshow = function(o)
+jQuery.fn.mf_slideshow = function() /*function(o)*/
 {
 	var dom_obj = this,
 		slide_now = parseInt(dom_obj.children('div.active').attr('rel')),
