@@ -3,7 +3,7 @@
 Plugin Name: MF Slideshow
 Plugin URI: https://github.com/frostkom/mf_slideshow
 Description: 
-Version: 4.2.4
+Version: 4.2.5
 Licence: GPLv2 or later
 Author: Martin Fors
 Author URI: http://frostkom.se
@@ -19,9 +19,8 @@ include_once("include/functions.php");
 
 add_action('cron_base', 'activate_slideshow', mt_rand(1, 10));
 
-add_action('widgets_init', 'widgets_slideshow');
-
 add_action('init', 'init_slideshow');
+add_action('widgets_init', 'widgets_slideshow');
 
 if(is_admin())
 {

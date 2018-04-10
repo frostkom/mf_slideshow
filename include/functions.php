@@ -13,6 +13,7 @@ function init_slideshow()
 		'public' => false,
 		'show_ui' => true,
 		'exclude_from_search' => true,
+		'capability_type' => 'page',
 		'menu_position' => 99,
 		'menu_icon' => 'dashicons-format-gallery',
 		'supports' => array('title', 'editor', 'page-attributes'),
