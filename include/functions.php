@@ -14,7 +14,7 @@ function init_slideshow()
 		'show_ui' => true,
 		'exclude_from_search' => true,
 		'capability_type' => 'page',
-		'menu_position' => 99,
+		'menu_position' => 21,
 		'menu_icon' => 'dashicons-format-gallery',
 		'supports' => array('title', 'editor', 'page-attributes'),
 		'hierarchical' => true,
