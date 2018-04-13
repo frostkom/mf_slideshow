@@ -7,6 +7,65 @@ class mf_slideshow
 		$this->meta_prefix = "mf_slide_";
 	}
 
+	function wp_head()
+	{
+		$setting_slideshow_style = get_option_or_default('setting_slideshow_style', array('original'));
+		$setting_autoplay = get_option('setting_slideshow_autoplay');
+		$setting_duration = get_option_or_default('setting_slideshow_duration', 5);
+		$setting_fade_duration = get_option_or_default('setting_slideshow_fade_duration', 400);
+		$setting_random = get_option('setting_slideshow_random');
+		$setting_height_ratio = get_option('setting_slideshow_height_ratio', '0.5');
+		$setting_height_ratio_mobile = get_option('setting_slideshow_height_ratio_mobile', '1');
+		$setting_show_controls = get_option('setting_slideshow_show_controls');
+
+		$setting_height_ratio = str_replace(",", ".", $setting_height_ratio);
+		$setting_height_ratio_mobile = str_replace(",", ".", $setting_height_ratio_mobile);
+
+		if($setting_height_ratio > 2 || $setting_height_ratio < 0.2)
+		{
+			$setting_height_ratio = 1;
+		}
+
+		if($setting_height_ratio_mobile > 2 || $setting_height_ratio_mobile < 0.2)
+		{
+			$setting_height_ratio_mobile = 1;
+		}
+
+		$arr_settings = array(
+			'autoplay' => $setting_autoplay,
+			'duration' => ($setting_duration * 1000),
+			'fade' => $setting_fade_duration,
+			'show_controls' => $setting_show_controls,
+			'random' => $setting_random,
+			'height_ratio' => $setting_height_ratio,
+			'height_ratio_mobile' => $setting_height_ratio_mobile,
+		);
+
+		$plugin_include_url = plugin_dir_url(__FILE__);
+		$plugin_version = get_plugin_version(__FILE__);
+
+		if(in_array('original', $setting_slideshow_style))
+		{
+			mf_enqueue_style('style_slideshow', $plugin_include_url."style.css", $plugin_version);
+			mf_enqueue_script('script_swipe', $plugin_include_url."lib/jquery.touchSwipe.min.js", $plugin_version);
+			mf_enqueue_script('script_slideshow', $plugin_include_url."script.js", $arr_settings, $plugin_version);
+		}
+
+		if(in_array('flickity', $setting_slideshow_style))
+		{
+			mf_enqueue_style('style_flickity', $plugin_include_url."lib/flickity.min.css", $plugin_version);
+			mf_enqueue_style('style_slideshow_flickity', $plugin_include_url."style_flickity.css", $plugin_version);
+			mf_enqueue_script('script_flickity', $plugin_include_url."lib/flickity.pkgd.min.js", $plugin_version);
+			mf_enqueue_script('script_slideshow_flickity', $plugin_include_url."script_flickity.js", $arr_settings, $plugin_version);
+		}
+
+		if(in_array('carousel', $setting_slideshow_style))
+		{
+			mf_enqueue_style('style_slideshow_carousel', $plugin_include_url."style_carousel.css", $plugin_version);
+			mf_enqueue_script('script_slideshow_carousel', $plugin_include_url."script_carousel.js", $arr_settings, $plugin_version);
+		}
+	}
+
 	function show($data)
 	{
 		if(!isset($data['settings'])){		$data['settings'] = array('slideshow_style' => 'original');}
