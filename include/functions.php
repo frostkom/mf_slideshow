@@ -182,7 +182,7 @@ function meta_boxes_slideshow($meta_boxes)
 				'id' => $obj_slideshow->meta_prefix.'content_position',
 				'type' => 'select',
 				'options' => array(
-					'' => "-- ".__("Choose here", 'lang_slideshow')." --",
+					'' => "-- ".__("Choose Here", 'lang_slideshow')." --",
 					'left' => __("Left", 'lang_slideshow'),
 					'center' => __("Center", 'lang_slideshow'),
 					'right' => __("Right", 'lang_slideshow'),

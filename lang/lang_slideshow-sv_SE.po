@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-27 11:35+0100\n"
+"POT-Creation-Date: 2018-06-19 06:54+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Martin Fors\n"
 "Language-Team: \n"
@@ -16,91 +16,91 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: ..\n"
 
-#: ../include/classes.php:72
+#: ../include/classes.php:131
 msgid "Read More"
 msgstr "Läs mer"
 
-#: ../include/classes.php:148
+#: ../include/classes.php:207
 msgid "Display a slideshow that you've created"
 msgstr "Visa ett bildspel som du har skapat"
 
-#: ../include/classes.php:165
+#: ../include/classes.php:224
 #: ../include/functions.php:7
 #: ../include/functions.php:8
-#: ../include/functions.php:120
+#: ../include/functions.php:62
 msgid "Slideshow"
 msgstr "Bildspel"
 
-#: ../include/classes.php:239
+#: ../include/classes.php:298
 msgid "I could not find any images to load"
 msgstr "Jag kunde inte hitta några bilder att ladda"
 
-#: ../include/classes.php:277
+#: ../include/classes.php:336
 msgid "Heading"
 msgstr "Rubrik"
 
-#: ../include/classes.php:278
+#: ../include/classes.php:337
 msgid "Parent"
 msgstr "Förälder"
 
-#: ../include/classes.php:279
-#: ../include/functions.php:92
+#: ../include/classes.php:338
+#: ../include/functions.php:34
 msgid "Style"
 msgstr "Stil"
 
-#: ../include/classes.php:281
-#: ../include/functions.php:95
+#: ../include/classes.php:340
+#: ../include/functions.php:37
 msgid "Background Color"
 msgstr "Bakgrundsfärg"
 
-#: ../include/classes.php:282
-#: ../include/classes.php:283
-#: ../include/functions.php:96
-#: ../include/functions.php:97
+#: ../include/classes.php:341
+#: ../include/classes.php:342
+#: ../include/functions.php:38
+#: ../include/functions.php:39
 msgid "Height Ratio"
 msgstr "Höjdförhållande"
 
-#: ../include/classes.php:282
+#: ../include/classes.php:341
 msgid "From 0,3 to 2. 0,3 means the slideshow will be presented in landscape, 1 means square format and 2 means the slideshow i presented in portrait"
 msgstr "Från 0,3 till 2. 0,3 betyder att bildspelet visas i landskapsläge, 1 betyder att den visas som en kvadrat och 2 betyder att det presenteras i porträttläge"
 
-#: ../include/classes.php:283
-#: ../include/functions.php:97
+#: ../include/classes.php:342
+#: ../include/functions.php:39
 msgid "Mobile"
 msgstr "Mobil"
 
-#: ../include/classes.php:285
-#: ../include/functions.php:99
+#: ../include/classes.php:344
+#: ../include/functions.php:41
 msgid "Show Controls"
 msgstr "Visa kontroller"
 
-#: ../include/classes.php:287
-#: ../include/functions.php:100
+#: ../include/classes.php:346
+#: ../include/functions.php:42
 msgid "Autoplay"
 msgstr "Spela upp automatiskt"
 
-#: ../include/classes.php:291
-#: ../include/functions.php:104
+#: ../include/classes.php:350
+#: ../include/functions.php:46
 msgid "Duration"
 msgstr "Tid för bildvisning"
 
-#: ../include/classes.php:291
-#: ../include/functions.php:165
+#: ../include/classes.php:350
+#: ../include/functions.php:107
 msgid "s"
-msgstr ""
+msgstr "s"
 
-#: ../include/classes.php:299
-#: ../include/functions.php:109
+#: ../include/classes.php:358
+#: ../include/functions.php:51
 msgid "Fade Duration"
 msgstr "Tid när bilder tonar"
 
-#: ../include/classes.php:299
-#: ../include/functions.php:173
+#: ../include/classes.php:358
+#: ../include/functions.php:115
 msgid "ms"
-msgstr ""
+msgstr "ms"
 
-#: ../include/classes.php:300
-#: ../include/functions.php:110
+#: ../include/classes.php:359
+#: ../include/functions.php:52
 msgid "Random"
 msgstr "Slumpvis"
 
@@ -108,60 +108,60 @@ msgstr "Slumpvis"
 msgid "Slideshows"
 msgstr "Bildspel"
 
-#: ../include/functions.php:128
+#: ../include/functions.php:70
 msgid "Original"
-msgstr ""
+msgstr "Orginal"
 
-#: ../include/functions.php:133
+#: ../include/functions.php:75
 msgid "Flickity"
-msgstr ""
+msgstr "Flickity"
 
-#: ../include/functions.php:133
-#: ../include/functions.php:138
+#: ../include/functions.php:75
+#: ../include/functions.php:80
 msgid "beta"
-msgstr ""
+msgstr "beta"
 
-#: ../include/functions.php:138
+#: ../include/functions.php:80
 msgid "Carousel"
 msgstr "Karusell"
 
-#: ../include/functions.php:205
+#: ../include/functions.php:147
 msgid "From 0,2 to 2. 0,2 means the slideshow will be presented in landscape, 1 means square format and 2 means the slideshow i presented in portrait"
 msgstr "Från 0,2 till 2. 0,2 betyder att bildspelet visas i landskapsläge, 1 betyder att den visas som en kvadrat och 2 betyder att det presenteras i porträttläge"
 
-#: ../include/functions.php:227
+#: ../include/functions.php:169
 msgid "Settings"
 msgstr "Inställningar"
 
-#: ../include/functions.php:239
+#: ../include/functions.php:181
 msgid "Content Position"
 msgstr "Textplacering"
 
-#: ../include/functions.php:243
-msgid "Choose here"
+#: ../include/functions.php:185
+msgid "Choose Here"
 msgstr "Välj här"
 
-#: ../include/functions.php:244
+#: ../include/functions.php:186
 msgid "Left"
 msgstr "Vänster"
 
-#: ../include/functions.php:245
+#: ../include/functions.php:187
 msgid "Center"
 msgstr "Centrera"
 
-#: ../include/functions.php:246
+#: ../include/functions.php:188
 msgid "Right"
 msgstr "Höger"
 
-#: ../include/functions.php:251
+#: ../include/functions.php:193
 msgid "Page"
 msgstr "Sida"
 
-#: ../include/functions.php:261
+#: ../include/functions.php:203
 msgid "External Link"
 msgstr "Extern länk"
 
-#: ../include/functions.php:274
+#: ../include/functions.php:216
 msgid "Images"
 msgstr "Bilder"
 
