@@ -67,7 +67,7 @@ function get_slideshow_styles_for_select($data = array())
 	if(!isset($data['styles'])){	$data['styles'] = get_option('setting_slideshow_style', array('original'));}
 
 	$arr_data = array(
-		'original' => __("Original", 'lang_slideshow'),
+		'original' => __("Default", 'lang_slideshow'),
 	);
 
 	if(in_array('flickity', $data['styles']))

@@ -64,7 +64,7 @@
 
 				.slideshow.original .content > div
 				{
-					background: rgba(0, 0, 0, .2);
+					background: rgba(0, 0, 0, .4);
 					color: #fff;
 					/*font-size: 1.3em;*/
 					padding: 1em;
@@ -76,10 +76,10 @@
 						transform: translateY(-50%);
 					}
 
-					.slideshow.original .content p
+					/*.slideshow.original .content p
 					{
 						margin-top: 1em;
-					}
+					}*/
 
 					.slideshow.original .content > div > a
 					{
