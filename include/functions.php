@@ -185,6 +185,7 @@ function meta_boxes_slideshow($meta_boxes)
 					'' => "-- ".__("Choose Here", 'lang_slideshow')." --",
 					'left' => __("Left", 'lang_slideshow'),
 					'center' => __("Center", 'lang_slideshow'),
+					'bottom' => __("Bottom", 'lang_slideshow'),
 					'right' => __("Right", 'lang_slideshow'),
 				),
 				'std' => 'center',

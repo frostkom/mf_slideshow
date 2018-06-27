@@ -146,5 +146,8 @@ jQuery(function($)
 		});
 	};
 
-	$('.slideshow.original').slideshow();
+	$('.slideshow.original').each(function()
+	{
+		$(this).slideshow();
+	});
 });

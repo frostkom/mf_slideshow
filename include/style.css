@@ -12,6 +12,7 @@
 		{
 			display: none;
 			left: 0;
+			padding: inherit; /* This will respect the parents padding */
 			position: absolute;
 			right: 0;
 			top: 0;
@@ -31,33 +32,49 @@
 
 			.slideshow.original .content
 			{
-				left: 25%;
 				position: absolute;
-				right: 25%;
-				top: 0;
+				top: 50%;
 			}
 
 				.slideshow.original .content.left
 				{
-					left: 7%;
-					right: 43%;
+					left: 1em;
+					right: 40%;
+				}
+
+				.slideshow.original .content.center
+				{
+					left: 20%;
+					right: 20%;
+				}
+
+				.slideshow.original .content.bottom
+				{
+					bottom: 1em;
+					left: 1em;
+					right: 1em;
+					top: auto;
 				}
 
 				.slideshow.original .content.right
 				{
-					left: 43%;
-					right: 7%;
+					left: 40%;
+					right: 1em;
 				}
 
 				.slideshow.original .content > div
 				{
 					background: rgba(0, 0, 0, .2);
 					color: #fff;
-					font-size: 1.3em;
-					padding: 2em;
-					-webkit-transform: translateY(50%);
-					transform: translateY(50%);
+					/*font-size: 1.3em;*/
+					padding: 1em;
 				}
+
+					.slideshow.original .content:not(.bottom) > div
+					{
+						-webkit-transform: translateY(-50%);
+						transform: translateY(-50%);
+					}
 
 					.slideshow.original .content p
 					{
