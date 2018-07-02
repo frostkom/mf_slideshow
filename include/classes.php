@@ -87,6 +87,8 @@ class mf_slideshow
 			$setting_height_ratio = isset($data['settings']['slideshow_height_ratio']) ? $data['settings']['slideshow_height_ratio'] : get_option('setting_slideshow_height_ratio');
 			$setting_height_ratio_mobile = isset($data['settings']['slideshow_height_ratio_mobile']) ? $data['settings']['slideshow_height_ratio_mobile'] : get_option('setting_slideshow_height_ratio_mobile');
 
+			$setting_slideshow_open_links_in_new_tab = get_option('setting_slideshow_open_links_in_new_tab');
+
 			if(is_array($setting_slideshow_style) && !in_array($data['settings']['slideshow_style'], $setting_slideshow_style))
 			{
 				$data['settings']['slideshow_style'] = $setting_slideshow_style[0];
@@ -128,7 +130,23 @@ class mf_slideshow
 
 										if($data['texts'][$key]['url'] != '')
 										{
-											$images .= "<a href='".$data['texts'][$key]['url']."'>".__("Read More", 'lang_slideshow')."&hellip;</a>";
+											$images .= "<a href='".$data['texts'][$key]['url']."'";
+
+												switch($setting_slideshow_open_links_in_new_tab)
+												{
+													case 'yes':
+														if(strpos($data['texts'][$key]['url'], get_site_url()) === false)
+														{
+															$images .= " rel='external'";
+														}
+													break;
+
+													default:
+														//Do nothing
+													break;
+												}
+
+											$images .= ">".__("Read More", 'lang_slideshow')."&hellip;</a>";
 										}
 
 									$images .= "</div>

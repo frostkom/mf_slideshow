@@ -1,0 +1,170 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-06-29 07:43+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Martin Fors\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: nb_NO\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: esc_html__;esc_html_e;esc_attr__;esc_attr_e;__;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../include/classes.php:131
+msgid "Read More"
+msgstr "Les mer"
+
+#: ../include/classes.php:207
+msgid "Display a slideshow that you've created"
+msgstr ""
+
+#: ../include/classes.php:224
+#: ../include/functions.php:7
+#: ../include/functions.php:8
+#: ../include/functions.php:62
+msgid "Slideshow"
+msgstr ""
+
+#: ../include/classes.php:298
+msgid "I could not find any images to load"
+msgstr ""
+
+#: ../include/classes.php:338
+msgid "Heading"
+msgstr ""
+
+#: ../include/classes.php:339
+msgid "Parent"
+msgstr ""
+
+#: ../include/classes.php:343
+#: ../include/functions.php:34
+msgid "Style"
+msgstr ""
+
+#: ../include/classes.php:352
+#: ../include/functions.php:37
+msgid "Background Color"
+msgstr ""
+
+#: ../include/classes.php:353
+#: ../include/classes.php:354
+#: ../include/functions.php:38
+#: ../include/functions.php:39
+msgid "Height Ratio"
+msgstr ""
+
+#: ../include/classes.php:353
+msgid "From 0,3 to 2. 0,3 means the slideshow will be presented in landscape, 1 means square format and 2 means the slideshow i presented in portrait"
+msgstr ""
+
+#: ../include/classes.php:354
+#: ../include/functions.php:39
+msgid "Mobile"
+msgstr ""
+
+#: ../include/classes.php:356
+#: ../include/functions.php:41
+msgid "Show Controls"
+msgstr ""
+
+#: ../include/classes.php:358
+#: ../include/functions.php:42
+msgid "Autoplay"
+msgstr ""
+
+#: ../include/classes.php:362
+#: ../include/functions.php:46
+msgid "Duration"
+msgstr ""
+
+#: ../include/classes.php:362
+#: ../include/functions.php:107
+msgid "s"
+msgstr ""
+
+#: ../include/classes.php:370
+#: ../include/functions.php:51
+msgid "Fade Duration"
+msgstr ""
+
+#: ../include/classes.php:370
+#: ../include/functions.php:115
+msgid "ms"
+msgstr ""
+
+#: ../include/classes.php:371
+#: ../include/functions.php:52
+msgid "Random"
+msgstr ""
+
+#: ../include/functions.php:6
+msgid "Slideshows"
+msgstr ""
+
+#: ../include/functions.php:70
+msgid "Default"
+msgstr ""
+
+#: ../include/functions.php:75
+msgid "Flickity"
+msgstr ""
+
+#: ../include/functions.php:75
+#: ../include/functions.php:80
+msgid "beta"
+msgstr ""
+
+#: ../include/functions.php:80
+msgid "Carousel"
+msgstr ""
+
+#: ../include/functions.php:147
+msgid "From 0,2 to 2. 0,2 means the slideshow will be presented in landscape, 1 means square format and 2 means the slideshow i presented in portrait"
+msgstr ""
+
+#: ../include/functions.php:169
+msgid "Settings"
+msgstr ""
+
+#: ../include/functions.php:181
+msgid "Content Position"
+msgstr ""
+
+#: ../include/functions.php:185
+msgid "Choose Here"
+msgstr "Velg Her"
+
+#: ../include/functions.php:186
+msgid "Left"
+msgstr ""
+
+#: ../include/functions.php:187
+msgid "Center"
+msgstr ""
+
+#: ../include/functions.php:188
+msgid "Bottom"
+msgstr ""
+
+#: ../include/functions.php:189
+msgid "Right"
+msgstr ""
+
+#: ../include/functions.php:194
+msgid "Page"
+msgstr ""
+
+#: ../include/functions.php:204
+msgid "External Link"
+msgstr ""
+
+#: ../include/functions.php:217
+msgid "Images"
+msgstr ""
+

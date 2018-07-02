@@ -27,8 +27,15 @@
 			{
 				height: 100%;
 				object-fit: contain;
+				transition: all .75s ease;
 				width: 100%;
 			}
+
+				/*.slideshow.original:hover img
+				{
+					-webkit-transform: scale(1.1);
+					transform: scale(1.1);
+				}*/
 
 			.slideshow.original .content
 			{

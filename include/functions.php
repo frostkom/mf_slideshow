@@ -52,6 +52,8 @@ function settings_slideshow()
 		$arr_settings['setting_slideshow_random'] = __("Random", 'lang_slideshow');
 	}
 
+	$arr_settings['setting_slideshow_open_links_in_new_tab'] = __("Open Links in new Tabs", 'lang_slideshow');
+
 	show_settings_fields(array('area' => $options_area, 'settings' => $arr_settings));
 }
 
@@ -153,6 +155,20 @@ function setting_slideshow_height_ratio_mobile_callback()
 	$option = get_option($setting_key);
 
 	echo show_textfield(array('name' => $setting_key, 'value' => $option));
+}
+
+function setting_slideshow_open_links_in_new_tab_callback()
+{
+	$setting_key = get_setting_key(__FUNCTION__);
+	$option = get_option($setting_key, 'no');
+
+	$arr_data = array(
+		'no' => __("No", 'lang_slideshow'),
+		'yes' => __("Yes", 'lang_slideshow')." (".__("When link is external", 'lang_slideshow').")",
+		//'yes_always' => __("Yes", 'lang_slideshow')." (".__("Always", 'lang_slideshow').")",
+	);
+
+	echo show_select(array('data' => $arr_data, 'name' => $setting_key, 'value' => $option));
 }
 
 function widgets_slideshow()
