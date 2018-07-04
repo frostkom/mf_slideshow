@@ -125,7 +125,7 @@ class mf_slideshow
 							{
 								$images .= "<div class='content".(isset($data['texts'][$key]['content_position']) && $data['texts'][$key]['content_position'] != '' ? " ".$data['texts'][$key]['content_position'] : '')."'>
 									<div>
-										<h3>".$data['texts'][$key]['title']."</h3>"
+										<h4>".$data['texts'][$key]['title']."</h4>"
 										.apply_filters('the_content', $data['texts'][$key]['content']);
 
 										if($data['texts'][$key]['url'] != '')
