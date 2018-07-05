@@ -353,7 +353,7 @@ class widget_slideshow extends WP_Widget
 		$arr_data_styles = get_slideshow_styles_for_select();
 
 		echo "<div class='mf_form'>"
-			.show_textfield(array('name' => $this->get_field_name('slideshow_heading'), 'text' => __("Heading", 'lang_slideshow'), 'value' => $instance['slideshow_heading']))
+			.show_textfield(array('name' => $this->get_field_name('slideshow_heading'), 'text' => __("Heading", 'lang_slideshow'), 'value' => $instance['slideshow_heading'], 'xtra' => " id='slideshow-title'"))
 			.show_select(array('data' => $arr_data_parents, 'name' => $this->get_field_name('parent'), 'text' => __("Parent", 'lang_slideshow'), 'value' => $instance['parent']));
 
 			if(count($arr_data_styles) > 1)
