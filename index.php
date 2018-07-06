@@ -3,7 +3,7 @@
 Plugin Name: MF Slideshow
 Plugin URI: https://github.com/frostkom/mf_slideshow
 Description: 
-Version: 4.2.22
+Version: 4.3.0
 Licence: GPLv2 or later
 Author: Martin Fors
 Author URI: http://frostkom.se
@@ -15,21 +15,25 @@ GitHub Plugin URI: frostkom/mf_slideshow
 */
 
 include_once("include/classes.php");
-include_once("include/functions.php");
+//include_once("include/functions.php");
 
 $obj_slideshow = new mf_slideshow();
 
 add_action('cron_base', 'activate_slideshow', mt_rand(1, 10));
 
-add_action('init', 'init_slideshow');
+add_action('init', array($obj_slideshow, 'init'));
 
 if(is_admin())
 {
 	register_activation_hook(__FILE__, 'activate_slideshow');
 	register_uninstall_hook(__FILE__, 'uninstall_slideshow');
 
-	add_action('admin_init', 'settings_slideshow');
-	add_action('rwmb_meta_boxes', 'meta_boxes_slideshow');
+	add_action('admin_init', array($obj_slideshow, 'settings_slideshow'));
+	add_action('rwmb_meta_boxes', array($obj_slideshow, 'meta_boxes'));
+
+	/*add_filter('count_shortcode_button', array($obj_slideshow, 'count_shortcode_button'));
+	add_filter('get_shortcode_output', array($obj_slideshow, 'get_shortcode_output'));
+	add_filter('get_shortcode_list', array($obj_slideshow, 'get_shortcode_list'));*/
 }
 
 else
@@ -37,7 +41,7 @@ else
 	add_action('wp_head', array($obj_slideshow, 'wp_head'), 0);
 }
 
-add_action('widgets_init', 'widgets_slideshow');
+add_action('widgets_init', array($obj_slideshow, 'widgets_init'));
 
 load_plugin_textdomain('lang_slideshow', false, dirname(plugin_basename(__FILE__)).'/lang/');
 
