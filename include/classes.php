@@ -668,7 +668,7 @@ class widget_slideshow extends WP_Widget
 
 			else
 			{
-				echo input_hidden(array('name' => $this->get_field_name('slideshow_style'), 'value' => $instance['slideshow_style']));
+				echo input_hidden(array('name' => $this->get_field_name('slideshow_style'), 'value' => (is_array($instance['slideshow_style']) ? $instance['slideshow_style'][0] : $instance['slideshow_style'])));
 			}
 
 			echo "<div class='flex_flow'>"
