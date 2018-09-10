@@ -178,7 +178,7 @@ class mf_slideshow
 		echo show_select(array('data' => $arr_data, 'name' => $setting_key, 'value' => $option));
 	}
 
-	function meta_boxes($meta_boxes)
+	function rwmb_meta_boxes($meta_boxes)
 	{
 		//$obj_slideshow = new mf_slideshow();
 
