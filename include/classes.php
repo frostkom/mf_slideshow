@@ -498,8 +498,8 @@ class mf_slideshow
 				{
 					if($data['settings']['slideshow_style'] == 'original')
 					{
-						$out .= "<i class='controls arrow_left fa fa-chevron-left'></i>
-						<i class='controls arrow_right fa fa-chevron-right'></i>
+						$out .= "<i class='fa fa-chevron-left controls arrow_left'></i>
+						<i class='fa fa-chevron-right controls arrow_right'></i>
 						<ul class='controls'>"
 							.$dots
 						."</ul>";
@@ -507,8 +507,8 @@ class mf_slideshow
 
 					else if($data['settings']['slideshow_style'] == 'carousel')
 					{
-						$out .= "<i class='controls prev fa fa-chevron-left'></i>
-						<i class='controls next fa fa-chevron-right'></i>";
+						$out .= "<i class='fa fa-chevron-left controls prev'></i>
+						<i class='fa fa-chevron-right controls next'></i>";
 					}
 				}
 
