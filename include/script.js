@@ -3,7 +3,7 @@ jQuery(function($)
 	$.fn.slideshow = function()
 	{
 		var dom_obj = this,
-			slide_now = parseInt(dom_obj.children('div.active').attr('rel')),
+			slide_now = parseInt(dom_obj.children("div.active").attr('rel')),
 			slide_timeout,
 			autoplay = dom_obj.attr('data-autoplay') || script_slideshow.autoplay,
 			duration = dom_obj.attr('data-duration') || script_slideshow.duration,
@@ -27,10 +27,10 @@ jQuery(function($)
 
 			if(slide_new != slide_now)
 			{
-				dom_obj.children('div[rel=' + slide_now + ']').fadeOut(fade);
-				dom_obj.children('div[rel=' + slide_new + ']').fadeIn(fade);
+				dom_obj.children("div[rel=" + slide_now + "]").fadeOut(fade);
+				dom_obj.children("div[rel=" + slide_new + "]").fadeIn(fade);
 
-				dom_obj.find('li[rel=' + slide_new + ']').addClass('active').siblings('li').removeClass('active');
+				dom_obj.find("li[rel=" + slide_new + "]").addClass('active').siblings("li").removeClass('active');
 			}
 
 			slide_now = slide_new;
@@ -56,7 +56,7 @@ jQuery(function($)
 					'height': dom_height + 'px'
 				});
 
-				dom_obj.children('div').css(
+				dom_obj.children("div").css(
 				{
 					'height': dom_height + 'px'
 				});
@@ -73,7 +73,7 @@ jQuery(function($)
 
 		set_slide_sizes(true);
 
-		var slider_amount = dom_obj.children('div').size();
+		var slider_amount = dom_obj.children("div").size();
 
 		if(slider_amount > 1)
 		{
@@ -82,10 +82,13 @@ jQuery(function($)
 				dom_obj.find(".controls").addClass('hide');
 			}
 
-			dom_obj.children('div').each(function()
+			if(dom_obj.is(":visible"))
 			{
-				preload($(this).children('img').attr('src'));
-			});
+				dom_obj.children("div").each(function()
+				{
+					preload($(this).children("img").attr('src'));
+				});
+			}
 
 			if(autoplay == 1)
 			{
@@ -93,19 +96,19 @@ jQuery(function($)
 			}
 		}
 
-		dom_obj.find('li').on('click', function()
+		dom_obj.find("li").on('click', function()
 		{
 			change_slide($(this).attr('rel'));
 
 			return false;
 		});
 
-		dom_obj.children('.arrow_left').on('click', function()
+		dom_obj.children(".arrow_left").on('click', function()
 		{
 			change_slide(slide_now - 1);
 		});
 
-		dom_obj.children('.arrow_right').on('click', function()
+		dom_obj.children(".arrow_right").on('click', function()
 		{
 			change_slide(slide_now + 1);
 		});
@@ -127,7 +130,7 @@ jQuery(function($)
 						case 'move': break;*/
 
 						case 'end':
-							if(direction == "left")
+							if(direction == 'left')
 							{
 								change_slide(slide_now - 1);
 							}
@@ -146,7 +149,7 @@ jQuery(function($)
 		});
 	};
 
-	$('.slideshow.original').each(function()
+	$(".slideshow.original").each(function()
 	{
 		$(this).slideshow();
 	});
