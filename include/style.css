@@ -8,6 +8,11 @@
 		width: 100%;
 	}
 
+		.widget .slideshow.original
+		{
+			padding: 0 !important;
+		}
+
 		.slideshow.original > div
 		{
 			display: none;
