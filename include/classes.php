@@ -7,6 +7,31 @@ class mf_slideshow
 		$this->meta_prefix = "mf_slide_";
 	}
 
+	function replace_controls_for_select($option)
+	{
+		if($option == '' || $option == '0')
+		{
+			$option = 'none';
+		}
+
+		else if($option == '1')
+		{
+			$option = 'all';
+		}
+
+		return $option;
+	}
+
+	function get_controls_for_select()
+	{
+		return array(
+			'none' => __("None", 'lang_slideshow'),
+			'dots' => __("Dots", 'lang_slideshow'),
+			'arrows' => __("Arrows", 'lang_slideshow'),
+			'all' => __("All", 'lang_slideshow'),
+		);
+	}
+
 	function get_slideshow_styles_for_select($data = array())
 	{
 		if(!isset($data['styles'])){	$data['styles'] = get_option('setting_slideshow_style', array('original'));}
@@ -143,9 +168,9 @@ class mf_slideshow
 	function setting_slideshow_show_controls_callback()
 	{
 		$setting_key = get_setting_key(__FUNCTION__);
-		$option = get_option($setting_key, 1);
+		$option = get_option($setting_key, 'all');
 
-		echo show_select(array('data' => get_yes_no_for_select(array('return_integer' => true)), 'name' => $setting_key, 'value' => $option));
+		echo show_select(array('data' => $this->get_controls_for_select(), 'name' => $setting_key, 'value' => $this->replace_controls_for_select($option)));
 	}
 
 	function setting_slideshow_height_ratio_callback()
@@ -153,7 +178,7 @@ class mf_slideshow
 		$setting_key = get_setting_key(__FUNCTION__);
 		$option = get_option($setting_key, '1');
 
-		echo show_textfield(array('name' => $setting_key, 'value' => $option, 'description' => __("From 0,2 to 2. 0,2 means the slideshow will be presented in landscape, 1 means square format and 2 means the slideshow i presented in portrait", 'lang_slideshow')));
+		echo show_textfield(array('name' => $setting_key, 'value' => $option, 'description' => __("From 0.3 to 2. 0.3 means the slideshow will be presented in landscape, 1 means square format and 2 means the slideshow i presented in portrait", 'lang_slideshow')));
 	}
 
 	function setting_slideshow_height_ratio_mobile_callback()
@@ -535,14 +560,14 @@ class widget_slideshow extends WP_Widget
 			'slideshow_fade_duration' => 400,
 			'slideshow_background' => get_option_or_default('setting_slideshow_background_color', '#000000'),
 			'slideshow_random' => 0,
-			'slideshow_show_controls' => 1,
+			'slideshow_show_controls' => 'all',
 			'slideshow_height_ratio' => get_option_or_default('setting_slideshow_height_ratio', '0.5'),
 			'slideshow_height_ratio_mobile' => get_option_or_default('setting_slideshow_height_ratio_mobile', '1'),
 		);
 
 		parent::__construct('slideshow-widget', __("Slideshow", 'lang_slideshow'), $widget_ops);
 
-		$this->meta_prefix = "mf_slide_";
+		$this->obj_slideshow = new mf_slideshow();
 	}
 
 	function widget($args, $instance)
@@ -564,7 +589,7 @@ class widget_slideshow extends WP_Widget
 					.$after_title;
 				}
 
-				$arr_slide_images = get_post_meta_file_src(array('post_id' => $instance['parent'], 'meta_key' => $this->meta_prefix.'images', 'single' => false));
+				$arr_slide_images = get_post_meta_file_src(array('post_id' => $instance['parent'], 'meta_key' => $this->obj_slideshow->meta_prefix.'images', 'single' => false));
 				$arr_slide_texts = array();
 
 				if(count($arr_slide_images) == 0)
@@ -577,12 +602,12 @@ class widget_slideshow extends WP_Widget
 						$post_title = $r->post_title;
 						$post_content = $r->post_content;
 
-						$arr_slide_images_child = get_post_meta_file_src(array('post_id' => $post_id, 'meta_key' => $this->meta_prefix.'images', 'single' => false));
+						$arr_slide_images_child = get_post_meta_file_src(array('post_id' => $post_id, 'meta_key' => $this->obj_slideshow->meta_prefix.'images', 'single' => false));
 
 						foreach($arr_slide_images_child as $child)
 						{
-							$post_content_position = get_post_meta($post_id, $this->meta_prefix.'content_position', true);
-							$post_page = get_post_meta($post_id, $this->meta_prefix.'page', true);
+							$post_content_position = get_post_meta($post_id, $this->obj_slideshow->meta_prefix.'content_position', true);
+							$post_page = get_post_meta($post_id, $this->obj_slideshow->meta_prefix.'page', true);
 
 							if(intval($post_page) > 0)
 							{
@@ -591,7 +616,7 @@ class widget_slideshow extends WP_Widget
 
 							else
 							{
-								$post_url = get_post_meta($post_id, $this->meta_prefix.'link', true);
+								$post_url = get_post_meta($post_id, $this->obj_slideshow->meta_prefix.'link', true);
 							}
 
 							$arr_slide_images[] = $child;
@@ -636,8 +661,8 @@ class widget_slideshow extends WP_Widget
 		$instance['slideshow_background'] = sanitize_text_field($new_instance['slideshow_background']);
 		$instance['slideshow_random'] = sanitize_text_field($new_instance['slideshow_random']);
 		$instance['slideshow_show_controls'] = sanitize_text_field($new_instance['slideshow_show_controls']);
-		$instance['slideshow_height_ratio'] = sanitize_text_field($new_instance['slideshow_height_ratio']);
-		$instance['slideshow_height_ratio_mobile'] = sanitize_text_field($new_instance['slideshow_height_ratio_mobile']);
+		$instance['slideshow_height_ratio'] = str_replace(",", ".", sanitize_text_field($new_instance['slideshow_height_ratio']));
+		$instance['slideshow_height_ratio_mobile'] = str_replace(",", ".", sanitize_text_field($new_instance['slideshow_height_ratio_mobile']));
 
 		return $instance;
 	}
@@ -671,11 +696,11 @@ class widget_slideshow extends WP_Widget
 
 			echo "<div class='flex_flow'>"
 				.show_textfield(array('type' => 'color', 'name' => $this->get_field_name('slideshow_background'), 'text' => __("Background Color", 'lang_slideshow'), 'value' => $instance['slideshow_background']))
-				.show_textfield(array('name' => $this->get_field_name('slideshow_height_ratio'), 'text' => __("Height Ratio", 'lang_slideshow')." <i class='fa fa-info-circle' title='".__("From 0,3 to 2. 0,3 means the slideshow will be presented in landscape, 1 means square format and 2 means the slideshow i presented in portrait", 'lang_slideshow')."'></i>", 'value' => $instance['slideshow_height_ratio']))
+				.show_textfield(array('name' => $this->get_field_name('slideshow_height_ratio'), 'text' => __("Height Ratio", 'lang_slideshow')." <i class='fa fa-info-circle' title='".__("From 0.3 to 2. 0.3 means the slideshow will be presented in landscape, 1 means square format and 2 means the slideshow i presented in portrait", 'lang_slideshow')."'></i>", 'value' => $instance['slideshow_height_ratio']))
 				.show_textfield(array('name' => $this->get_field_name('slideshow_height_ratio_mobile'), 'text' => __("Height Ratio", 'lang_slideshow')." (".__("Mobile", 'lang_slideshow').")", 'value' => $instance['slideshow_height_ratio_mobile']))
 			."</div>
 			<div class='flex_flow'>"
-				.show_select(array('data' => get_yes_no_for_select(array('return_integer' => true)), 'name' => $this->get_field_name('slideshow_show_controls'), 'text' => __("Show Controls", 'lang_slideshow'), 'value' => $instance['slideshow_show_controls']))
+				.show_select(array('data' => $this->obj_slideshow->get_controls_for_select(), 'name' => $this->get_field_name('slideshow_show_controls'), 'text' => __("Show Controls", 'lang_slideshow'), 'value' => $this->obj_slideshow->replace_controls_for_select($instance['slideshow_show_controls'])))
 				.show_select(array('data' => get_yes_no_for_select(array('return_integer' => true)), 'name' => $this->get_field_name('slideshow_autoplay'), 'text' => __("Autoplay", 'lang_slideshow'), 'value' => $instance['slideshow_autoplay']));
 
 				if($instance['slideshow_autoplay'] == 1)

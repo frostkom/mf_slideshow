@@ -77,9 +77,25 @@ jQuery(function($)
 
 		if(slider_amount > 1)
 		{
-			if(show_controls != true && show_controls != 'yes')
+			switch(show_controls)
 			{
-				dom_obj.find(".controls").addClass('hide');
+				case 'all':
+				case 1:
+					/* Don't hide controls */
+				break;
+
+				case 'arrows':
+					dom_obj.find("ul.controls").addClass('hide');
+				break;
+
+				case 'dots':
+					dom_obj.find("i.controls").addClass('hide');
+				break;
+
+				case 'none':
+				default:
+					dom_obj.find(".controls").addClass('hide');
+				break;
 			}
 
 			if(dom_obj.is(":visible"))

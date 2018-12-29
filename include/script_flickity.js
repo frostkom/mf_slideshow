@@ -54,8 +54,8 @@ jQuery(function($)
 				/*,contain: true
 				,freeScroll: true*/
 				autoPlay: (autoplay == 1 ? duration : false),
-				prevNextButtons: show_controls,
-				pageDots: show_controls
+				prevNextButtons: (show_controls == 1 || show_controls == 'all' || show_controls == 'arrows'),
+				pageDots: (show_controls == 1 || show_controls == 'all' || show_controls == 'dots')
 			});
 		});
 
