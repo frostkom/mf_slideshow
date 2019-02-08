@@ -216,7 +216,7 @@ class mf_slideshow
 					'name' => __("Height", 'lang_slideshow'),
 					'id' => $this->meta_prefix.'height',
 					'type' => 'number',
-					'min'  => 1,
+					'min' => 1,
 				),*/
 				array(
 					'name' => __("Content Position", 'lang_slideshow'),
@@ -305,8 +305,6 @@ class mf_slideshow
 
 	function get_shortcode_list($data)
 	{
-		global $wpdb;
-
 		$post_id = $data[0];
 		$content_list = $data[1];
 
@@ -669,8 +667,6 @@ class widget_slideshow extends WP_Widget
 
 	function form($instance)
 	{
-		global $wpdb;
-
 		$obj_slideshow = new mf_slideshow();
 
 		$instance = wp_parse_args((array)$instance, $this->arr_default);

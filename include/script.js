@@ -81,6 +81,7 @@ jQuery(function($)
 			{
 				case 'all':
 				case 1:
+				case '1':
 					/* Don't hide controls */
 				break;
 
