@@ -1,5 +1,18 @@
 @media all
 {
+	.slideshow .controls
+	{
+		opacity: .5;
+		transition: all .5s ease;	
+	}
+
+		.slideshow .controls:hover
+		{
+			opacity: .8;
+			-webkit-transform: scale(1.1);
+			transform: scale(1.1);
+		}
+
 	.slideshow.original
 	{
 		overflow: hidden;
@@ -106,15 +119,9 @@
 			border-radius: 50%;
 			color: #fff;
 			font-size: 2em;
-			opacity: .4;
 			position: absolute;
 			top: 46%;
 		}
-
-			.slideshow.original .controls.fa:hover
-			{
-				opacity: .7;
-			}
 
 			.slideshow.original .controls.arrow_left
 			{

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-02 05:11+0100\n"
+"POT-Creation-Date: 2019-02-21 07:22+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Martin Fors\n"
 "Language-Team: \n"
@@ -21,14 +21,32 @@ msgstr "Standard"
 msgid "Style"
 msgstr "Stil"
 
+msgid "Mobile"
+msgstr "Mobil"
+
+msgid "Show Controls"
+msgstr "Vise Kontroller"
+
+msgid "Duration"
+msgstr "Varighet"
+
+msgid "Random"
+msgstr "Tilfeldig"
+
 msgid "No"
 msgstr "Nei"
 
 msgid "Yes"
 msgstr "Ja"
 
+msgid "Always"
+msgstr "Alltid"
+
 msgid "Settings"
 msgstr "Innstillinger"
+
+msgid "Height"
+msgstr "Høyde"
 
 msgid "Choose Here"
 msgstr "Velg Her"
@@ -42,11 +60,17 @@ msgstr "Høyre"
 msgid "Page"
 msgstr "Side"
 
+msgid "External Link"
+msgstr "Ekstern Lenke"
+
 msgid "Images"
 msgstr "Bilder"
 
 msgid "Read More"
 msgstr "Les mer"
+
+msgid "Heading"
+msgstr "Overskriften"
 
 msgid "Parent"
 msgstr "Foreldre"

@@ -263,6 +263,7 @@ class mf_slideshow
 				array(
 					'id' => $this->meta_prefix.'images',
 					'type' => 'file_advanced',
+					'mime_type' => 'image',
 				)
 			)
 		);
