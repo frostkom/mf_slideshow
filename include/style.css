@@ -3,7 +3,7 @@
 	.slideshow .controls
 	{
 		opacity: .5;
-		transition: all .5s ease;	
+		transition: all .5s ease;
 	}
 
 		.slideshow .controls:hover
@@ -120,7 +120,8 @@
 			color: #fff;
 			font-size: 2em;
 			position: absolute;
-			top: 46%;
+			top: 50%;
+			transform: translateY(-50%);
 		}
 
 			.slideshow.original .controls.arrow_left
