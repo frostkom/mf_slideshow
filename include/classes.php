@@ -4,7 +4,7 @@ class mf_slideshow
 {
 	function __construct()
 	{
-		$this->meta_prefix = "mf_slide_";
+		$this->meta_prefix = 'mf_slide_';
 	}
 
 	function replace_controls_for_select($option)
