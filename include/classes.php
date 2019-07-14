@@ -574,7 +574,6 @@ class widget_slideshow extends WP_Widget
 		global $wpdb;
 
 		extract($args);
-
 		$instance = wp_parse_args((array)$instance, $this->arr_default);
 
 		if($instance['parent'] > 0)
@@ -583,6 +582,8 @@ class widget_slideshow extends WP_Widget
 
 				if($instance['slideshow_heading'] != '')
 				{
+					$instance['slideshow_heading'] = apply_filters('widget_title', $instance['slideshow_heading'], $instance, $this->id_base);
+
 					echo $before_title
 						.$instance['slideshow_heading']
 					.$after_title;
@@ -648,7 +649,6 @@ class widget_slideshow extends WP_Widget
 	function update($new_instance, $old_instance)
 	{
 		$instance = $old_instance;
-
 		$new_instance = wp_parse_args((array)$new_instance, $this->arr_default);
 
 		$instance['slideshow_heading'] = sanitize_text_field($new_instance['slideshow_heading']);
