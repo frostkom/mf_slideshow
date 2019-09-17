@@ -547,7 +547,7 @@ class widget_slideshow extends WP_Widget
 	{
 		$widget_ops = array(
 			'classname' => 'slideshow_wrapper',
-			'description' => __("Display a slideshow that you've created", 'lang_slideshow')
+			'description' => __("Display a slideshow that you have created", 'lang_slideshow')
 		);
 
 		$this->arr_default = array(

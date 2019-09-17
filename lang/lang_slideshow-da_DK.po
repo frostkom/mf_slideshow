@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-16 08:39+0100\n"
+"POT-Creation-Date: 2019-09-17 09:44+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Martin Fors\n"
 "Language-Team: \n"
@@ -14,6 +14,15 @@ msgstr ""
 "X-Poedit-KeywordsList: esc_html__;esc_html_e;esc_attr__;esc_attr_e;__;_e\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SearchPath-0: ..\n"
+
+msgid "All"
+msgstr "Alle"
+
+msgid "Default"
+msgstr "Standard"
+
+msgid "Mobile"
+msgstr "Mobil"
 
 msgid "Random"
 msgstr "Tilfældig"
@@ -32,6 +41,9 @@ msgstr "Vælg her"
 
 msgid "Page"
 msgstr "Side"
+
+msgid "Images"
+msgstr "Billeder"
 
 msgid "Read More"
 msgstr "Læs mere"
