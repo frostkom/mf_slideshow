@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-21 07:22+0100\n"
+"POT-Creation-Date: 2019-10-10 08:45+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Martin Fors\n"
 "Language-Team: \n"
@@ -18,8 +18,20 @@ msgstr ""
 msgid "Default"
 msgstr "Standard"
 
+msgid "Carousel"
+msgstr "Karusellen"
+
+msgid "Slideshows"
+msgstr "Lysbildeserier"
+
 msgid "Style"
 msgstr "Stil"
+
+msgid "Background Color"
+msgstr "Bakgrunnsfarge"
+
+msgid "Height Ratio"
+msgstr "Høyde-Forhold"
 
 msgid "Mobile"
 msgstr "Mobil"
@@ -27,17 +39,29 @@ msgstr "Mobil"
 msgid "Show Controls"
 msgstr "Vise Kontroller"
 
+msgid "Autoplay"
+msgstr "Autokjør"
+
 msgid "Duration"
 msgstr "Varighet"
 
+msgid "Fade Duration"
+msgstr "Fade Varighet"
+
 msgid "Random"
 msgstr "Tilfeldig"
+
+msgid "Open Links in new Tabs"
+msgstr "Åpne Lenker i nye Faner"
 
 msgid "No"
 msgstr "Nei"
 
 msgid "Yes"
 msgstr "Ja"
+
+msgid "When link is external"
+msgstr "Når koblingen er ekstern"
 
 msgid "Always"
 msgstr "Alltid"
@@ -48,11 +72,17 @@ msgstr "Innstillinger"
 msgid "Height"
 msgstr "Høyde"
 
+msgid "Content Position"
+msgstr "Innhold Posisjon"
+
 msgid "Choose Here"
 msgstr "Velg Her"
 
 msgid "Left"
 msgstr "Venstre"
+
+msgid "Bottom"
+msgstr "Bunnen"
 
 msgid "Right"
 msgstr "Høyre"
@@ -66,8 +96,14 @@ msgstr "Ekstern Lenke"
 msgid "Images"
 msgstr "Bilder"
 
+msgid "Choose a Slideshow"
+msgstr "Velg en Lysbildefremvisning"
+
 msgid "Read More"
 msgstr "Les mer"
+
+msgid "I could not find any images to load"
+msgstr "Jeg kunne ikke finne noen bilder legg til"
 
 msgid "Heading"
 msgstr "Overskriften"
