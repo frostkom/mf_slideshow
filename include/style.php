@@ -1,4 +1,22 @@
-@media all
+<?php
+
+if(!defined('ABSPATH'))
+{
+	header("Content-Type: text/css; charset=utf-8");
+
+	$folder = str_replace("/wp-content/plugins/mf_slideshow/include", "/", dirname(__FILE__));
+
+	require_once($folder."wp-load.php");
+}
+
+else
+{
+	global $wpdb;
+}
+
+$obj_slideshow = new mf_slideshow();
+
+echo "@media all
 {
 	.slideshow .controls
 	{
@@ -41,22 +59,34 @@
 				display: block;
 			}
 
-			.slideshow.original img
-			{
-				height: 100%;
-				object-fit: contain;
-				transition: all .75s ease;
-				width: 100%;
-			}
-
-				/*.slideshow.original:hover img
+				.slideshow.original img
 				{
-					-webkit-transform: scale(1.1);
-					transform: scale(1.1);
-				}*/
+					height: 100%;
+					object-fit: cover;
+					/*transition: all .75s ease;*/
+					width: 100%;
+				}
+
+					.slideshow.original > div img
+					{
+						transition: transform 10s ease;
+						transform: scale(1);
+					}
+
+						.slideshow.original > div.animate img
+						{
+							transform: scale(1.05);
+						}
+
+					/*.slideshow.original:hover img
+					{
+						-webkit-transform: scale(1.1);
+						transform: scale(1.1);
+					}*/
 
 			.slideshow.original .content
 			{
+				display: none;
 				position: absolute;
 				top: 50%;
 			}
@@ -89,22 +119,20 @@
 
 				.slideshow.original .content > div
 				{
-					background: rgba(0, 0, 0, .4);
 					color: #fff;
-					/*font-size: 1.3em;*/
 					padding: 1em;
 				}
+
+					.slideshow.original.display_text_background .content > div
+					{
+						background: rgba(0, 0, 0, .4);
+					}
 
 					.slideshow.original .content:not(.bottom) > div
 					{
 						-webkit-transform: translateY(-50%);
 						transform: translateY(-50%);
 					}
-
-					/*.slideshow.original .content p
-					{
-						margin-top: 1em;
-					}*/
 
 					.slideshow.original .content > div > a
 					{
@@ -166,5 +194,52 @@
 				.slideshow.original .controls li.active
 				{
 					background: #666;
+				}";
+
+	$result = $wpdb->get_results($wpdb->prepare("SELECT ID, post_parent, meta_value FROM ".$wpdb->posts." INNER JOIN ".$wpdb->postmeta." ON ".$wpdb->posts.".ID = ".$wpdb->postmeta.".post_id WHERE post_type = %s AND post_status = %s AND (post_parent > '0' OR meta_key = %s AND meta_value != '')", $obj_slideshow->post_type, 'publish', $obj_slideshow->meta_prefix.'content_style'));
+
+	foreach($result as $r)
+	{
+		$post_id = $r->ID;
+		$post_parent = $r->post_parent;
+		$post_content_style = $r->meta_value;
+		
+		if($post_parent > 0)
+		{
+			$post_parent_content_style = get_post_meta($post_parent, $obj_slideshow->meta_prefix.'content_style', true);
+
+			if($post_parent_content_style != '')
+			{
+				if(preg_match("/\[slide_parent_id]/", $post_parent_content_style))
+				{
+					echo str_replace("[slide_parent_id]", ".slide_parent_".$post_parent, $post_parent_content_style);
 				}
-}
+
+				else
+				{
+					echo ".slide_parent_".$post_parent."
+					{"
+						.$post_parent_content_style
+					."}";
+				}
+			}
+		}
+
+		if($post_content_style != '')
+		{
+			if(preg_match("/\[slide_id]/", $post_content_style))
+			{
+				echo str_replace("[slide_id]", "#slide_".$post_id, $post_content_style);
+			}
+
+			else
+			{
+				echo "#slide_".$post_id."
+				{"
+					.$post_content_style
+				."}";
+			}
+		}
+	}
+
+echo "}";

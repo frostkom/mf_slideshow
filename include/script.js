@@ -6,31 +6,63 @@ jQuery(function($)
 			slide_now = parseInt(dom_obj.children("div.active").attr('rel')),
 			slide_timeout,
 			autoplay = dom_obj.attr('data-autoplay') || script_slideshow.autoplay,
+			animate = dom_obj.attr('data-animate') || 'no', /*script_slideshow.animate*/
 			duration = dom_obj.attr('data-duration') || script_slideshow.duration,
-			fade = parseInt(dom_obj.attr('data-fade') || script_slideshow.fade),
+			fade_duration = parseInt(dom_obj.attr('data-fade_duration') || script_slideshow.fade_duration),
 			show_controls = dom_obj.attr('data-show_controls') || script_slideshow.show_controls,
 			random = dom_obj.attr('data-random') || script_slideshow.random,
 			height_ratio = dom_obj.attr('data-height_ratio') || script_slideshow.height_ratio,
 			height_ratio_mobile = dom_obj.attr('data-height_ratio_mobile') || script_slideshow.height_ratio_mobile;
 
+		function preload(url)
+		{
+			var img = new Image();
+			img.src = url;
+		}
+
 		function change_slide(slide_new)
 		{
-			if(autoplay == 1)
-			{
-				clearTimeout(slide_timeout);
-			}
-
 			slide_new = parseInt(slide_new);
 
 			if(slide_new > slider_amount){		slide_new = 1;}
 			else if(slide_new < 1){				slide_new = slider_amount;}
 
+			var dom_old = dom_obj.children("div[rel=" + slide_now + "]"),
+				dom_new = dom_obj.children("div[rel=" + slide_new + "]");
+
+			if(autoplay == 1)
+			{
+				clearTimeout(slide_timeout);
+			}
+
 			if(slide_new != slide_now)
 			{
-				dom_obj.children("div[rel=" + slide_now + "]").fadeOut(fade);
-				dom_obj.children("div[rel=" + slide_new + "]").fadeIn(fade);
+				/* Fade Out Content */
+				dom_old.children(".content").fadeOut(fade_duration / 2, function()
+				{
+					/* Fade Out Container */
+					dom_old.fadeOut(fade_duration, function()
+					{
+						if(animate == 'yes')
+						{
+							dom_old.addClass("animate");
+						}
+					});
 
-				dom_obj.find("li[rel=" + slide_new + "]").addClass('active').siblings("li").removeClass('active');
+					if(animate == 'yes')
+					{
+						dom_new.removeClass("animate");
+					}
+
+					/* Fade In Container */
+					dom_new.fadeIn(fade_duration, function()
+					{
+						/* Fade In Content */
+						dom_new.children(".content").fadeIn(fade_duration / 2);
+					});
+
+					dom_obj.find("li[rel=" + slide_new + "]").addClass('active').siblings("li").removeClass('active');
+				});
 			}
 
 			slide_now = slide_new;
