@@ -423,7 +423,7 @@ class mf_slideshow
 		{
 			/* Add settings to .slideshow to fetch in JS instead */
 			$obj_slideshow = new mf_slideshow();
-			$out .= $obj_slideshow->show(array('settings' => $data, 'images' => $arr_slide_images, 'texts' => $arr_slide_texts));
+			$out .= $obj_slideshow->render_slides(array('settings' => $data, 'images' => $arr_slide_images, 'texts' => $arr_slide_texts));
 		}
 
 		else
@@ -439,9 +439,9 @@ class mf_slideshow
 		register_widget('widget_slideshow');
 	}
 
-	function show($data)
+	function render_slides($data)
 	{
-		if(!isset($data['settings'])){		$data['settings'] = array();} //'slideshow_style' => 'original'
+		if(!isset($data['settings'])){		$data['settings'] = array();}
 		if(!isset($data['images'])){		$data['images'] = array();}
 		if(!isset($data['texts'])){			$data['texts'] = array();}
 		if(!isset($data['height'])){		$data['height'] = 0;}
@@ -450,6 +450,8 @@ class mf_slideshow
 
 		if(count($data['images']) > 0)
 		{
+			if(!isset($data['settings']['slideshow_style'])){						$data['settings']['slideshow_style'] = get_option_or_default('setting_slideshow_style', 'original');}
+			if(!isset($data['settings']['slideshow_animate'])){						$data['settings']['slideshow_animate'] = 'no';}
 			if(!isset($data['settings']['slideshow_background']) || $data['settings']['slideshow_background'] == ''){	$data['settings']['slideshow_background']  = get_option('setting_slideshow_background_color', "#000000");}
 			if(!isset($data['settings']['slideshow_display_text_background'])){		$data['settings']['slideshow_display_text_background'] = 'yes';}
 
@@ -487,7 +489,7 @@ class mf_slideshow
 
 					else
 					{
-						$container_class = "";
+						$container_class = "slide_parent_".$data['texts'][$key]['parent_id'];
 						
 						if($i == $active_i)
 						{
@@ -499,19 +501,19 @@ class mf_slideshow
 							$container_class .= ($container_class != '' ? " " : "")."animate";
 						}
 
-						$images .= "<div".($container_class != '' ? " class='".$container_class."'" : "")." rel='".$i."'>
+						$images .= "<div id='slide_".$data['texts'][$key]['id']."'".($container_class != '' ? " class='".$container_class."'" : "")." rel='".$i."'>
 							<img src='".$image."'>";
 
 							if(count($data['texts']) > 0 && isset($data['texts'][$key]))
 							{
-								$content_class = "content slide_parent_".$data['texts'][$key]['parent_id'];
+								$content_class = "content";
 
 								if($data['texts'][$key]['content_position'] != '')
 								{
-									$content_class .= " ".$data['texts'][$key]['content_position'];
+									$content_class .= ($content_class != '' ? " " : "").$data['texts'][$key]['content_position'];
 								}
 
-								$images .= "<div id='slide_".$data['texts'][$key]['id']."' class='".$content_class."'>
+								$images .= "<div class='".$content_class."'>
 									<div>
 										<h4>".$data['texts'][$key]['title']."</h4>"
 										.apply_filters('the_content', $data['texts'][$key]['content']);
@@ -706,8 +708,6 @@ class widget_slideshow extends WP_Widget
 
 	function form($instance)
 	{
-		//$obj_slideshow = new mf_slideshow();
-
 		$instance = wp_parse_args((array)$instance, $this->arr_default);
 
 		$arr_data_parents = array();
