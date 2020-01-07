@@ -14,11 +14,11 @@ jQuery(function($)
 			height_ratio = dom_obj.attr('data-height_ratio') || script_slideshow.height_ratio,
 			height_ratio_mobile = dom_obj.attr('data-height_ratio_mobile') || script_slideshow.height_ratio_mobile;
 
-		function preload(url)
+		/*function preload(url)
 		{
 			var img = new Image();
 			img.src = url;
-		}
+		}*/
 
 		function disable_autoplay()
 		{
@@ -137,13 +137,13 @@ jQuery(function($)
 				break;
 			}
 
-			if(dom_obj.is(":visible"))
+			/*if(dom_obj.is(":visible"))
 			{
 				dom_obj.children("div").each(function()
 				{
 					preload($(this).children("img").attr('src'));
 				});
-			}
+			}*/
 
 			if(autoplay == 1)
 			{

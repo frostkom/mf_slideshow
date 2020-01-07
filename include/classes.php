@@ -489,7 +489,14 @@ class mf_slideshow
 
 					else
 					{
-						$container_class = "slide_parent_".$data['texts'][$key]['parent_id'];
+						$container_class = "";
+
+						$has_texts = (count($data['texts']) > 0 && isset($data['texts'][$key]));
+
+						if($has_texts)
+						{
+							$container_class .= ($container_class != '' ? " " : "")."slide_parent_".$data['texts'][$key]['parent_id'];
+						}
 						
 						if($i == $active_i)
 						{
@@ -501,10 +508,14 @@ class mf_slideshow
 							$container_class .= ($container_class != '' ? " " : "")."animate";
 						}
 
-						$images .= "<div id='slide_".$data['texts'][$key]['id']."'".($container_class != '' ? " class='".$container_class."'" : "")." rel='".$i."'>
+						$images .= "<div"
+							.($has_texts ? " id='slide_".$data['texts'][$key]['id']."'" : "")
+							.($container_class != '' ? " class='".$container_class."'" : "")
+							." rel='".$i."'"
+						.">
 							<img src='".$image."'>";
 
-							if(count($data['texts']) > 0 && isset($data['texts'][$key]))
+							if($has_texts)
 							{
 								$content_class = "content";
 
