@@ -130,6 +130,16 @@ echo "@media all
 						transform: translateY(-50%);
 					}
 
+					.slideshow.original .content > div h4
+					{
+						text-shadow: 0 0 1em rgba(0, 0, 0, .5);
+					}
+
+						.slideshow.original.display_text_background .content > div h4
+						{
+							text-shadow: none;
+						}
+
 					.slideshow.original .content > div > a
 					{
 						display: block;
