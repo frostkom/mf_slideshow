@@ -497,7 +497,7 @@ class mf_slideshow
 						{
 							$container_class .= ($container_class != '' ? " " : "")."slide_parent_".$data['texts'][$key]['parent_id'];
 						}
-						
+
 						if($i == $active_i)
 						{
 							$container_class .= ($container_class != '' ? " " : "")."active";

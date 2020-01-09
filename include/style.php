@@ -82,6 +82,11 @@ echo "@media all
 				top: 50%;
 			}
 
+				.slideshow.original > div.active .content
+				{
+					display: block;
+				}
+
 				.slideshow.original .content.left
 				{
 					left: 1em;
@@ -222,7 +227,7 @@ echo "@media all
 			$post_id = $r->ID;
 			$post_parent = $r->post_parent;
 			$post_content_style = $r->meta_value;
-			
+
 			if($post_parent > 0 && $post_parent != $post_parent_temp)
 			{
 				$post_parent_content_style = get_post_meta($post_parent, $obj_slideshow->meta_prefix.'content_style', true);
