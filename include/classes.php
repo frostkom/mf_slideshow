@@ -177,7 +177,7 @@ class mf_slideshow
 	function setting_slideshow_height_ratio_callback()
 	{
 		$setting_key = get_setting_key(__FUNCTION__);
-		$option = get_option($setting_key, '1');
+		$option = get_option($setting_key, '0.5');
 
 		echo show_textfield(array('name' => $setting_key, 'value' => $option, 'description' => sprintf(__("From %s to %s. %s means the slideshow will be presented in landscape, %s means square format and %s means the slideshow is presented in portrait", 'lang_slideshow'), "0.3", "2", "0.3", "1", "2")));
 	}
@@ -185,7 +185,7 @@ class mf_slideshow
 	function setting_slideshow_height_ratio_mobile_callback()
 	{
 		$setting_key = get_setting_key(__FUNCTION__);
-		$option = get_option($setting_key);
+		$option = get_option($setting_key, '1');
 
 		echo show_textfield(array('name' => $setting_key, 'value' => $option));
 	}
