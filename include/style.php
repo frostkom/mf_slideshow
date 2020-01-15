@@ -28,12 +28,12 @@ echo "@media all
 		width: 100%;
 	}
 
-		.is_size_lap .slideshow.original
+		.is_tablet .slideshow.original
 		{
 			font-size: .8em;
 		}
 
-		.is_size_palm .slideshow.original
+		.is_mobile .slideshow.original
 		{
 			font-size: .6em;
 		}

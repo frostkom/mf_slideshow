@@ -111,6 +111,11 @@ jQuery(function($)
 
 		set_slide_sizes(true);
 
+		$(window).on('resize', function()
+		{
+			set_slide_sizes(false);
+		});
+
 		var slider_amount = dom_obj.children("div").size();
 
 		if(slider_amount > 1)
@@ -174,11 +179,6 @@ jQuery(function($)
 			change_slide(slide_now + 1);
 		});
 
-		$(window).on('resize', function()
-		{
-			set_slide_sizes(false);
-		});
-
 		dom_obj.swipe("destroy").swipe(
 		{
 			swipeStatus: function(event, phase, direction, distance)
@@ -187,9 +187,6 @@ jQuery(function($)
 				{
 					switch(phase)
 					{
-						/*case 'start': break;
-						case 'move': break;*/
-
 						case 'end':
 							if(direction == 'left')
 							{
@@ -204,7 +201,6 @@ jQuery(function($)
 					}
 				}
 			},
-			/*threshold: threshold,*/
 			fingers: 1,
 			allowPageScroll: 'vertical'
 		});
