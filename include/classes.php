@@ -207,7 +207,7 @@ class mf_slideshow
 	function rwmb_meta_boxes($meta_boxes)
 	{
 		$meta_boxes[] = array(
-			'id' => 'settings',
+			'id' => $this->meta_prefix.'settings',
 			'title' => __("Settings", 'lang_slideshow'),
 			'post_types' => array($this->post_type),
 			'context' => 'side',
@@ -260,7 +260,7 @@ class mf_slideshow
 		);
 
 		$meta_boxes[] = array(
-			'id' => 'images',
+			'id' => $this->meta_prefix.'images',
 			'title' => __("Images", 'lang_slideshow'),
 			'post_types' => array($this->post_type),
 			//'context' => 'side',
