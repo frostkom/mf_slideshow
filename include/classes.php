@@ -669,7 +669,7 @@ class widget_slideshow extends WP_Widget
 {
 	function __construct()
 	{
-		$widget_ops = array(
+		$this->widget_ops = array(
 			'classname' => 'slideshow_wrapper',
 			'description' => __("Display a slideshow that you have created", 'lang_slideshow')
 		);
@@ -690,7 +690,7 @@ class widget_slideshow extends WP_Widget
 			'slideshow_height_ratio_mobile' => get_option_or_default('setting_slideshow_height_ratio_mobile', '1'),
 		);
 
-		parent::__construct('slideshow-widget', __("Slideshow", 'lang_slideshow'), $widget_ops);
+		parent::__construct('slideshow-widget', __("Slideshow", 'lang_slideshow'), $this->widget_ops);
 
 		$this->obj_slideshow = new mf_slideshow();
 	}
@@ -752,7 +752,7 @@ class widget_slideshow extends WP_Widget
 		$arr_data_styles = $this->obj_slideshow->get_slideshow_styles_for_select();
 
 		echo "<div class='mf_form'>"
-			.show_textfield(array('name' => $this->get_field_name('slideshow_heading'), 'text' => __("Heading", 'lang_slideshow'), 'value' => $instance['slideshow_heading'], 'xtra' => " id='slideshow-title'"))
+			.show_textfield(array('name' => $this->get_field_name('slideshow_heading'), 'text' => __("Heading", 'lang_slideshow'), 'value' => $instance['slideshow_heading'], 'xtra' => " id='".$this->widget_ops['classname']."-title'"))
 			.show_select(array('data' => $arr_data_parents, 'name' => $this->get_field_name('parent'), 'text' => __("Parent", 'lang_slideshow'), 'value' => $instance['parent'], 'suffix' => get_option_page_suffix(array('post_type' => $this->obj_slideshow->post_type, 'value' => $instance['parent']))));
 
 			if(count($arr_data_styles) > 1)
