@@ -91,8 +91,15 @@ class mf_slideshow
 		$arr_settings['setting_slideshow_background_color'] = __("Background Color", 'lang_slideshow');
 		$arr_settings['setting_slideshow_height_ratio'] = __("Height Ratio", 'lang_slideshow');
 		$arr_settings['setting_slideshow_height_ratio_mobile'] = __("Height Ratio", 'lang_slideshow')." (".__("Mobile", 'lang_slideshow').")";
+		$arr_settings['setting_slideshow_image_fit'] = __("Image Fit", 'lang_slideshow');
 
-		$arr_settings['setting_slideshow_show_controls'] = __("Show Controls", 'lang_slideshow');
+		$arr_settings['setting_slideshow_show_controls'] = __("Display Controls", 'lang_slideshow');
+
+		if(in_array('original', get_option('setting_slideshow_style', array('original'))))
+		{
+			$arr_settings['setting_slideshow_display_thumbnails'] = __("Display Thumbnails", 'lang_slideshow');
+		}
+
 		$arr_settings['setting_slideshow_autoplay'] = __("Autoplay", 'lang_slideshow');
 
 		if(get_option('setting_slideshow_autoplay') == 1)
@@ -174,6 +181,14 @@ class mf_slideshow
 		echo show_select(array('data' => $this->get_controls_for_select(), 'name' => $setting_key, 'value' => $this->replace_controls_for_select($option)));
 	}
 
+	function setting_slideshow_display_thumbnails_callback()
+	{
+		$setting_key = get_setting_key(__FUNCTION__);
+		$option = get_option($setting_key, 'no');
+
+		echo show_select(array('data' => get_yes_no_for_select(), 'name' => $setting_key, 'value' => $option));
+	}
+
 	function setting_slideshow_height_ratio_callback()
 	{
 		$setting_key = get_setting_key(__FUNCTION__);
@@ -188,6 +203,20 @@ class mf_slideshow
 		$option = get_option($setting_key, '1');
 
 		echo show_textfield(array('name' => $setting_key, 'value' => $option));
+	}
+
+	function setting_slideshow_image_fit_callback()
+	{
+		$setting_key = get_setting_key(__FUNCTION__);
+		$option = get_option($setting_key, 'cover');
+
+		$arr_data = array(
+			'none' => "-- ".__("None", 'lang_slideshow')." --",
+			'cover' => __("Cover", 'lang_slideshow'),
+			'contain' => __("Contain", 'lang_slideshow'),
+		);
+
+		echo show_select(array('data' => $arr_data, 'name' => $setting_key, 'value' => $option));
 	}
 
 	function setting_slideshow_open_links_in_new_tab_callback()
@@ -347,6 +376,7 @@ class mf_slideshow
 			'display_text_background' => 'yes',
 			'random' => get_option('setting_slideshow_random', 0),
 			'show_controls' => get_option('setting_slideshow_show_controls', 'all'),
+			'display_thumbnails' => get_option('setting_slideshow_display_thumbnails'),
 			'height_ratio' => get_option_or_default('setting_slideshow_height_ratio', '0.5'),
 			'height_ratio_mobile' => get_option_or_default('setting_slideshow_height_ratio_mobile', '1'),
 		), $atts));
@@ -362,6 +392,7 @@ class mf_slideshow
 			'slideshow_display_text_background' => $display_text_background,
 			'slideshow_random' => $random,
 			'slideshow_show_controls' => $show_controls,
+			'slideshow_display_thumbnails' => $display_thumbnails,
 			'slideshow_height_ratio' => $height_ratio,
 			'slideshow_height_ratio_mobile' => $height_ratio_mobile,
 		));
@@ -479,6 +510,7 @@ class mf_slideshow
 			if(!isset($data['settings']['slideshow_animate'])){						$data['settings']['slideshow_animate'] = 'no';}
 			if(!isset($data['settings']['slideshow_background']) || $data['settings']['slideshow_background'] == ''){	$data['settings']['slideshow_background']  = get_option('setting_slideshow_background_color', "#000000");}
 			if(!isset($data['settings']['slideshow_display_text_background'])){		$data['settings']['slideshow_display_text_background'] = 'yes';}
+			if(!isset($data['settings']['slideshow_display_thumbnails'])){			$data['settings']['slideshow_display_thumbnails'] = get_option('setting_slideshow_display_thumbnails');}
 
 			$setting_slideshow_style = isset($data['settings']['slideshow_style']) ? $data['settings']['slideshow_style'] : get_option('setting_slideshow_style', array('original'));
 			$setting_random = isset($data['settings']['slideshow_random']) ? $data['settings']['slideshow_random'] : get_option('setting_slideshow_random');
@@ -502,86 +534,86 @@ class mf_slideshow
 
 				foreach($data['images'] as $key => $image)
 				{
-					if($data['settings']['slideshow_style'] == 'flickity')
+					switch($data['settings']['slideshow_style'])
 					{
-						$images .= "<div class='carousel-cell'".($i == $active_i ? " class='active'" : "")." rel='".$i."'><img src='".$image."'></div>";
-					}
+						case 'flickity':
+							$images .= "<div class='carousel-cell'".($i == $active_i ? " class='active'" : "")." rel='".$i."'><img src='".$image."'></div>";
+						break;
 
-					else if($data['settings']['slideshow_style'] == 'carousel')
-					{
-						$images .= "<div class='item'".($i == $active_i ? " class='active'" : "")." rel='".$i."'><img src='".$image."'></div>";
-					}
+						case 'carousel':
+							$images .= "<div class='item'".($i == $active_i ? " class='active'" : "")." rel='".$i."'><img src='".$image."'></div>";
+						break;
 
-					else
-					{
-						$container_class = "";
+						default:
+							$container_class = "";
 
-						$has_texts = (count($data['texts']) > 0 && isset($data['texts'][$key]));
-
-						if($has_texts)
-						{
-							$container_class .= ($container_class != '' ? " " : "")."slide_parent_".$data['texts'][$key]['parent_id'];
-						}
-
-						if($i == $active_i)
-						{
-							$container_class .= ($container_class != '' ? " " : "")."active";
-						}
-
-						if($data['settings']['slideshow_animate'] == 'yes')
-						{
-							$container_class .= ($container_class != '' ? " " : "")."animate";
-						}
-
-						$images .= "<div"
-							.($has_texts ? " id='slide_".$data['texts'][$key]['id']."'" : "")
-							.($container_class != '' ? " class='".$container_class."'" : "")
-							." rel='".$i."'"
-						.">
-							<img src='".$image."'>";
+							$has_texts = (count($data['texts']) > 0 && isset($data['texts'][$key]));
 
 							if($has_texts)
 							{
-								$content_class = "content";
-
-								if($data['texts'][$key]['content_position'] != '')
-								{
-									$content_class .= ($content_class != '' ? " " : "").$data['texts'][$key]['content_position'];
-								}
-
-								$images .= "<div class='".$content_class."'>
-									<div>
-										<h4>".$data['texts'][$key]['title']."</h4>"
-										.apply_filters('the_content', $data['texts'][$key]['content']);
-
-										if($data['texts'][$key]['url'] != '')
-										{
-											$images .= "<a href='".$data['texts'][$key]['url']."'";
-
-												switch($setting_slideshow_open_links_in_new_tab)
-												{
-													case 'yes':
-														if(strpos($data['texts'][$key]['url'], get_site_url()) === false)
-														{
-															$images .= " rel='external'";
-														}
-													break;
-
-													default:
-														//Do nothing
-													break;
-												}
-
-											$images .= ">".__("Read More", 'lang_slideshow')."&hellip;</a>";
-										}
-
-									$images .= "</div>
-								</div>";
+								$container_class .= ($container_class != '' ? " " : "")."slide_parent_".$data['texts'][$key]['parent_id'];
 							}
 
-						$images .= "</div>";
+							if($i == $active_i)
+							{
+								$container_class .= ($container_class != '' ? " " : "")."active";
+							}
 
-						$dots .= "<li".($i == $active_i ? " class='active'" : "")." rel='".$i."'></li>";
+							if($data['settings']['slideshow_animate'] == 'yes')
+							{
+								$container_class .= ($container_class != '' ? " " : "")."animate";
+							}
+
+							$images .= "<div"
+								.($has_texts ? " id='slide_".$data['texts'][$key]['id']."'" : "")
+								.($container_class != '' ? " class='".$container_class."'" : "")
+								." rel='".$i."'"
+							.">
+								<img src='".$image."'>";
+
+								if($has_texts)
+								{
+									$content_class = "content";
+
+									if($data['texts'][$key]['content_position'] != '')
+									{
+										$content_class .= ($content_class != '' ? " " : "").$data['texts'][$key]['content_position'];
+									}
+
+									$images .= "<div class='".$content_class."'>
+										<div>
+											<h4>".$data['texts'][$key]['title']."</h4>"
+											.apply_filters('the_content', $data['texts'][$key]['content']);
+
+											if($data['texts'][$key]['url'] != '')
+											{
+												$images .= "<a href='".$data['texts'][$key]['url']."'";
+
+													switch($setting_slideshow_open_links_in_new_tab)
+													{
+														case 'yes':
+															if(strpos($data['texts'][$key]['url'], get_site_url()) === false)
+															{
+																$images .= " rel='external'";
+															}
+														break;
+
+														default:
+															//Do nothing
+														break;
+													}
+
+												$images .= ">".__("Read More", 'lang_slideshow')."&hellip;</a>";
+											}
+
+										$images .= "</div>
+									</div>";
+								}
+
+							$images .= "</div>";
+
+							$dots .= "<li".($i == $active_i ? " class='active'" : "")." rel='".$i."'></li>";
+						break;
 					}
 
 					$i++;
@@ -637,25 +669,58 @@ class mf_slideshow
 			$out = "<div"
 				." class='".$slideshow_classes."'"
 				.$slideshow_attributes
-			.">"
-				.$images;
+			.">
+				<div class='slideshow_container'>"
+					.$images;
 
-				if(count($data['images']) > 1)
+					if(count($data['images']) > 1)
+					{
+						switch($data['settings']['slideshow_style'])
+						{
+							case 'original':
+								$out .= "<i class='fa fa-chevron-left controls arrow_left'></i>
+								<i class='fa fa-chevron-right controls arrow_right'></i>
+								<ul class='controls'>"
+									.$dots
+								."</ul>";
+							break;
+
+							case 'carousel':
+								$out .= "<i class='fa fa-chevron-left controls prev'></i>
+								<i class='fa fa-chevron-right controls next'></i>";
+							break;
+						}
+					}
+
+				$out .= "</div>";
+			
+				if(count($data['images']) > 1 && $data['settings']['slideshow_style'] == 'original' && $data['settings']['slideshow_display_thumbnails'] == 'yes')
 				{
-					if($data['settings']['slideshow_style'] == 'original')
-					{
-						$out .= "<i class='fa fa-chevron-left controls arrow_left'></i>
-						<i class='fa fa-chevron-right controls arrow_right'></i>
-						<ul class='controls'>"
-							.$dots
-						."</ul>";
-					}
+					$site_url = get_site_url();
+					$i = 1;
 
-					else if($data['settings']['slideshow_style'] == 'carousel')
-					{
-						$out .= "<i class='fa fa-chevron-left controls prev'></i>
-						<i class='fa fa-chevron-right controls next'></i>";
-					}
+					$out .= "<ul class='slideshow_thumbnails'>";
+
+						foreach($data['images'] as $key => $image)
+						{
+							$thumbnail_class = "";
+
+							if($i == $active_i)
+							{
+								$thumbnail_class .= ($thumbnail_class != '' ? " " : "")."active";
+							}
+
+							$out .= "<li"
+								.($thumbnail_class != '' ? " class='".$thumbnail_class."'" : "")
+								." rel='".$i."'"
+							.">"
+								.render_image_tag(array('src' => str_replace($site_url, "%", $image), 'size' => 'thumbnail'))
+							."</li>";
+
+							$i++;
+						}
+
+					$out .= "</ul>";
 				}
 
 			$out .= "</div>";
@@ -686,6 +751,7 @@ class widget_slideshow extends WP_Widget
 			'slideshow_display_text_background' => 'yes',
 			'slideshow_random' => get_option('setting_slideshow_random', 0),
 			'slideshow_show_controls' => get_option('setting_slideshow_show_controls', 'all'),
+			'slideshow_display_thumbnails' => get_option('setting_slideshow_display_thumbnails'),
 			'slideshow_height_ratio' => get_option_or_default('setting_slideshow_height_ratio', '0.5'),
 			'slideshow_height_ratio_mobile' => get_option_or_default('setting_slideshow_height_ratio_mobile', '1'),
 		);
@@ -736,6 +802,7 @@ class widget_slideshow extends WP_Widget
 		$instance['slideshow_display_text_background'] = sanitize_text_field($new_instance['slideshow_display_text_background']);
 		$instance['slideshow_random'] = sanitize_text_field($new_instance['slideshow_random']);
 		$instance['slideshow_show_controls'] = sanitize_text_field($new_instance['slideshow_show_controls']);
+		$instance['slideshow_display_thumbnails'] = sanitize_text_field($new_instance['slideshow_display_thumbnails']);
 		$instance['slideshow_height_ratio'] = str_replace(",", ".", sanitize_text_field($new_instance['slideshow_height_ratio']));
 		$instance['slideshow_height_ratio_mobile'] = str_replace(",", ".", sanitize_text_field($new_instance['slideshow_height_ratio_mobile']));
 
@@ -774,8 +841,14 @@ class widget_slideshow extends WP_Widget
 				.show_textfield(array('name' => $this->get_field_name('slideshow_height_ratio_mobile'), 'text' => __("Height Ratio", 'lang_slideshow')." (".__("Mobile", 'lang_slideshow').")", 'value' => $instance['slideshow_height_ratio_mobile']))
 			."</div>
 			<div class='flex_flow'>"
-				.show_select(array('data' => $this->obj_slideshow->get_controls_for_select(), 'name' => $this->get_field_name('slideshow_show_controls'), 'text' => __("Show Controls", 'lang_slideshow'), 'value' => $this->obj_slideshow->replace_controls_for_select($instance['slideshow_show_controls'])))
-				.show_select(array('data' => get_yes_no_for_select(array('return_integer' => true)), 'name' => $this->get_field_name('slideshow_autoplay'), 'text' => __("Autoplay", 'lang_slideshow'), 'value' => $instance['slideshow_autoplay']))
+				.show_select(array('data' => $this->obj_slideshow->get_controls_for_select(), 'name' => $this->get_field_name('slideshow_show_controls'), 'text' => __("Show Controls", 'lang_slideshow'), 'value' => $this->obj_slideshow->replace_controls_for_select($instance['slideshow_show_controls'])));
+
+				if($instance['slideshow_style'] == 'original')
+				{
+					echo show_select(array('data' => get_yes_no_for_select(), 'name' => $this->get_field_name('slideshow_display_thumbnails'), 'text' => __("Display Thumbnails", 'lang_slideshow'), 'value' => $instance['slideshow_display_thumbnails']));
+				}
+
+				echo show_select(array('data' => get_yes_no_for_select(array('return_integer' => true)), 'name' => $this->get_field_name('slideshow_autoplay'), 'text' => __("Autoplay", 'lang_slideshow'), 'value' => $instance['slideshow_autoplay']))
 			."</div>";
 
 			if($instance['slideshow_autoplay'] == 1)

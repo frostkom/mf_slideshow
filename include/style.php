@@ -16,9 +16,11 @@ else
 
 $obj_slideshow = new mf_slideshow();
 
+$setting_slideshow_image_fit = get_option('setting_slideshow_image_fit', 'cover');
+
 echo "@media all
 {
-	.slideshow.original
+	.slideshow.original .slideshow_container
 	{
 		font-size: 1em;
 		overflow: hidden;
@@ -28,23 +30,23 @@ echo "@media all
 		width: 100%;
 	}
 
-		.is_tablet .slideshow.original
+		.is_tablet .slideshow.original .slideshow_container
 		{
 			font-size: .8em;
 		}
 
-		.is_mobile .slideshow.original
+		.is_mobile .slideshow.original .slideshow_container
 		{
 			font-size: .6em;
 		}
 
-		.widget .slideshow.original
+		.widget .slideshow.original .slideshow_container
 		{
 			padding: 0 !important;
 			max-width: 100% !important; /* If .full_width, then this has to be specified */
 		}
 
-		.slideshow.original > div
+		.slideshow.original .slideshow_container > div
 		{
 			display: none;
 			left: 0;
@@ -54,22 +56,22 @@ echo "@media all
 			top: 0;
 		}
 
-			.slideshow.original > div.active
+			.slideshow.original .slideshow_container > div.active
 			{
 				display: block;
 			}
 
-				.slideshow.original > div > img
+				.slideshow.original .slideshow_container > div > img
 				{
 					height: 100%;
-					object-fit: cover;
+					object-fit: ".$setting_slideshow_image_fit.";
 					width: 100%;
 					transition: transform 20s ease;
 					-webkit-transform: scale(1);
 					transform: scale(1);
 				}
 
-					.slideshow.original > div.animate > img
+					.slideshow.original .slideshow_container > div.animate > img
 					{
 						-webkit-transform: scale(1.2);
 						transform: scale(1.2);
@@ -82,7 +84,7 @@ echo "@media all
 				top: 50%;
 			}
 
-				.slideshow.original > div.active .content
+				.slideshow.original .slideshow_container > div.active .content
 				{
 					display: block;
 				}
@@ -224,6 +226,38 @@ echo "@media all
 				.slideshow.original .controls li.active
 				{
 					background: #666;
+				}
+				
+		.slideshow .slideshow_thumbnails
+		{
+			display: -webkit-box;
+			display: -ms-flexbox;
+			display: -webkit-flex;
+			display: flex;
+			flex-wrap: wrap;
+			list-style: none;
+			overflow: hidden;
+		}
+		
+			.slideshow .slideshow_thumbnails li
+			{
+				cursor: pointer;
+				-webkit-box-flex: 0 0 20%;
+				-webkit-flex: 0 0 20%;
+				-ms-flex: 0 0 20%;
+				flex: 0 0 20%;
+				margin: 0;
+				opacity: .3;
+			}
+			
+				.slideshow .slideshow_thumbnails li.active, .slideshow .slideshow_thumbnails li:hover
+				{
+					opacity: 1;
+				}
+				
+				.slideshow .slideshow_thumbnails li img
+				{
+					display: block;	
 				}";
 
 	$result = $wpdb->get_results($wpdb->prepare("SELECT ID, post_parent, meta_value FROM ".$wpdb->posts." INNER JOIN ".$wpdb->postmeta." ON ".$wpdb->posts.".ID = ".$wpdb->postmeta.".post_id WHERE post_type = %s AND post_status = %s AND post_parent > '0' ORDER BY post_parent ASC", $obj_slideshow->post_type, 'publish', $obj_slideshow->meta_prefix.'content_style')); //(post_parent > '0' OR meta_key = %s AND meta_value != '') // This will load [slide_parent_id] into CSS because parent style is also loaded
