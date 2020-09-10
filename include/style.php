@@ -187,6 +187,23 @@ echo "@media all
 				right: 2%;
 			}
 
+			.slideshow.original .slideshow_container .magnifying_glass
+			{
+				color: #fff;
+				font-size: 10em;
+				left: 50%;
+				opacity: 0;
+				position: absolute;
+				top: 50%;
+				transform: translate(-50%, -50%);
+				transition: all 2s ease;
+			}
+
+				.slideshow.original .slideshow_container:hover .magnifying_glass
+				{
+					opacity: .5;
+				}
+
 		.slideshow.original ul.controls
 		{
 			bottom: 1em;

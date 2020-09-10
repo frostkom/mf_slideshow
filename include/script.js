@@ -68,6 +68,8 @@ jQuery(function($)
 							{
 								dom_new.removeClass("animate");
 							}
+
+							dom_new.addClass('active').siblings(".active").removeClass('active');
 						});
 
 						dom_obj.find("li[rel=" + slide_new + "]").addClass('active').siblings("li").removeClass('active');
@@ -92,6 +94,8 @@ jQuery(function($)
 						{
 							dom_new.removeClass("animate");
 						}
+
+						dom_new.addClass('active').siblings(".active").removeClass('active');
 					});
 
 					dom_obj.find("li[rel=" + slide_new + "]").addClass('active').siblings("li").removeClass('active');
@@ -235,6 +239,54 @@ jQuery(function($)
 			},
 			fingers: 1,
 			allowPageScroll: 'vertical'
+		});
+
+		dom_obj_container.children(".magnifying_glass").on('click', function()
+		{
+			disable_autoplay();
+
+			if($("#wrapper").length > 0)
+			{
+				var dom_obj = $(this).siblings("div.active"),
+					dom_overlay = $("#overlay_slideshow > div");
+
+				if(dom_overlay.length == 0)
+				{
+					$("#wrapper").append("<div id='overlay_slideshow' class='overlay_container modal'><div></div></div>");
+
+					dom_overlay = $("#overlay_slideshow > div");
+				}
+
+				/*if(dom_overlay.children().length > 0)
+				{
+					dom_overlay.html('').parent("#overlay_slideshow").fadeOut();
+				}
+
+				else
+				{*/
+					dom_overlay.html("<i class='fa fa-times fa-2x'></i>" + dom_obj.html()).parent("#overlay_slideshow").fadeIn();
+				/*}*/
+			}
+
+			return false;
+		});
+
+		function hide_form_overlay()
+		{
+			$("#overlay_slideshow").fadeOut().children("div").html('');
+		}
+
+		$(document).on('click', "#overlay_slideshow", function(e)
+		{
+			if(e.target == e.currentTarget)
+			{
+				hide_form_overlay();
+			}
+		});
+
+		$(document).on('click', "#overlay_slideshow .fa-times", function()
+		{
+			hide_form_overlay();
 		});
 	};
 

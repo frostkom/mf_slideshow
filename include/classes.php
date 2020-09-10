@@ -680,6 +680,7 @@ class mf_slideshow
 							case 'original':
 								$out .= "<i class='fa fa-chevron-left controls arrow_left'></i>
 								<i class='fa fa-chevron-right controls arrow_right'></i>
+								<i class='fa fa-search magnifying_glass'></i>
 								<ul class='controls'>"
 									.$dots
 								."</ul>";
