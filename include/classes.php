@@ -723,7 +723,7 @@ class mf_slideshow
 								.($thumbnail_class != '' ? " class='".$thumbnail_class."'" : "")
 								." rel='".$i."'"
 							.">"
-								.render_image_tag(array('src' => str_replace($site_url, "%", $image), 'size' => 'thumbnail'))
+								.render_image_tag(array('src' => str_replace($site_url, "", $image), 'size' => 'thumbnail'))
 							."</li>";
 
 							$i++;
