@@ -201,7 +201,7 @@ echo "@media all
 
 				.slideshow.original .slideshow_container:hover .magnifying_glass
 				{
-					opacity: .5;
+					opacity: .2;
 				}
 
 		.slideshow.original ul.controls
