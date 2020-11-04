@@ -702,7 +702,7 @@ class mf_slideshow
 					}
 
 				$out .= "</div>";
-			
+
 				if(count($data['images']) > 1 && $data['settings']['slideshow_style'] == 'original' && $data['settings']['slideshow_display_thumbnails'] == 'yes')
 				{
 					$site_url = get_site_url();

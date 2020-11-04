@@ -201,7 +201,7 @@ echo "@media all
 
 				.slideshow.original .slideshow_container:hover .magnifying_glass
 				{
-					opacity: .2;
+					opacity: .4;
 				}
 
 		.slideshow.original ul.controls
@@ -244,7 +244,7 @@ echo "@media all
 				{
 					background: #666;
 				}
-				
+
 		.slideshow .slideshow_thumbnails
 		{
 			display: -webkit-box;
@@ -255,7 +255,7 @@ echo "@media all
 			list-style: none;
 			overflow: hidden;
 		}
-		
+
 			.slideshow .slideshow_thumbnails li
 			{
 				cursor: pointer;
@@ -266,15 +266,15 @@ echo "@media all
 				margin: 0;
 				opacity: .3;
 			}
-			
+
 				.slideshow .slideshow_thumbnails li.active, .slideshow .slideshow_thumbnails li:hover
 				{
 					opacity: 1;
 				}
-				
+
 				.slideshow .slideshow_thumbnails li img
 				{
-					display: block;	
+					display: block;
 				}";
 
 	$result = $wpdb->get_results($wpdb->prepare("SELECT ID, post_parent, meta_value FROM ".$wpdb->posts." INNER JOIN ".$wpdb->postmeta." ON ".$wpdb->posts.".ID = ".$wpdb->postmeta.".post_id WHERE post_type = %s AND post_status = %s AND post_parent > '0' ORDER BY post_parent ASC", $obj_slideshow->post_type, 'publish', $obj_slideshow->meta_prefix.'content_style')); //(post_parent > '0' OR meta_key = %s AND meta_value != '') // This will load [slide_parent_id] into CSS because parent style is also loaded
