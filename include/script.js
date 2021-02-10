@@ -147,7 +147,7 @@ jQuery(function($)
 			set_slide_sizes(false);
 		});
 
-		var slider_amount = dom_obj_container.children("div").size();
+		var slider_amount = dom_obj_container.children("div").length;
 
 		if(slider_amount > 1)
 		{
