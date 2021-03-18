@@ -44,7 +44,7 @@ jQuery(function($)
 				slide_now = dom_obj.children(".carousel-cell div.active").attr('rel'),
 				autoplay = dom_obj.attr('data-autoplay') || script_slideshow_flickity.autoplay,
 				duration = dom_obj.attr('data-duration') || script_slideshow_flickity.duration,
-				show_controls = dom_obj.attr('data-show_controls') || script_slideshow_flickity.show_controls;
+				display_controls = dom_obj.attr('data-display_controls') || script_slideshow_flickity.display_controls;
 
 			$(this).flickity(
 			{
@@ -54,8 +54,8 @@ jQuery(function($)
 				/*,contain: true
 				,freeScroll: true*/
 				autoPlay: (autoplay == 1 ? duration : false),
-				prevNextButtons: (show_controls == 1 || show_controls == 'all' || show_controls == 'arrows'),
-				pageDots: (show_controls == 1 || show_controls == 'all' || show_controls == 'dots')
+				prevNextButtons: (display_controls.indexOf('arrows') !== -1),
+				pageDots: (display_controls.indexOf('dots') !== -1)
 			});
 		});
 

@@ -57,12 +57,8 @@ jQuery(function($)
 				item_amount = carousel.children(".item").length,
 				item_separation = (360 / item_amount),
 				height_ratio = dom_obj.attr('data-height_ratio') || script_slideshow_carousel.height_ratio,
-				height_ratio_mobile = dom_obj.attr('data-height_ratio_mobile') || script_slideshow_carousel.height_ratio_mobile;
-
-			/*var slide_now = dom_obj.children(".carousel-cell div.active").attr('rel'),
-				show_controls = dom_obj.attr('data-show_controls') || script_slideshow_carousel.show_controls;*/
-
-			var count_deg = 0;
+				height_ratio_mobile = dom_obj.attr('data-height_ratio_mobile') || script_slideshow_carousel.height_ratio_mobile,
+				count_deg = 0;
 
 			carousel.children(".item").each(function()
 			{

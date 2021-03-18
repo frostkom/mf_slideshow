@@ -7,10 +7,10 @@ jQuery(function($)
 			slide_now = parseInt(dom_obj_container.children("div.active").attr('rel')),
 			slide_timeout,
 			autoplay = dom_obj.attr('data-autoplay') || script_slideshow.autoplay,
-			animate = dom_obj.attr('data-animate') || 'no', /*script_slideshow.animate*/
+			animate = dom_obj.attr('data-animate') || 'no',
 			duration = dom_obj.attr('data-duration') || script_slideshow.duration,
 			fade_duration = parseInt(dom_obj.attr('data-fade_duration') || script_slideshow.fade_duration),
-			show_controls = dom_obj.attr('data-show_controls') || script_slideshow.show_controls,
+			/*display_controls = dom_obj.attr('data-display_controls') || script_slideshow.display_controls,*/
 			random = dom_obj.attr('data-random') || script_slideshow.random,
 			height_ratio = dom_obj.attr('data-height_ratio') || script_slideshow.height_ratio,
 			height_ratio_mobile = dom_obj.attr('data-height_ratio_mobile') || script_slideshow.height_ratio_mobile;
@@ -151,27 +151,20 @@ jQuery(function($)
 
 		if(slider_amount > 1)
 		{
-			switch(show_controls)
+			/*if(display_controls.indexOf('arrows') === -1)
 			{
-				case 'all':
-				case 1:
-				case '1':
-					/* Don't hide controls */
-				break;
-
-				case 'arrows':
-					dom_obj_container.find("ul.controls").addClass('hide');
-				break;
-
-				case 'dots':
-					dom_obj_container.find("i.controls").addClass('hide');
-				break;
-
-				case 'none':
-				default:
-					dom_obj_container.find(".controls").addClass('hide');
-				break;
+				dom_obj_container.find("i.controls").addClass('hide');
 			}
+
+			if(display_controls.indexOf('dots') === -1)
+			{
+				dom_obj_container.find("ul.controls").addClass('hide');
+			}
+
+			if(display_controls.indexOf('magnifying_glass') === -1)
+			{
+				dom_obj_container.find(".magnifying_glass").addClass('hide');
+			}*/
 
 			/*if(dom_obj_container.is(":visible"))
 			{

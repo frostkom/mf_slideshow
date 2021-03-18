@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-08 11:03+0100\n"
+"POT-Creation-Date: 2021-03-18 22:14+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Martin Fors\n"
 "Language-Team: \n"
@@ -15,22 +15,29 @@ msgstr ""
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../include/classes.php:29
-#: ../include/classes.php:214
-msgid "None"
-msgstr "Inget"
-
-#: ../include/classes.php:30
-msgid "Dots"
-msgstr "Punkter"
-
-#: ../include/classes.php:31
+#: ../include/classes.php:15
 msgid "Arrows"
 msgstr "Pilar"
 
+#: ../include/classes.php:16
+msgid "Dots"
+msgstr "Punkter"
+
+#: ../include/classes.php:17
+msgid "Magnifying Glass"
+msgstr "Förstoringsglas"
+
+#: ../include/classes.php:22
+msgid "Thumbnails"
+msgstr "Miniatyrer"
+
+#: ../include/classes.php:31
+msgid "One"
+msgstr "En"
+
 #: ../include/classes.php:32
-msgid "All"
-msgstr "Alla"
+msgid "Multiple"
+msgstr "Flera"
 
 #: ../include/classes.php:41
 msgid "Default"
@@ -55,30 +62,30 @@ msgstr "Bildspel"
 
 #: ../include/classes.php:61
 #: ../include/classes.php:62
-#: ../include/classes.php:125
-#: ../include/classes.php:759
+#: ../include/classes.php:130
+#: ../include/classes.php:841
 msgid "Slideshow"
 msgstr "Bildspel"
 
 #: ../include/classes.php:88
-#: ../include/classes.php:827
+#: ../include/classes.php:907
 msgid "Style"
 msgstr "Stil"
 
 #: ../include/classes.php:91
-#: ../include/classes.php:836
+#: ../include/classes.php:916
 msgid "Background Color"
 msgstr "Bakgrundsfärg"
 
 #: ../include/classes.php:92
 #: ../include/classes.php:93
-#: ../include/classes.php:840
-#: ../include/classes.php:841
+#: ../include/classes.php:920
+#: ../include/classes.php:921
 msgid "Height Ratio"
 msgstr "Höjdförhållande"
 
 #: ../include/classes.php:93
-#: ../include/classes.php:841
+#: ../include/classes.php:921
 msgid "Mobile"
 msgstr "Mobil"
 
@@ -86,150 +93,160 @@ msgstr "Mobil"
 msgid "Image Fit"
 msgstr "Bilderpassning"
 
-#: ../include/classes.php:96
-msgid "Display Controls"
-msgstr "Visa kontroller"
+#: ../include/classes.php:95
+#: ../include/classes.php:924
+msgid "Display"
+msgstr "Visa"
 
-#: ../include/classes.php:100
-#: ../include/classes.php:848
-msgid "Display Thumbnails"
-msgstr "Visa miniatyrer"
+#: ../include/classes.php:104
+msgid "Thumbnail Columns"
+msgstr "Kolumner med miniatyrer"
 
-#: ../include/classes.php:103
-#: ../include/classes.php:851
+#: ../include/classes.php:105
+msgid "Thumbnail Rows"
+msgstr "Rader med miniatyrer"
+
+#: ../include/classes.php:108
+#: ../include/classes.php:931
 msgid "Autoplay"
 msgstr "Spela upp automatiskt"
 
-#: ../include/classes.php:107
-#: ../include/classes.php:858
+#: ../include/classes.php:112
+#: ../include/classes.php:938
 msgid "Duration"
 msgstr "Tid för bildvisning"
 
-#: ../include/classes.php:112
-#: ../include/classes.php:865
+#: ../include/classes.php:117
+#: ../include/classes.php:945
 msgid "Fade Duration"
 msgstr "Tid när bilder tonar"
 
-#: ../include/classes.php:113
-#: ../include/classes.php:866
+#: ../include/classes.php:118
+#: ../include/classes.php:946
 msgid "Random"
 msgstr "Slumpvis"
 
-#: ../include/classes.php:116
+#: ../include/classes.php:121
 msgid "Open Links in new Tabs"
 msgstr "Öppna länkar i nya tabbar"
 
-#: ../include/classes.php:149
-#: ../include/classes.php:858
+#: ../include/classes.php:154
+#: ../include/classes.php:938
 msgid "s"
 msgstr ""
 
-#: ../include/classes.php:157
-#: ../include/classes.php:865
+#: ../include/classes.php:162
+#: ../include/classes.php:945
 msgid "ms"
 msgstr ""
 
-#: ../include/classes.php:197
-#: ../include/classes.php:840
+#: ../include/classes.php:242
+#: ../include/classes.php:920
 #, php-format
 msgid "From %s to %s. %s means the slideshow will be presented in landscape, %s means square format and %s means the slideshow is presented in portrait"
 msgstr "Från %s till %s. %s betyder att bildspelet visas i landskapsläge, %s betyder kvadratisk form och %s betyder att bilspelet visas i porträttläge"
 
-#: ../include/classes.php:215
+#: ../include/classes.php:259
+msgid "None"
+msgstr "Inget"
+
+#: ../include/classes.php:260
 msgid "Cover"
 msgstr "Fyll ut"
 
-#: ../include/classes.php:216
+#: ../include/classes.php:261
 msgid "Contain"
 msgstr "Anpassa"
 
-#: ../include/classes.php:228
+#: ../include/classes.php:273
 msgid "No"
 msgstr "Nej"
 
-#: ../include/classes.php:229
+#: ../include/classes.php:274
 msgid "Yes"
 msgstr "Ja"
 
-#: ../include/classes.php:229
+#: ../include/classes.php:274
 msgid "When link is external"
 msgstr "När länk är extern"
 
-#: ../include/classes.php:240
+#: ../include/classes.php:293
 msgid "Settings"
 msgstr "Inställningar"
 
-#: ../include/classes.php:252
+#: ../include/classes.php:305
 msgid "Content Position"
 msgstr "Textplacering"
 
-#: ../include/classes.php:256
+#: ../include/classes.php:309
 msgid "Choose Here"
 msgstr "Välj här"
 
-#: ../include/classes.php:257
+#: ../include/classes.php:310
 msgid "Left"
 msgstr "Vänster"
 
-#: ../include/classes.php:258
+#: ../include/classes.php:311
 msgid "Center"
 msgstr "Centrera"
 
-#: ../include/classes.php:259
+#: ../include/classes.php:312
 msgid "Bottom"
 msgstr "Botten"
 
-#: ../include/classes.php:260
+#: ../include/classes.php:313
 msgid "Right"
 msgstr "Höger"
 
-#: ../include/classes.php:265
+#: ../include/classes.php:318
 msgid "Content Style"
 msgstr "Stil på innehåll"
 
-#: ../include/classes.php:270
+#: ../include/classes.php:323
 msgid "Page"
 msgstr "Sida"
 
-#: ../include/classes.php:280
+#: ../include/classes.php:333
 msgid "External Link"
 msgstr "Extern länk"
 
-#: ../include/classes.php:293
+#: ../include/classes.php:346
 msgid "Images"
 msgstr "Bilder"
 
-#: ../include/classes.php:462
+#: ../include/classes.php:520
 msgid "I could not find any images to load"
 msgstr "Jag kunde inte hitta några bilder att ladda"
 
-#: ../include/classes.php:606
+#: ../include/classes.php:665
 msgid "Read More"
 msgstr "Läs mer"
 
-#: ../include/classes.php:739
+#: ../include/classes.php:821
 msgid "Display a slideshow that you have created"
 msgstr "Visa ett bildspel som du har skapat"
 
-#: ../include/classes.php:822
+#: ../include/classes.php:902
 msgid "Heading"
 msgstr "Rubrik"
 
-#: ../include/classes.php:823
+#: ../include/classes.php:903
 msgid "Parent"
 msgstr "Förälder"
 
-#: ../include/classes.php:837
+#: ../include/classes.php:917
 msgid "Display Text Background"
 msgstr "Visa textbakgrund"
 
-#: ../include/classes.php:844
-msgid "Show Controls"
-msgstr "Visa kontroller"
-
-#: ../include/classes.php:857
+#: ../include/classes.php:937
 msgid "Animate"
 msgstr "Animera"
+
+#~ msgid "All"
+#~ msgstr "Alla"
+
+#~ msgid "Show Controls"
+#~ msgstr "Visa kontroller"
 
 #~ msgid "Always"
 #~ msgstr "Alltid"

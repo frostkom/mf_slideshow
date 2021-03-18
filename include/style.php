@@ -259,13 +259,28 @@ echo "@media all
 			.slideshow .slideshow_thumbnails li
 			{
 				cursor: pointer;
-				-webkit-box-flex: 0 0 20%;
-				-webkit-flex: 0 0 20%;
-				-ms-flex: 0 0 20%;
-				flex: 0 0 20%;
 				margin: 0;
 				opacity: .3;
-			}
+			}";
+
+				for($i = 2; $i <= 10; $i++)
+				{
+					$thumbnail_width = (100 / $i);
+
+					echo ".slideshow .slideshow_thumbnails.thumbnail_columns_".$i." li
+					{
+						-webkit-box-flex: 0 0 ".$thumbnail_width."%;
+						-webkit-flex: 0 0 ".$thumbnail_width."%;
+						-ms-flex: 0 0 ".$thumbnail_width."%;
+						flex: 0 0 ".$thumbnail_width."%;
+					}";
+				}
+
+				echo ".slideshow .slideshow_thumbnails.thumbnail_rows_one
+				{
+					flex-wrap: unset;
+					overflow: auto;
+				}
 
 				.slideshow .slideshow_thumbnails li.active, .slideshow .slideshow_thumbnails li:hover
 				{
