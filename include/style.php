@@ -16,6 +16,8 @@ else
 
 $obj_slideshow = new mf_slideshow();
 
+$plugin_images_url = str_replace("/include/", "/images/", plugin_dir_url(__FILE__));
+
 $setting_slideshow_image_fit = get_option('setting_slideshow_image_fit', 'cover');
 
 echo "@media all
@@ -149,62 +151,94 @@ echo "@media all
 						text-align: right;
 					}
 
-		.slideshow.original .controls.fa
+		.slideshow.original .controls_arrows:not(.hide)
 		{
-			background: #000;
-			border-radius: 50%;
-			color: #fff;
-			font-size: 2em;
-			opacity: .2;
-			position: absolute;
-			top: 50%;
-			-webkit-transform: translateY(-50%);
-			transform: translateY(-50%);
-			transition: all 2s ease;
+			display: block;
+			height: 85%;
 		}
-
-			.slideshow.original:hover .controls.fa
+					
+			.slideshow.original .controls_arrows .panel_arrow_left
 			{
-				opacity: .5;
-				font-size: 3em;
+				cursor: url(".$plugin_images_url."arrow_left.png), pointer;
+				float: left;
+				height: 100%;
+				width: 50%;
 			}
 
-			.slideshow.original .controls.fa:hover
+				.slideshow.original .controls_arrows .panel_arrow_left:hover .arrow_left
+				{
+					opacity: 0;
+				}
+
+			.slideshow.original .controls_arrows .panel_arrow_right
 			{
-				opacity: 1;
-				font-size: 3.5em;
+				cursor: url(".$plugin_images_url."arrow_right.png), pointer;
+				float: right;
+				height: 100%;
+				width: 50%;
 			}
 
-			.slideshow.original .controls.arrow_left
-			{
-				left: 2%;
-				padding: .35em .6em .35em .45em;
-			}
+				.slideshow.original .controls_arrows .panel_arrow_right:hover .arrow_right
+				{
+					opacity: 0;
+				}
 
-			.slideshow.original .controls.arrow_right
+			.slideshow.original .controls_arrows .fa
 			{
-				padding: .35em .45em .35em .6em;
-				right: 2%;
-			}
-
-			.slideshow.original .slideshow_container .magnifying_glass
-			{
+				background: #000;
+				border-radius: 50%;
 				color: #fff;
-				font-size: 10em;
-				left: 50%;
-				opacity: 0;
+				font-size: 2em;
+				opacity: .2;
 				position: absolute;
 				top: 50%;
-				transform: translate(-50%, -50%);
+				-webkit-transform: translateY(-50%);
+				transform: translateY(-50%);
 				transition: all 2s ease;
 			}
 
-				.slideshow.original .slideshow_container:hover .magnifying_glass
+				.slideshow.original:hover .controls_arrows .fa
 				{
-					opacity: .4;
+					opacity: .5;
+					font-size: 3em;
 				}
 
-		.slideshow.original ul.controls
+				.slideshow.original .controls_arrows .fa:hover
+				{
+					opacity: 1;
+					font-size: 3.5em;
+				}
+
+				.slideshow.original .controls_arrows .arrow_left
+				{
+					left: 2%;
+					padding: .35em .6em .35em .45em;
+				}
+
+				.slideshow.original .controls_arrows .arrow_right
+				{
+					padding: .35em .45em .35em .6em;
+					right: 2%;
+				}
+
+		.slideshow.original .slideshow_container .controls_magnifying_glass
+		{
+			color: #fff;
+			font-size: 10em;
+			left: 50%;
+			opacity: 0;
+			position: absolute;
+			top: 50%;
+			transform: translate(-50%, -50%);
+			transition: all 2s ease;
+		}
+
+			.slideshow.original .slideshow_container:hover .controls_magnifying_glass
+			{
+				opacity: .4;
+			}
+
+		.slideshow.original .controls_dots
 		{
 			bottom: 1em;
 			left: 0;
@@ -215,14 +249,14 @@ echo "@media all
 			transition: all 2s ease;
 		}
 
-			.slideshow.original:hover ul.controls
+			.slideshow.original:hover .controls_dots
 			{
 				opacity: .8;
 				-webkit-transform: scale(1.2);
 				transform: scale(1.2);
 			}
 
-			.slideshow.original .controls li
+			.slideshow.original .controls_dots li
 			{
 				background: #fff;
 				border: .2em solid #fff !important;
@@ -235,12 +269,12 @@ echo "@media all
 				width: 1.2em;
 			}
 
-				.slideshow.original .controls li:hover
+				.slideshow.original .controls_dots li:hover
 				{
 					background: #bbb;
 				}
 
-				.slideshow.original .controls li.active
+				.slideshow.original .controls_dots li.active
 				{
 					background: #666;
 				}

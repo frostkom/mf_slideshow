@@ -737,29 +737,39 @@ class mf_slideshow
 						switch($data['settings']['slideshow_style'])
 						{
 							case 'original':
-								if(isset($data['settings']['slideshow_display_controls']) && is_array($data['settings']['slideshow_display_controls']))
-								{
-									if(in_array('arrows', $data['settings']['slideshow_display_controls']))
-									{
-										$out .= "<i class='fa fa-chevron-left controls arrow_left'></i>
-										<i class='fa fa-chevron-right controls arrow_right'></i>";
-									}
+								$display_controls_exists = (isset($data['settings']['slideshow_display_controls']) && is_array($data['settings']['slideshow_display_controls']));
 
+								$out .= "<div class='controls_arrows'>
+									<div class='panel_arrow_left'>";
+
+										if($display_controls_exists && in_array('arrows', $data['settings']['slideshow_display_controls']))
+										{
+											$out .= "<i class='fa fa-chevron-left arrow_left'></i>";
+										}
+
+									$out .= "</div>
+									<div class='panel_arrow_right'>";
+
+										if($display_controls_exists && in_array('arrows', $data['settings']['slideshow_display_controls']))
+										{
+											$out .= "<i class='fa fa-chevron-right arrow_right'></i>";
+										}
+
+									$out .= "</div>
+								</div>";
+
+								if($display_controls_exists)
+								{
 									if(in_array('magnifying_glass', $data['settings']['slideshow_display_controls']))
 									{
-										$out .= "<i class='fa fa-search magnifying_glass'></i>";
+										$out .= "<i class='fa fa-search controls_magnifying_glass'></i>"; //magnifying_glass
 									}
 
 									if(in_array('dots', $data['settings']['slideshow_display_controls']))
 									{
-										$out .= "<ul class='controls'>".$dots."</ul>";
+										$out .= "<ul class='controls_dots'>".$dots."</ul>"; //controls
 									}
 								}
-
-								/*else
-								{
-									$out .= "<span>".var_export($data['settings']['slideshow_display_controls'], true)."</span>";
-								}*/
 							break;
 
 							case 'carousel':
