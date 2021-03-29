@@ -48,22 +48,20 @@ echo "@media all
 			max-width: 100% !important; /* If .full_width, then this has to be specified */
 		}
 
-		.slideshow.original .slideshow_container > div
-		{
-			display: none;
-			left: 0;
-			padding: inherit; /* This will respect the parents padding */
-			position: absolute;
-			right: 0;
-			top: 0;
-		}
-
-			.slideshow.original .slideshow_container > div.active
+			.slideshow.original .slideshow_container .slide_item
 			{
 				display: block;
+				height: 100%;
+				padding: inherit; /* This will respect the parents padding */
+				width: 100%;
 			}
 
-				.slideshow.original .slideshow_container > div > img
+				.slideshow.original .slideshow_container .slide_item:not(.active)
+				{
+					display: none;
+				}
+
+				.slideshow.original .slideshow_container .slide_item img
 				{
 					height: 100%;
 					object-fit: ".$setting_slideshow_image_fit.";
@@ -73,90 +71,128 @@ echo "@media all
 					transform: scale(1);
 				}
 
-					.slideshow.original .slideshow_container > div.animate > img
-					{
-						-webkit-transform: scale(1.2);
-						transform: scale(1.2);
-					}
+		/* Columns */
+		/* ############################## */
+		.slideshow.original .slideshow_container .has_columns
+		{
+			display: -webkit-box;
+			display: -ms-flexbox;
+			display: -webkit-flex;
+			display: flex;
+		}
 
-			.slideshow.original .content
+			.slideshow.original .slideshow_container .columns_2 .slide_item
 			{
-				display: none;
-				position: absolute;
-				top: 50%;
+				-webkit-box-flex: 0 1 50%;
+				-webkit-flex: 0 1 50%;
+				-ms-flex: 0 1 50%;
+				flex: 0 1 50%;
+				width: 50%;
 			}
 
-				.slideshow.original .slideshow_container > div.active .content
+			.slideshow.original .slideshow_container .columns_3 .slide_item
+			{
+				-webkit-box-flex: 0 1 33%;
+				-webkit-flex: 0 1 33%;
+				-ms-flex: 0 1 33%;
+				flex: 0 1 33%;
+				width: 33%;
+			}
+
+				.slideshow.original .slideshow_container .columns_1 .slide_item.animate > img
+				{
+					-webkit-transform: scale(1.2);
+					transform: scale(1.2);
+				}
+		/* ############################## */
+
+		/* Content */
+		/* ############################## */
+		.slideshow.original .content
+		{
+			display: none;
+			position: absolute;
+			top: 50%;
+		}
+
+			.slideshow.original .slideshow_container .slide_item .content
+			{
+				display: block;
+			}
+
+			.slideshow.original .content.left
+			{
+				left: 1em;
+				right: 40%;
+			}
+
+			.slideshow.original .content.center
+			{
+				left: 20%;
+				right: 20%;
+			}
+
+			.slideshow.original .content.bottom
+			{
+				bottom: 1em;
+				left: 1em;
+				right: 1em;
+				top: auto;
+			}
+
+			.slideshow.original .content.right
+			{
+				left: 40%;
+				right: 1em;
+			}
+
+			.slideshow.original .content > div
+			{
+				color: #fff;
+				padding: 1em;
+			}
+
+				.slideshow.original.display_text_background .content > div
+				{
+					background: rgba(0, 0, 0, .4);
+				}
+
+				.slideshow.original .content:not(.bottom) > div
+				{
+					-webkit-transform: translateY(-50%);
+					transform: translateY(-50%);
+				}
+
+				.slideshow.original .content > div h4
+				{
+					text-shadow: 0 0 1em rgba(0, 0, 0, .5);
+				}
+
+					.slideshow.original.display_text_background .content > div h4
+					{
+						text-shadow: none;
+					}
+
+				.slideshow.original .content > div > a
 				{
 					display: block;
+					margin-top: 1em;
+					text-align: right;
 				}
+		/* ############################## */
 
-				.slideshow.original .content.left
-				{
-					left: 1em;
-					right: 40%;
-				}
-
-				.slideshow.original .content.center
-				{
-					left: 20%;
-					right: 20%;
-				}
-
-				.slideshow.original .content.bottom
-				{
-					bottom: 1em;
-					left: 1em;
-					right: 1em;
-					top: auto;
-				}
-
-				.slideshow.original .content.right
-				{
-					left: 40%;
-					right: 1em;
-				}
-
-				.slideshow.original .content > div
-				{
-					color: #fff;
-					padding: 1em;
-				}
-
-					.slideshow.original.display_text_background .content > div
-					{
-						background: rgba(0, 0, 0, .4);
-					}
-
-					.slideshow.original .content:not(.bottom) > div
-					{
-						-webkit-transform: translateY(-50%);
-						transform: translateY(-50%);
-					}
-
-					.slideshow.original .content > div h4
-					{
-						text-shadow: 0 0 1em rgba(0, 0, 0, .5);
-					}
-
-						.slideshow.original.display_text_background .content > div h4
-						{
-							text-shadow: none;
-						}
-
-					.slideshow.original .content > div > a
-					{
-						display: block;
-						margin-top: 1em;
-						text-align: right;
-					}
-
+		/* Controls */
+		/* ############################## */
 		.slideshow.original .controls_arrows:not(.hide)
 		{
 			display: block;
 			height: 85%;
+			left: 0;
+			position: absolute;
+			right: 0;
+			top: 0;
 		}
-					
+
 			.slideshow.original .controls_arrows .panel_arrow_left
 			{
 				cursor: url(".$plugin_images_url."arrow_left.png), pointer;
@@ -278,7 +314,10 @@ echo "@media all
 				{
 					background: #666;
 				}
+		/* ############################## */
 
+		/* Thumbnails */
+		/* ############################## */
 		.slideshow .slideshow_thumbnails
 		{
 			display: -webkit-box;
@@ -324,7 +363,8 @@ echo "@media all
 				.slideshow .slideshow_thumbnails li img
 				{
 					display: block;
-				}";
+				}
+		/* ############################## */";
 
 	$result = $wpdb->get_results($wpdb->prepare("SELECT ID, post_parent, meta_value FROM ".$wpdb->posts." INNER JOIN ".$wpdb->postmeta." ON ".$wpdb->posts.".ID = ".$wpdb->postmeta.".post_id WHERE post_type = %s AND post_status = %s AND post_parent > '0' ORDER BY post_parent ASC", $obj_slideshow->post_type, 'publish', $obj_slideshow->meta_prefix.'content_style')); //(post_parent > '0' OR meta_key = %s AND meta_value != '') // This will load [slide_parent_id] into CSS because parent style is also loaded
 
