@@ -90,15 +90,16 @@ class mf_slideshow
 
 		$arr_settings['setting_slideshow_background_color'] = __("Background Color", $this->lang_key);
 		$arr_settings['setting_slideshow_image_columns'] = __("Image Columns", $this->lang_key);
+
+		if(get_option('setting_slideshow_image_columns') > 1)
+		{
+			$arr_settings['setting_slideshow_image_steps'] = __("Image Steps", $this->lang_key);
+		}
+
 		$arr_settings['setting_slideshow_height_ratio'] = __("Height Ratio", $this->lang_key);
 		$arr_settings['setting_slideshow_height_ratio_mobile'] = __("Height Ratio", $this->lang_key)." (".__("Mobile", $this->lang_key).")";
 		$arr_settings['setting_slideshow_image_fit'] = __("Image Fit", $this->lang_key);
 		$arr_settings['setting_slideshow_display_controls'] = __("Display", $this->lang_key);
-
-		/*if(in_array('original', get_option('setting_slideshow_style', array('original'))))
-		{
-			$arr_settings['setting_slideshow_display_thumbnails'] = __("Display Thumbnails", $this->lang_key);
-		}*/
 
 		if(in_array('thumbnails', get_option('setting_slideshow_display_controls')))
 		{
@@ -211,14 +212,6 @@ class mf_slideshow
 		echo show_select(array('data' => $this->get_display_controls_for_select(), 'name' => $setting_key."[]", 'value' => $option));
 	}
 
-	/*function setting_slideshow_display_thumbnails_callback()
-	{
-		$setting_key = get_setting_key(__FUNCTION__);
-		$option = get_option($setting_key, 'no');
-
-		echo show_select(array('data' => get_yes_no_for_select(), 'name' => $setting_key, 'value' => $option));
-	}*/
-
 	function setting_slideshow_thumbnail_columns_callback()
 	{
 		$setting_key = get_setting_key(__FUNCTION__);
@@ -241,6 +234,16 @@ class mf_slideshow
 		$option = get_option($setting_key, 1);
 
 		echo show_textfield(array('type' => 'number', 'name' => $setting_key, 'value' => $option, 'xtra' => " min='1' max='3'"));
+	}
+
+	function setting_slideshow_image_steps_callback()
+	{
+		$setting_key = get_setting_key(__FUNCTION__);
+		$option = get_option($setting_key, 1);
+
+		$option_max = get_option('setting_slideshow_image_columns');
+
+		echo show_textfield(array('type' => 'number', 'name' => $setting_key, 'value' => $option, 'xtra' => " min='1' max='".$option_max."'", 'description' => __("How many images do you want to switch everytime you go forward or backwards?", $this->lang_key)));
 	}
 
 	function setting_slideshow_height_ratio_callback()
@@ -364,30 +367,31 @@ class mf_slideshow
 	{
 		$setting_slideshow_style = get_option_or_default('setting_slideshow_style', array('original'));
 		$setting_slideshow_image_columns = get_option('setting_slideshow_image_columns', 1);
-		$setting_image_columns = get_option('setting_slideshow_image_columns', 1);
-		$setting_height_ratio = get_option('setting_slideshow_height_ratio', '0.5');
-		$setting_height_ratio_mobile = get_option('setting_slideshow_height_ratio_mobile', '1');
+		$setting_slideshow_image_steps = get_option('setting_slideshow_image_steps', 1);
+		$setting_slideshow_height_ratio = get_option('setting_slideshow_height_ratio', '0.5');
+		$setting_slideshow_height_ratio_mobile = get_option('setting_slideshow_height_ratio_mobile', '1');
 
-		$setting_height_ratio = str_replace(",", ".", $setting_height_ratio);
-		$setting_height_ratio_mobile = str_replace(",", ".", $setting_height_ratio_mobile);
+		$setting_slideshow_height_ratio = str_replace(",", ".", $setting_slideshow_height_ratio);
+		$setting_slideshow_height_ratio_mobile = str_replace(",", ".", $setting_slideshow_height_ratio_mobile);
 
-		if($setting_height_ratio > 2 || $setting_height_ratio < 0.2)
+		if($setting_slideshow_height_ratio > 2 || $setting_slideshow_height_ratio < 0.2)
 		{
-			$setting_height_ratio = 1;
+			$setting_slideshow_height_ratio = 1;
 		}
 
-		if($setting_height_ratio_mobile > 2 || $setting_height_ratio_mobile < 0.2)
+		if($setting_slideshow_height_ratio_mobile > 2 || $setting_slideshow_height_ratio_mobile < 0.2)
 		{
-			$setting_height_ratio_mobile = 1;
+			$setting_slideshow_height_ratio_mobile = 1;
 		}
 
 		$arr_settings = array(
 			'autoplay' => get_option('setting_slideshow_autoplay', 0),
 			'duration' => (get_option_or_default('setting_slideshow_duration', 5) * 1000),
 			'display_controls' => get_option('setting_slideshow_display_controls'),
-			'image_columns' => $setting_image_columns,
-			'height_ratio' => $setting_height_ratio,
-			'height_ratio_mobile' => $setting_height_ratio_mobile,
+			'image_columns' => $setting_slideshow_image_columns,
+			'image_steps' => $setting_slideshow_image_steps,
+			'height_ratio' => $setting_slideshow_height_ratio,
+			'height_ratio_mobile' => $setting_slideshow_height_ratio_mobile,
 		);
 
 		$plugin_include_url = plugin_dir_url(__FILE__);
@@ -433,8 +437,8 @@ class mf_slideshow
 			'display_text_background' => 'yes',
 			'random' => get_option('setting_slideshow_random', 0),
 			'display_controls' => get_option('setting_slideshow_display_controls'),
-			//'display_thumbnails' => get_option('setting_slideshow_display_thumbnails'),
 			'image_columns' => get_option_or_default('setting_slideshow_image_columns', 1),
+			'image_steps' => get_option_or_default('setting_slideshow_image_steps', 1),
 			'height_ratio' => get_option_or_default('setting_slideshow_height_ratio', '0.5'),
 			'height_ratio_mobile' => get_option_or_default('setting_slideshow_height_ratio_mobile', '1'),
 		), $atts));
@@ -450,8 +454,8 @@ class mf_slideshow
 			'slideshow_display_text_background' => $display_text_background,
 			'slideshow_random' => $random,
 			'slideshow_display_controls' => $display_controls,
-			//'slideshow_display_thumbnails' => $display_thumbnails,
 			'slideshow_image_columns' => $image_columns,
+			'slideshow_image_steps' => $image_steps,
 			'slideshow_height_ratio' => $height_ratio,
 			'slideshow_height_ratio_mobile' => $height_ratio_mobile,
 		));
@@ -574,9 +578,9 @@ class mf_slideshow
 			if(!isset($data['settings']['slideshow_animate'])){						$data['settings']['slideshow_animate'] = 'no';}
 			if(!isset($data['settings']['slideshow_background']) || $data['settings']['slideshow_background'] == ''){	$data['settings']['slideshow_background']  = get_option('setting_slideshow_background_color', "#000000");}
 			if(!isset($data['settings']['slideshow_image_columns'])){				$data['settings']['slideshow_image_columns'] = get_option_or_default('setting_slideshow_image_columns', 1);}
+			if(!isset($data['settings']['slideshow_image_steps'])){					$data['settings']['slideshow_image_steps'] = get_option_or_default('setting_slideshow_image_steps', 1);}
 			if(!isset($data['settings']['slideshow_display_text_background'])){		$data['settings']['slideshow_display_text_background'] = 'yes';}
 			if(!isset($data['settings']['slideshow_display_controls'])){			$data['settings']['slideshow_display_controls'] = get_option('setting_slideshow_display_controls');}
-			//if(!isset($data['settings']['slideshow_display_thumbnails'])){			$data['settings']['slideshow_display_thumbnails'] = get_option('setting_slideshow_display_thumbnails');}
 
 			$setting_slideshow_style = isset($data['settings']['slideshow_style']) ? $data['settings']['slideshow_style'] : get_option('setting_slideshow_style', array('original'));
 			$setting_random = isset($data['settings']['slideshow_random']) ? $data['settings']['slideshow_random'] : get_option('setting_slideshow_random');
@@ -701,7 +705,7 @@ class mf_slideshow
 				$images .= "</div>";
 			}
 
-			$arr_attributes = array('autoplay', 'animate', 'duration', 'fade_duration', 'display_text_background', 'image_columns', 'height_ratio', 'height_ratio_mobile'); //, 'display_controls'
+			$arr_attributes = array('autoplay', 'animate', 'duration', 'fade_duration', 'display_text_background', 'image_columns', 'image_steps', 'height_ratio', 'height_ratio_mobile'); //, 'display_controls'
 
 			$slideshow_classes = "slideshow ".$data['settings']['slideshow_style'];
 			$slideshow_style = $slideshow_attributes = "";
@@ -801,7 +805,7 @@ class mf_slideshow
 
 				$out .= "</div>";
 
-				if(count($data['images']) > 1 && $data['settings']['slideshow_style'] == 'original' && in_array('thumbnails', $data['settings']['slideshow_display_controls'])) //$data['settings']['slideshow_display_thumbnails'] == 'yes'
+				if(count($data['images']) > 1 && $data['settings']['slideshow_style'] == 'original' && in_array('thumbnails', $data['settings']['slideshow_display_controls']))
 				{
 					$site_url = get_site_url();
 					$i = 1;
@@ -863,8 +867,8 @@ class widget_slideshow extends WP_Widget
 			'slideshow_display_text_background' => 'yes',
 			'slideshow_random' => get_option('setting_slideshow_random', 0),
 			'slideshow_display_controls' => get_option('setting_slideshow_display_controls'),
-			//'slideshow_display_thumbnails' => get_option('setting_slideshow_display_thumbnails'),
 			'slideshow_image_columns' => get_option_or_default('setting_slideshow_image_columns', 1),
+			'slideshow_image_steps' => get_option_or_default('setting_slideshow_image_steps', 1),
 			'slideshow_height_ratio' => get_option_or_default('setting_slideshow_height_ratio', '0.5'),
 			'slideshow_height_ratio_mobile' => get_option_or_default('setting_slideshow_height_ratio_mobile', '1'),
 		);
@@ -913,8 +917,8 @@ class widget_slideshow extends WP_Widget
 		$instance['slideshow_display_text_background'] = sanitize_text_field($new_instance['slideshow_display_text_background']);
 		$instance['slideshow_random'] = sanitize_text_field($new_instance['slideshow_random']);
 		$instance['slideshow_display_controls'] = $new_instance['slideshow_display_controls'];
-		//$instance['slideshow_display_thumbnails'] = sanitize_text_field($new_instance['slideshow_display_thumbnails']);
 		$instance['slideshow_image_columns'] = sanitize_text_field($new_instance['slideshow_image_columns']);
+		$instance['slideshow_image_steps'] = sanitize_text_field($new_instance['slideshow_image_steps']);
 		$instance['slideshow_height_ratio'] = str_replace(",", ".", sanitize_text_field($new_instance['slideshow_height_ratio']));
 		$instance['slideshow_height_ratio_mobile'] = str_replace(",", ".", sanitize_text_field($new_instance['slideshow_height_ratio_mobile']));
 
@@ -949,19 +953,21 @@ class widget_slideshow extends WP_Widget
 				.show_select(array('data' => get_yes_no_for_select(), 'name' => $this->get_field_name('slideshow_display_text_background'), 'text' => __("Display Text Background", $this->obj_slideshow->lang_key), 'value' => $instance['slideshow_display_text_background']))
 			."</div>
 			<div class='flex_flow'>"
-				.show_textfield(array('type' => 'number', 'name' => $this->get_field_name('slideshow_image_columns'), 'text' => __("Image Columns", $this->obj_slideshow->lang_key), 'value' => $instance['slideshow_image_columns'], 'xtra' => " min='1' max='3'"))
-				.show_textfield(array('name' => $this->get_field_name('slideshow_height_ratio'), 'text' => __("Height Ratio", $this->obj_slideshow->lang_key)." <i class='fa fa-info-circle' title='".sprintf(__("From %s to %s. %s means the slideshow will be presented in landscape, %s means square format and %s means the slideshow is presented in portrait", $this->obj_slideshow->lang_key), "0.3", "2", "0.3", "1", "2")."'></i>", 'value' => $instance['slideshow_height_ratio']))
+				.show_textfield(array('type' => 'number', 'name' => $this->get_field_name('slideshow_image_columns'), 'text' => __("Image Columns", $this->obj_slideshow->lang_key), 'value' => $instance['slideshow_image_columns'], 'xtra' => " min='1' max='3'"));
+
+				if($instance['slideshow_image_columns'] > 1)
+				{
+					$option_max = $instance['slideshow_image_columns'];
+
+					echo show_textfield(array('type' => 'number', 'name' => $this->get_field_name('slideshow_image_steps'), 'text' => __("Image Steps", $this->obj_slideshow->lang_key), 'value' => $instance['slideshow_image_steps'], 'xtra' => " min='1' max='".$option_max."'"));
+				}
+
+				echo show_textfield(array('name' => $this->get_field_name('slideshow_height_ratio'), 'text' => __("Height Ratio", $this->obj_slideshow->lang_key)." <i class='fa fa-info-circle' title='".sprintf(__("From %s to %s. %s means the slideshow will be presented in landscape, %s means square format and %s means the slideshow is presented in portrait", $this->obj_slideshow->lang_key), "0.3", "2", "0.3", "1", "2")."'></i>", 'value' => $instance['slideshow_height_ratio']))
 				.show_textfield(array('name' => $this->get_field_name('slideshow_height_ratio_mobile'), 'text' => __("Height Ratio", $this->obj_slideshow->lang_key)." (".__("Mobile", $this->obj_slideshow->lang_key).")", 'value' => $instance['slideshow_height_ratio_mobile']))
 			."</div>
 			<div class='flex_flow'>"
-				.show_select(array('data' => $this->obj_slideshow->get_display_controls_for_select(), 'name' => $this->get_field_name('slideshow_display_controls'), 'text' => __("Display", $this->obj_slideshow->lang_key), 'value' => $instance['slideshow_display_controls']));
-
-				/*if($instance['slideshow_style'] == 'original')
-				{
-					echo show_select(array('data' => get_yes_no_for_select(), 'name' => $this->get_field_name('slideshow_display_thumbnails'), 'text' => __("Display Thumbnails", $this->obj_slideshow->lang_key), 'value' => $instance['slideshow_display_thumbnails']));
-				}*/
-
-				echo show_select(array('data' => get_yes_no_for_select(array('return_integer' => true)), 'name' => $this->get_field_name('slideshow_autoplay'), 'text' => __("Autoplay", $this->obj_slideshow->lang_key), 'value' => $instance['slideshow_autoplay']))
+				.show_select(array('data' => $this->obj_slideshow->get_display_controls_for_select(), 'name' => $this->get_field_name('slideshow_display_controls'), 'text' => __("Display", $this->obj_slideshow->lang_key), 'value' => $instance['slideshow_display_controls']))
+				.show_select(array('data' => get_yes_no_for_select(array('return_integer' => true)), 'name' => $this->get_field_name('slideshow_autoplay'), 'text' => __("Autoplay", $this->obj_slideshow->lang_key), 'value' => $instance['slideshow_autoplay']))
 			."</div>";
 
 			if($instance['slideshow_autoplay'] == 1)

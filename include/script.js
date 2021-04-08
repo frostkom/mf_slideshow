@@ -12,8 +12,11 @@ jQuery(function($)
 			fade_duration = parseInt(dom_obj.attr('data-fade_duration') || script_slideshow.fade_duration),
 			random = dom_obj.attr('data-random') || script_slideshow.random,
 			image_columns = dom_obj.attr('data-image_columns') || script_slideshow.image_columns,
+			image_steps = parseInt(dom_obj.attr('data-image_steps') || script_slideshow.image_steps),
 			height_ratio = dom_obj.attr('data-height_ratio') || script_slideshow.height_ratio,
 			height_ratio_mobile = dom_obj.attr('data-height_ratio_mobile') || script_slideshow.height_ratio_mobile;
+
+		console.log("Slideshow: " , image_steps);
 
 		/*function preload(url)
 		{
@@ -43,6 +46,8 @@ jQuery(function($)
 		function change_slide(slide_new)
 		{
 			slide_new = parseInt(slide_new);
+
+			console.log("change_slide: " , slide_new);
 
 			if(slide_new > slider_amount){		slide_new = 1;}
 			else if(slide_new < 1){				slide_new = slider_amount;}
@@ -146,7 +151,7 @@ jQuery(function($)
 			{
 				slide_timeout = setTimeout(function()
 				{
-					change_slide(slide_now + 1);
+					change_slide(slide_now + image_steps);
 				}, duration);
 			}
 		}
@@ -226,14 +231,14 @@ jQuery(function($)
 		{
 			disable_autoplay();
 
-			change_slide(slide_now - 1);
+			change_slide(slide_now - image_steps);
 		});
 
 		dom_obj_container.find(".panel_arrow_right").on('click', function()
 		{
 			disable_autoplay();
 
-			change_slide(slide_now + 1);
+			change_slide(slide_now + image_steps);
 		});
 
 		dom_obj_container.swipe("destroy").swipe(
@@ -247,12 +252,12 @@ jQuery(function($)
 						case 'end':
 							if(direction == 'left')
 							{
-								change_slide(slide_now - 1);
+								change_slide(slide_now - image_steps);
 							}
 
 							else
 							{
-								change_slide(slide_now + 1);
+								change_slide(slide_now + image_steps);
 							}
 						break;
 					}

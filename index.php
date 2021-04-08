@@ -3,7 +3,7 @@
 Plugin Name: MF Slideshow
 Plugin URI: https://github.com/frostkom/mf_slideshow
 Description: 
-Version: 4.8.1
+Version: 4.8.2
 Licence: GPLv2 or later
 Author: Martin Fors
 Author URI: https://frostkom.se
@@ -59,7 +59,7 @@ if(is_plugin_active("mf_base/index.php"))
 	function uninstall_slideshow()
 	{
 		mf_uninstall_plugin(array(
-			'options' => array('setting_slideshow_style', 'setting_slideshow_background_color', 'setting_slideshow_image_columns', 'setting_slideshow_height_ratio', 'setting_slideshow_height_ratio_mobile', 'setting_slideshow_display_controls', 'setting_slideshow_thumbnail_columns', 'setting_slideshow_thumbnail_rows', 'setting_slideshow_autoplay', 'setting_slideshow_duration', 'setting_slideshow_fade_duration', 'setting_slideshow_random', 'setting_slideshow_open_links_in_new_tab', 'setting_slideshow_show_controls', 'setting_slideshow_display_thumbnails'),
+			'options' => array('setting_slideshow_style', 'setting_slideshow_background_color', 'setting_slideshow_image_columns', 'setting_slideshow_image_steps', 'setting_slideshow_height_ratio', 'setting_slideshow_height_ratio_mobile', 'setting_slideshow_display_controls', 'setting_slideshow_thumbnail_columns', 'setting_slideshow_thumbnail_rows', 'setting_slideshow_autoplay', 'setting_slideshow_duration', 'setting_slideshow_fade_duration', 'setting_slideshow_random', 'setting_slideshow_open_links_in_new_tab', 'setting_slideshow_show_controls', 'setting_slideshow_display_thumbnails'),
 			'post_types' => array('slideshow'),
 		));
 	}
