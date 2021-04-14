@@ -16,8 +16,6 @@ jQuery(function($)
 			height_ratio = dom_obj.attr('data-height_ratio') || script_slideshow.height_ratio,
 			height_ratio_mobile = dom_obj.attr('data-height_ratio_mobile') || script_slideshow.height_ratio_mobile;
 
-		console.log("Slideshow: " , image_steps);
-
 		/*function preload(url)
 		{
 			var img = new Image();
@@ -47,10 +45,15 @@ jQuery(function($)
 		{
 			slide_new = parseInt(slide_new);
 
-			console.log("change_slide: " , slide_new);
-
-			if(slide_new > slider_amount){		slide_new = 1;}
-			else if(slide_new < 1){				slide_new = slider_amount;}
+			if(slide_new > slider_amount)
+			{
+				slide_new = (slide_new - slider_amount);
+			}
+			
+			else if(slide_new < 1)
+			{
+				slide_new = (slider_amount + slide_new);
+			}
 
 			var dom_old = dom_obj_container.find(".slide_item[rel=" + slide_now + "]"),
 				dom_new = dom_obj_container.find(".slide_item[rel=" + slide_new + "]");
@@ -89,7 +92,8 @@ jQuery(function($)
 									dom_new.removeClass("animate");
 								}
 
-								dom_new.addClass('active').siblings(".active").removeClass('active');
+								/* Display Container */
+								dom_new.addClass('active').siblings(".active").removeClass('active active_init');
 							});
 						}
 
@@ -99,7 +103,7 @@ jQuery(function($)
 							dom_new.children(".content").fadeIn(fade_duration / 2);
 
 							/* Display Container */
-							dom_new.addClass('active').css({'order': 1}).siblings(".active").removeClass('active').css({'order': 'unset'});
+							dom_new.addClass('active').css({'order': 1}).siblings(".active").removeClass('active active_init').css({'order': 'unset'});
 
 							display_next(slide_new);
 						}
@@ -128,14 +132,14 @@ jQuery(function($)
 							}
 
 							/* Display Container */
-							dom_new.addClass('active').siblings(".active").removeClass('active');
+							dom_new.addClass('active').siblings(".active").removeClass('active active_init');
 						});
 					}
 
 					else
 					{
 						/* Display Container */
-						dom_new.addClass('active').css({'order': 1}).siblings(".active").removeClass('active').css({'order': 'unset'});
+						dom_new.addClass('active').css({'order': 1}).siblings(".active").removeClass('active active_init').css({'order': 'unset'});
 
 						display_next(slide_new);
 					}

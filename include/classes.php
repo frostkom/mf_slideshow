@@ -626,7 +626,7 @@ class mf_slideshow
 
 							if($i == $active_i)
 							{
-								$container_class .= ($container_class != '' ? " " : "")."active";
+								$container_class .= ($container_class != '' ? " " : "")."active active_init";
 							}
 
 							if($data['settings']['slideshow_image_columns'] > 1)

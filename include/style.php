@@ -195,7 +195,7 @@ echo "@media all
 
 			.slideshow.original .controls_arrows .panel_arrow_left
 			{
-				cursor: url(".$plugin_images_url."arrow_left.png), pointer;
+				cursor: url(".$plugin_images_url."arrow_left.png), e-resize;
 				float: left;
 				height: 100%;
 				width: 50%;
@@ -208,7 +208,7 @@ echo "@media all
 
 			.slideshow.original .controls_arrows .panel_arrow_right
 			{
-				cursor: url(".$plugin_images_url."arrow_right.png), pointer;
+				cursor: url(".$plugin_images_url."arrow_right.png), e-resize;
 				float: right;
 				height: 100%;
 				width: 50%;
