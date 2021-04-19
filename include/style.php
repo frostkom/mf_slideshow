@@ -61,6 +61,12 @@ echo "@media all
 					display: none;
 				}
 
+				/* This will allow animte to fade in/out correctly */
+				.slideshow.original .slideshow_container .columns_1 .slide_item
+				{
+					position: absolute;
+				}
+
 				.slideshow.original .slideshow_container .slide_item img
 				{
 					height: 100%;
@@ -70,6 +76,12 @@ echo "@media all
 					-webkit-transform: scale(1);
 					transform: scale(1);
 				}
+
+					.slideshow.original .slideshow_container .slide_item.animate > img
+					{
+						-webkit-transform: scale(1.2);
+						transform: scale(1.2);
+					}
 
 		/* Columns */
 		/* ############################## */
@@ -98,12 +110,6 @@ echo "@media all
 				flex: 0 1 33%;
 				width: 33%;
 			}
-
-				.slideshow.original .slideshow_container .columns_1 .slide_item.animate > img
-				{
-					-webkit-transform: scale(1.2);
-					transform: scale(1.2);
-				}
 		/* ############################## */
 
 		/* Content */
@@ -115,7 +121,7 @@ echo "@media all
 			top: 50%;
 		}
 
-			.slideshow.original .slideshow_container .slide_item .content
+			.slideshow.original .slideshow_container .slide_item.active_init .content
 			{
 				display: block;
 			}

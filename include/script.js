@@ -58,6 +58,11 @@ jQuery(function($)
 			var dom_old = dom_obj_container.find(".slide_item[rel=" + slide_now + "]"),
 				dom_new = dom_obj_container.find(".slide_item[rel=" + slide_new + "]");
 
+			if(animate == 'yes')
+			{
+				dom_old.removeClass("animate");
+			}
+
 			if(autoplay == 1)
 			{
 				clearTimeout(slide_timeout);
@@ -94,6 +99,8 @@ jQuery(function($)
 
 								/* Display Container */
 								dom_new.addClass('active').siblings(".active").removeClass('active active_init');
+
+								slide_now = slide_new;
 							});
 						}
 
@@ -106,6 +113,8 @@ jQuery(function($)
 							dom_new.addClass('active').css({'order': 1}).siblings(".active").removeClass('active active_init').css({'order': 'unset'});
 
 							display_next(slide_new);
+
+							slide_now = slide_new;
 						}
 					});
 				}
@@ -133,6 +142,8 @@ jQuery(function($)
 
 							/* Display Container */
 							dom_new.addClass('active').siblings(".active").removeClass('active active_init');
+
+							slide_now = slide_new;
 						});
 					}
 
@@ -142,14 +153,14 @@ jQuery(function($)
 						dom_new.addClass('active').css({'order': 1}).siblings(".active").removeClass('active active_init').css({'order': 'unset'});
 
 						display_next(slide_new);
+
+						slide_now = slide_new;
 					}
 				}
 
 				/* Highlight Dot */
 				dom_obj.find("li[rel=" + slide_new + "]").addClass('active').siblings("li").removeClass('active');
 			}
-
-			slide_now = slide_new;
 
 			if(autoplay == 1)
 			{
