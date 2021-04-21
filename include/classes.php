@@ -7,7 +7,7 @@ class mf_slideshow
 		$this->post_type = 'slideshow';
 		$this->meta_prefix = 'mf_slide_';
 		$this->lang_key = 'lang_slideshow';
-		
+
 		$this->allow_widget_override_default = array('background', 'image_columns', 'height_ratio', 'display_controls', 'thumbnail_columns', 'autoplay'); // 'image_fit'
 	}
 
@@ -55,7 +55,7 @@ class mf_slideshow
 
 		return $arr_data;
 	}
-	
+
 	function get_allow_widget_override_for_select()
 	{
 		return array(
