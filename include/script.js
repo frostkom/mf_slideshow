@@ -52,14 +52,14 @@ jQuery(function($)
 		{
 			return dom_obj_container.find(".slide_item[rel=" + slide_no + "]");
 		}
-		
+
 		function fade_in_content(dom_new, slide_no)
 		{
 			dom_new.children(".content").fadeIn(setting_fade_duration / 2);
 
 			display_container(dom_new, slide_no);
 		}
-		
+
 		function fade_out_container(dom_old)
 		{
 			dom_old.fadeOut(setting_fade_duration, function()
@@ -94,7 +94,7 @@ jQuery(function($)
 
 				find_slide_item(slide_next).addClass('active').css({'order': (1 + j)});
 			}
-			
+
 			slide_now = slide_no;
 		}
 

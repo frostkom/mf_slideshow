@@ -6,7 +6,6 @@ class mf_slideshow
 	{
 		$this->post_type = 'slideshow';
 		$this->meta_prefix = 'mf_slide_';
-		$this->lang_key = 'lang_slideshow';
 
 		$this->allow_widget_override_default = array('background', 'image_columns', 'height_ratio', 'display_controls', 'thumbnail_columns', 'autoplay'); // 'image_fit'
 	}
@@ -14,14 +13,14 @@ class mf_slideshow
 	function get_display_controls_for_select()
 	{
 		$arr_data = array(
-			'arrows' => __("Arrows", $this->lang_key),
-			'dots' => __("Dots", $this->lang_key),
-			'magnifying_glass' => __("Magnifying Glass", $this->lang_key),
+			'arrows' => __("Arrows", 'lang_slideshow'),
+			'dots' => __("Dots", 'lang_slideshow'),
+			'magnifying_glass' => __("Magnifying Glass", 'lang_slideshow'),
 		);
 
 		/*if(in_array('original', get_option('setting_slideshow_style', array('original'))))
 		{*/
-			$arr_data['thumbnails'] = __("Thumbnails", $this->lang_key);
+			$arr_data['thumbnails'] = __("Thumbnails", 'lang_slideshow');
 		//}
 
 		return $arr_data;
@@ -30,8 +29,8 @@ class mf_slideshow
 	function get_thumbnail_rows_for_select()
 	{
 		return array(
-			'one' => __("One", $this->lang_key),
-			'multiple' => __("Multiple", $this->lang_key),
+			'one' => __("One", 'lang_slideshow'),
+			'multiple' => __("Multiple", 'lang_slideshow'),
 		);
 	}
 
@@ -40,17 +39,17 @@ class mf_slideshow
 		if(!isset($data['styles'])){	$data['styles'] = get_option('setting_slideshow_style', array('original'));}
 
 		$arr_data = array(
-			'original' => __("Default", $this->lang_key),
+			'original' => __("Default", 'lang_slideshow'),
 		);
 
 		if(in_array('flickity', $data['styles']))
 		{
-			$arr_data['flickity'] = __("Flickity", $this->lang_key)." (".__("beta", $this->lang_key).")";
+			$arr_data['flickity'] = __("Flickity", 'lang_slideshow')." (".__("beta", 'lang_slideshow').")";
 		}
 
 		if(in_array('carousel', $data['styles']))
 		{
-			$arr_data['carousel'] = __("Carousel", $this->lang_key)." (".__("beta", $this->lang_key).")";
+			$arr_data['carousel'] = __("Carousel", 'lang_slideshow')." (".__("beta", 'lang_slideshow').")";
 		}
 
 		return $arr_data;
@@ -59,22 +58,22 @@ class mf_slideshow
 	function get_allow_widget_override_for_select()
 	{
 		return array(
-			'background' => __("Background", $this->lang_key),
-			'image_columns' => __("Image Columns", $this->lang_key),
-			'height_ratio' => __("Height Ratio", $this->lang_key),
-			//'image_fit' => __("Image Fit", $this->lang_key),
-			'display_controls' => __("Display", $this->lang_key),
-			'thumbnail_columns' => __("Thumbnails", $this->lang_key),
-			'autoplay' => __("Autoplay", $this->lang_key),
+			'background' => __("Background", 'lang_slideshow'),
+			'image_columns' => __("Image Columns", 'lang_slideshow'),
+			'height_ratio' => __("Height Ratio", 'lang_slideshow'),
+			//'image_fit' => __("Image Fit", 'lang_slideshow'),
+			'display_controls' => __("Display", 'lang_slideshow'),
+			'thumbnail_columns' => __("Thumbnails", 'lang_slideshow'),
+			'autoplay' => __("Autoplay", 'lang_slideshow'),
 		);
 	}
 
 	function init()
 	{
 		$labels = array(
-			'name' => _x(__("Slideshows", $this->lang_key), 'post type general name'),
-			'singular_name' => _x(__("Slideshow", $this->lang_key), 'post type singular name'),
-			'menu_name' => __("Slideshow", $this->lang_key)
+			'name' => _x(__("Slideshows", 'lang_slideshow'), 'post type general name'),
+			'singular_name' => _x(__("Slideshow", 'lang_slideshow'), 'post type singular name'),
+			'menu_name' => __("Slideshow", 'lang_slideshow')
 		);
 
 		$args = array(
@@ -100,45 +99,47 @@ class mf_slideshow
 		add_settings_section($options_area, "", array($this, $options_area."_callback"), BASE_OPTIONS_PAGE);
 
 		$arr_settings = array(
-			'setting_slideshow_style' => __("Style", $this->lang_key),
+			'setting_slideshow_style' => __("Style", 'lang_slideshow'),
 		);
 
-		$arr_settings['setting_slideshow_allow_widget_override'] = __("Allow Widget Override", $this->lang_key);
-		$arr_settings['setting_slideshow_background_color'] = __("Background Color", $this->lang_key);
-		$arr_settings['setting_slideshow_display_text_background'] = __("Display Text Background", $this->lang_key);
-		$arr_settings['setting_slideshow_image_columns'] = __("Image Columns", $this->lang_key);
+		$arr_settings['setting_slideshow_allow_widget_override'] = __("Allow Widget Override", 'lang_slideshow');
+		$arr_settings['setting_slideshow_background_color'] = __("Background Color", 'lang_slideshow');
+		$arr_settings['setting_slideshow_display_text_background'] = __("Display Text Background", 'lang_slideshow');
+		$arr_settings['setting_slideshow_image_columns'] = __("Image Columns", 'lang_slideshow');
 
 		if(get_option('setting_slideshow_image_columns') > 1)
 		{
-			$arr_settings['setting_slideshow_image_steps'] = __("Image Steps", $this->lang_key);
+			$arr_settings['setting_slideshow_image_steps'] = __("Image Steps", 'lang_slideshow');
 		}
 
-		$arr_settings['setting_slideshow_height_ratio'] = __("Height Ratio", $this->lang_key);
-		$arr_settings['setting_slideshow_height_ratio_mobile'] = __("Height Ratio", $this->lang_key)." (".__("Mobile", $this->lang_key).")";
-		$arr_settings['setting_slideshow_image_fit'] = __("Image Fit", $this->lang_key);
-		$arr_settings['setting_slideshow_display_controls'] = __("Display", $this->lang_key);
+		$arr_settings['setting_slideshow_height_ratio'] = __("Height Ratio", 'lang_slideshow');
+		$arr_settings['setting_slideshow_height_ratio_mobile'] = __("Height Ratio", 'lang_slideshow')." (".__("Mobile", 'lang_slideshow').")";
+		$arr_settings['setting_slideshow_image_fit'] = __("Image Fit", 'lang_slideshow');
+		$arr_settings['setting_slideshow_display_controls'] = __("Display", 'lang_slideshow');
 
-		if(in_array('thumbnails', get_option('setting_slideshow_display_controls')))
+		$setting_slideshow_display_controls = get_option('setting_slideshow_display_controls');
+
+		if(is_array($setting_slideshow_display_controls) && in_array('thumbnails', $setting_slideshow_display_controls))
 		{
-			$arr_settings['setting_slideshow_thumbnail_columns'] = __("Thumbnail Columns", $this->lang_key);
-			$arr_settings['setting_slideshow_thumbnail_rows'] = __("Thumbnail Rows", $this->lang_key);
+			$arr_settings['setting_slideshow_thumbnail_columns'] = __("Thumbnail Columns", 'lang_slideshow');
+			$arr_settings['setting_slideshow_thumbnail_rows'] = __("Thumbnail Rows", 'lang_slideshow');
 		}
 
-		$arr_settings['setting_slideshow_autoplay'] = __("Autoplay", $this->lang_key);
+		$arr_settings['setting_slideshow_autoplay'] = __("Autoplay", 'lang_slideshow');
 
 		if(get_option('setting_slideshow_autoplay') == 1)
 		{
-			$arr_settings['setting_slideshow_animate'] = __("Animate", $this->lang_key);
-			$arr_settings['setting_slideshow_duration'] = __("Duration", $this->lang_key);
+			$arr_settings['setting_slideshow_animate'] = __("Animate", 'lang_slideshow');
+			$arr_settings['setting_slideshow_duration'] = __("Duration", 'lang_slideshow');
 		}
 
 		if(in_array('original', get_option('setting_slideshow_style', array('original'))))
 		{
-			$arr_settings['setting_slideshow_fade_duration'] = __("Fade Duration", $this->lang_key);
-			$arr_settings['setting_slideshow_random'] = __("Random", $this->lang_key);
+			$arr_settings['setting_slideshow_fade_duration'] = __("Fade Duration", 'lang_slideshow');
+			$arr_settings['setting_slideshow_random'] = __("Random", 'lang_slideshow');
 		}
 
-		$arr_settings['setting_slideshow_open_links_in_new_tab'] = __("Open Links in new Tabs", $this->lang_key);
+		$arr_settings['setting_slideshow_open_links_in_new_tab'] = __("Open Links in new Tabs", 'lang_slideshow');
 
 		show_settings_fields(array('area' => $options_area, 'object' => $this, 'settings' => $arr_settings));
 	}
@@ -147,7 +148,7 @@ class mf_slideshow
 	{
 		$setting_key = get_setting_key(__FUNCTION__);
 
-		echo settings_header($setting_key, __("Slideshow", $this->lang_key));
+		echo settings_header($setting_key, __("Slideshow", 'lang_slideshow'));
 	}
 
 	function setting_slideshow_style_callback()
@@ -197,7 +198,7 @@ class mf_slideshow
 
 		$option_max = get_option('setting_slideshow_image_columns');
 
-		echo show_textfield(array('type' => 'number', 'name' => $setting_key, 'value' => $option, 'xtra' => " min='1' max='".$option_max."'", 'description' => __("How many images do you want to switch everytime you go forward or backwards?", $this->lang_key)));
+		echo show_textfield(array('type' => 'number', 'name' => $setting_key, 'value' => $option, 'xtra' => " min='1' max='".$option_max."'", 'description' => __("How many images do you want to switch everytime you go forward or backwards?", 'lang_slideshow')));
 	}
 
 	function setting_slideshow_height_ratio_callback()
@@ -205,7 +206,7 @@ class mf_slideshow
 		$setting_key = get_setting_key(__FUNCTION__);
 		$option = get_option($setting_key, '0.5');
 
-		echo show_textfield(array('name' => $setting_key, 'value' => $option, 'description' => sprintf(__("From %s to %s. %s means the slideshow will be presented in landscape, %s means square format and %s means the slideshow is presented in portrait", $this->lang_key), "0.3", "2", "0.3", "1", "2")));
+		echo show_textfield(array('name' => $setting_key, 'value' => $option, 'description' => sprintf(__("From %s to %s. %s means the slideshow will be presented in landscape, %s means square format and %s means the slideshow is presented in portrait", 'lang_slideshow'), "0.3", "2", "0.3", "1", "2")));
 	}
 
 	function setting_slideshow_height_ratio_mobile_callback()
@@ -222,9 +223,9 @@ class mf_slideshow
 		$option = get_option($setting_key, 'cover');
 
 		$arr_data = array(
-			'none' => "-- ".__("None", $this->lang_key)." --",
-			'cover' => __("Cover", $this->lang_key),
-			'contain' => __("Contain", $this->lang_key),
+			'none' => "-- ".__("None", 'lang_slideshow')." --",
+			'cover' => __("Cover", 'lang_slideshow'),
+			'contain' => __("Contain", 'lang_slideshow'),
 		);
 
 		echo show_select(array('data' => $arr_data, 'name' => $setting_key, 'value' => $option));
@@ -246,6 +247,7 @@ class mf_slideshow
 				$arr_default = array('arrows', 'magnifying_glass');
 			break;
 
+			default:
 			case 'all':
 				$arr_default = array('dots', 'arrows', 'magnifying_glass');
 			break;
@@ -299,7 +301,7 @@ class mf_slideshow
 		$setting_key = get_setting_key(__FUNCTION__);
 		$option = get_option($setting_key, 5);
 
-		echo show_textfield(array('type' => 'number', 'name' => $setting_key, 'value' => $option, 'xtra' => "min='2'", 'suffix' => __("s", $this->lang_key)));
+		echo show_textfield(array('type' => 'number', 'name' => $setting_key, 'value' => $option, 'xtra' => "min='2'", 'suffix' => __("s", 'lang_slideshow')));
 	}
 
 	function setting_slideshow_fade_duration_callback()
@@ -307,7 +309,7 @@ class mf_slideshow
 		$setting_key = get_setting_key(__FUNCTION__);
 		$option = get_option($setting_key, 400);
 
-		echo show_textfield(array('type' => 'number', 'name' => $setting_key, 'value' => $option, 'xtra' => "min='400' max='2000'", 'suffix' => __("ms", $this->lang_key)));
+		echo show_textfield(array('type' => 'number', 'name' => $setting_key, 'value' => $option, 'xtra' => "min='400' max='2000'", 'suffix' => __("ms", 'lang_slideshow')));
 	}
 
 	function setting_slideshow_random_callback()
@@ -324,9 +326,9 @@ class mf_slideshow
 		$option = get_option($setting_key, 'no');
 
 		$arr_data = array(
-			'no' => __("No", $this->lang_key),
-			'yes' => __("Yes", $this->lang_key)." (".__("When link is external", $this->lang_key).")",
-			//'yes_always' => __("Yes", $this->lang_key)." (".__("Always", $this->lang_key).")",
+			'no' => __("No", 'lang_slideshow'),
+			'yes' => __("Yes", 'lang_slideshow')." (".__("When link is external", 'lang_slideshow').")",
+			//'yes_always' => __("Yes", 'lang_slideshow')." (".__("Always", 'lang_slideshow').")",
 		);
 
 		echo show_select(array('data' => $arr_data, 'name' => $setting_key, 'value' => $option));
@@ -336,37 +338,37 @@ class mf_slideshow
 	{
 		$meta_boxes[] = array(
 			'id' => $this->meta_prefix.'settings',
-			'title' => __("Settings", $this->lang_key),
+			'title' => __("Settings", 'lang_slideshow'),
 			'post_types' => array($this->post_type),
 			'context' => 'side',
 			'priority' => 'low',
 			'fields' => array(
 				/*array(
-					'name' => __("Height", $this->lang_key),
+					'name' => __("Height", 'lang_slideshow'),
 					'id' => $this->meta_prefix.'height',
 					'type' => 'number',
 					'min' => 1,
 				),*/
 				array(
-					'name' => __("Content Position", $this->lang_key),
+					'name' => __("Content Position", 'lang_slideshow'),
 					'id' => $this->meta_prefix.'content_position',
 					'type' => 'select',
 					'options' => array(
-						'' => "-- ".__("Choose Here", $this->lang_key)." --",
-						'left' => __("Left", $this->lang_key),
-						'center' => __("Center", $this->lang_key),
-						'bottom' => __("Bottom", $this->lang_key),
-						'right' => __("Right", $this->lang_key),
+						'' => "-- ".__("Choose Here", 'lang_slideshow')." --",
+						'left' => __("Left", 'lang_slideshow'),
+						'center' => __("Center", 'lang_slideshow'),
+						'bottom' => __("Bottom", 'lang_slideshow'),
+						'right' => __("Right", 'lang_slideshow'),
 					),
 					'std' => 'center',
 				),
 				array(
-					'name' => __("Content Style", $this->lang_key),
+					'name' => __("Content Style", 'lang_slideshow'),
 					'id' => $this->meta_prefix.'content_style',
 					'type' => 'textarea',
 				),
 				array(
-					'name' => __("Page", $this->lang_key),
+					'name' => __("Page", 'lang_slideshow'),
 					'id' => $this->meta_prefix.'page',
 					'type' => 'select',
 					'options' => get_posts_for_select(array('add_choose_here' => true, 'optgroup' => false)),
@@ -376,7 +378,7 @@ class mf_slideshow
 					),
 				),
 				array(
-					'name' => __("External Link", $this->lang_key),
+					'name' => __("External Link", 'lang_slideshow'),
 					'id' => $this->meta_prefix.'link',
 					'type' => 'url',
 					'attributes' => array(
@@ -389,7 +391,7 @@ class mf_slideshow
 
 		$meta_boxes[] = array(
 			'id' => $this->meta_prefix.'images',
-			'title' => __("Images", $this->lang_key),
+			'title' => __("Images", 'lang_slideshow'),
 			'post_types' => array($this->post_type),
 			//'context' => 'side',
 			'priority' => 'high',
@@ -569,7 +571,7 @@ class mf_slideshow
 
 		else
 		{
-			$out .= "<p>".__("I could not find any images to load", $this->lang_key)."</p>";
+			$out .= "<p>".__("I could not find any images to load", 'lang_slideshow')."</p>";
 		}
 
 		return $out;
@@ -726,7 +728,7 @@ class mf_slideshow
 														break;
 													}
 
-												$images .= ">".__("Read More", $this->lang_key)."&hellip;</a>";
+												$images .= ">".__("Read More", 'lang_slideshow')."&hellip;</a>";
 											}
 
 										$images .= "</div>
@@ -894,7 +896,7 @@ class widget_slideshow extends WP_Widget
 
 		$this->widget_ops = array(
 			'classname' => 'slideshow_wrapper',
-			'description' => __("Display a slideshow that you have created", $this->obj_slideshow->lang_key)
+			'description' => __("Display a slideshow that you have created", 'lang_slideshow')
 		);
 
 		$this->setting_slideshow_allow_widget_override = get_option('setting_slideshow_allow_widget_override', $this->obj_slideshow->allow_widget_override_default);
@@ -937,7 +939,7 @@ class widget_slideshow extends WP_Widget
 			$this->arr_default['slideshow_random'] = get_option('setting_slideshow_random', 0);
 		}
 
-		parent::__construct('slideshow-widget', __("Slideshow", $this->obj_slideshow->lang_key), $this->widget_ops);
+		parent::__construct('slideshow-widget', __("Slideshow", 'lang_slideshow'), $this->widget_ops);
 	}
 
 	function widget($args, $instance)
@@ -1019,12 +1021,12 @@ class widget_slideshow extends WP_Widget
 		$arr_data_styles = $this->obj_slideshow->get_slideshow_styles_for_select();
 
 		echo "<div class='mf_form'>"
-			.show_textfield(array('name' => $this->get_field_name('slideshow_heading'), 'text' => __("Heading", $this->obj_slideshow->lang_key), 'value' => $instance['slideshow_heading'], 'xtra' => " id='".$this->widget_ops['classname']."-title'"))
-			.show_select(array('data' => $arr_data_parents, 'name' => $this->get_field_name('parent'), 'text' => __("Parent", $this->obj_slideshow->lang_key), 'value' => $instance['parent'], 'suffix' => get_option_page_suffix(array('post_type' => $this->obj_slideshow->post_type, 'value' => $instance['parent']))));
+			.show_textfield(array('name' => $this->get_field_name('slideshow_heading'), 'text' => __("Heading", 'lang_slideshow'), 'value' => $instance['slideshow_heading'], 'xtra' => " id='".$this->widget_ops['classname']."-title'"))
+			.show_select(array('data' => $arr_data_parents, 'name' => $this->get_field_name('parent'), 'text' => __("Parent", 'lang_slideshow'), 'value' => $instance['parent'], 'suffix' => get_option_page_suffix(array('post_type' => $this->obj_slideshow->post_type, 'value' => $instance['parent']))));
 
 			if(count($arr_data_styles) > 1)
 			{
-				echo show_select(array('data' => $arr_data_styles, 'name' => $this->get_field_name('slideshow_style'), 'text' => __("Style", $this->obj_slideshow->lang_key), 'value' => $instance['slideshow_style']));
+				echo show_select(array('data' => $arr_data_styles, 'name' => $this->get_field_name('slideshow_style'), 'text' => __("Style", 'lang_slideshow'), 'value' => $instance['slideshow_style']));
 			}
 
 			else
@@ -1032,71 +1034,71 @@ class widget_slideshow extends WP_Widget
 				echo input_hidden(array('name' => $this->get_field_name('slideshow_style'), 'value' => (is_array($instance['slideshow_style']) ? $instance['slideshow_style'][0] : $instance['slideshow_style'])));
 			}
 
-			if(in_array('background', $this->setting_slideshow_allow_widget_override))
+			if(is_array($this->setting_slideshow_allow_widget_override) && in_array('background', $this->setting_slideshow_allow_widget_override))
 			{
 				echo "<div class='flex_flow'>"
-					.show_textfield(array('type' => 'color', 'name' => $this->get_field_name('slideshow_background'), 'text' => __("Background Color", $this->obj_slideshow->lang_key), 'value' => $instance['slideshow_background']))
-					.show_select(array('data' => get_yes_no_for_select(), 'name' => $this->get_field_name('slideshow_display_text_background'), 'text' => __("Display Text Background", $this->obj_slideshow->lang_key), 'value' => $instance['slideshow_display_text_background']))
+					.show_textfield(array('type' => 'color', 'name' => $this->get_field_name('slideshow_background'), 'text' => __("Background Color", 'lang_slideshow'), 'value' => $instance['slideshow_background']))
+					.show_select(array('data' => get_yes_no_for_select(), 'name' => $this->get_field_name('slideshow_display_text_background'), 'text' => __("Display Text Background", 'lang_slideshow'), 'value' => $instance['slideshow_display_text_background']))
 				."</div>";
 			}
 
-			if((in_array('image_columns', $this->setting_slideshow_allow_widget_override) || in_array('height_ratio', $this->setting_slideshow_allow_widget_override)))
+			if(is_array($this->setting_slideshow_allow_widget_override) && (in_array('image_columns', $this->setting_slideshow_allow_widget_override) || in_array('height_ratio', $this->setting_slideshow_allow_widget_override)))
 			{
 				echo "<div class='flex_flow'>";
 
 					if(in_array('image_columns', $this->setting_slideshow_allow_widget_override))
 					{
-						echo show_textfield(array('type' => 'number', 'name' => $this->get_field_name('slideshow_image_columns'), 'text' => __("Image Columns", $this->obj_slideshow->lang_key), 'value' => $instance['slideshow_image_columns'], 'xtra' => " min='1' max='3'"));
+						echo show_textfield(array('type' => 'number', 'name' => $this->get_field_name('slideshow_image_columns'), 'text' => __("Image Columns", 'lang_slideshow'), 'value' => $instance['slideshow_image_columns'], 'xtra' => " min='1' max='3'"));
 
 						if($instance['slideshow_image_columns'] > 1)
 						{
 							$option_max = $instance['slideshow_image_columns'];
 
-							echo show_textfield(array('type' => 'number', 'name' => $this->get_field_name('slideshow_image_steps'), 'text' => __("Image Steps", $this->obj_slideshow->lang_key), 'value' => $instance['slideshow_image_steps'], 'xtra' => " min='1' max='".$option_max."'"));
+							echo show_textfield(array('type' => 'number', 'name' => $this->get_field_name('slideshow_image_steps'), 'text' => __("Image Steps", 'lang_slideshow'), 'value' => $instance['slideshow_image_steps'], 'xtra' => " min='1' max='".$option_max."'"));
 						}
 					}
 
 					if(in_array('height_ratio', $this->setting_slideshow_allow_widget_override))
 					{
-						echo show_textfield(array('name' => $this->get_field_name('slideshow_height_ratio'), 'text' => __("Height Ratio", $this->obj_slideshow->lang_key)." <i class='fa fa-info-circle' title='".sprintf(__("From %s to %s. %s means the slideshow will be presented in landscape, %s means square format and %s means the slideshow is presented in portrait", $this->obj_slideshow->lang_key), "0.3", "2", "0.3", "1", "2")."'></i>", 'value' => $instance['slideshow_height_ratio']))
-						.show_textfield(array('name' => $this->get_field_name('slideshow_height_ratio_mobile'), 'text' => __("Height Ratio", $this->obj_slideshow->lang_key)." (".__("Mobile", $this->obj_slideshow->lang_key).")", 'value' => $instance['slideshow_height_ratio_mobile']));
+						echo show_textfield(array('name' => $this->get_field_name('slideshow_height_ratio'), 'text' => __("Height Ratio", 'lang_slideshow')." <i class='fa fa-info-circle' title='".sprintf(__("From %s to %s. %s means the slideshow will be presented in landscape, %s means square format and %s means the slideshow is presented in portrait", 'lang_slideshow'), "0.3", "2", "0.3", "1", "2")."'></i>", 'value' => $instance['slideshow_height_ratio']))
+						.show_textfield(array('name' => $this->get_field_name('slideshow_height_ratio_mobile'), 'text' => __("Height Ratio", 'lang_slideshow')." (".__("Mobile", 'lang_slideshow').")", 'value' => $instance['slideshow_height_ratio_mobile']));
 					}
 
 				echo "</div>";
 			}
 
-			if(in_array('display_controls', $this->setting_slideshow_allow_widget_override) || in_array('autoplay', $this->setting_slideshow_allow_widget_override))
+			if(is_array($this->setting_slideshow_allow_widget_override) && in_array('display_controls', $this->setting_slideshow_allow_widget_override) || in_array('autoplay', $this->setting_slideshow_allow_widget_override))
 			{
 				echo "<div class='flex_flow'>";
 
 					if(in_array('display_controls', $this->setting_slideshow_allow_widget_override))
 					{
-						echo show_select(array('data' => $this->obj_slideshow->get_display_controls_for_select(), 'name' => $this->get_field_name('slideshow_display_controls')."[]", 'text' => __("Display", $this->obj_slideshow->lang_key), 'value' => $instance['slideshow_display_controls']));
+						echo show_select(array('data' => $this->obj_slideshow->get_display_controls_for_select(), 'name' => $this->get_field_name('slideshow_display_controls')."[]", 'text' => __("Display", 'lang_slideshow'), 'value' => $instance['slideshow_display_controls']));
 					}
 
 					if(in_array('autoplay', $this->setting_slideshow_allow_widget_override))
 					{
-						echo show_select(array('data' => get_yes_no_for_select(array('return_integer' => true)), 'name' => $this->get_field_name('slideshow_autoplay'), 'text' => __("Autoplay", $this->obj_slideshow->lang_key), 'value' => $instance['slideshow_autoplay']));
+						echo show_select(array('data' => get_yes_no_for_select(array('return_integer' => true)), 'name' => $this->get_field_name('slideshow_autoplay'), 'text' => __("Autoplay", 'lang_slideshow'), 'value' => $instance['slideshow_autoplay']));
 					}
 
 				echo "</div>";
 			}
 
-			if(in_array('autoplay', $this->setting_slideshow_allow_widget_override))
+			if(is_array($this->setting_slideshow_allow_widget_override) && in_array('autoplay', $this->setting_slideshow_allow_widget_override))
 			{
 				if($instance['slideshow_autoplay'] == 1)
 				{
 					echo "<div class='flex_flow'>"
-						.show_select(array('data' => get_yes_no_for_select(), 'name' => $this->get_field_name('slideshow_animate'), 'text' => __("Animate", $this->obj_slideshow->lang_key), 'value' => $instance['slideshow_animate']))
-						.show_textfield(array('type' => 'number', 'name' => $this->get_field_name('slideshow_duration'), 'text' => __("Duration", $this->obj_slideshow->lang_key), 'value' => $instance['slideshow_duration'], 'xtra' => "min='2'", 'suffix' => __("s", $this->obj_slideshow->lang_key)))
+						.show_select(array('data' => get_yes_no_for_select(), 'name' => $this->get_field_name('slideshow_animate'), 'text' => __("Animate", 'lang_slideshow'), 'value' => $instance['slideshow_animate']))
+						.show_textfield(array('type' => 'number', 'name' => $this->get_field_name('slideshow_duration'), 'text' => __("Duration", 'lang_slideshow'), 'value' => $instance['slideshow_duration'], 'xtra' => "min='2'", 'suffix' => __("s", 'lang_slideshow')))
 					."</div>";
 				}
 
 				if($instance['slideshow_style'] == 'original')
 				{
 					echo "<div class='flex_flow'>"
-						.show_textfield(array('type' => 'number', 'name' => $this->get_field_name('slideshow_fade_duration'), 'text' => __("Fade Duration", $this->obj_slideshow->lang_key), 'value' => $instance['slideshow_fade_duration'], 'xtra' => "min='400' max='4000'", 'suffix' => __("ms", $this->obj_slideshow->lang_key)))
-						.show_select(array('data' => get_yes_no_for_select(array('return_integer' => true)), 'name' => $this->get_field_name('slideshow_random'), 'text' => __("Random", $this->obj_slideshow->lang_key), 'value' => $instance['slideshow_random']))
+						.show_textfield(array('type' => 'number', 'name' => $this->get_field_name('slideshow_fade_duration'), 'text' => __("Fade Duration", 'lang_slideshow'), 'value' => $instance['slideshow_fade_duration'], 'xtra' => "min='400' max='4000'", 'suffix' => __("ms", 'lang_slideshow')))
+						.show_select(array('data' => get_yes_no_for_select(array('return_integer' => true)), 'name' => $this->get_field_name('slideshow_random'), 'text' => __("Random", 'lang_slideshow'), 'value' => $instance['slideshow_random']))
 					."</div>";
 				}
 			}
