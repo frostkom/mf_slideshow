@@ -849,7 +849,7 @@ class mf_slideshow
 
 				$out .= "</div>";
 
-				if(count($data['images']) > 1 && $data['settings']['slideshow_style'] == 'original' && in_array('thumbnails', $data['settings']['slideshow_display_controls']))
+				if(count($data['images']) > 1 && $data['settings']['slideshow_style'] == 'original' && is_array($data['settings']['slideshow_display_controls']) && in_array('thumbnails', $data['settings']['slideshow_display_controls']))
 				{
 					$site_url = get_site_url();
 					$i = 1;
