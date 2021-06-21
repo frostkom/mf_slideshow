@@ -14,7 +14,10 @@ else
 	global $wpdb;
 }
 
-$obj_slideshow = new mf_slideshow();
+if(!isset($obj_slideshow))
+{
+	$obj_slideshow = new mf_slideshow();
+}
 
 $plugin_images_url = str_replace("/include/", "/images/", plugin_dir_url(__FILE__));
 
@@ -35,6 +38,12 @@ echo "@media all
 		transition: all .5s ease;
 		width: 100%;
 	}
+
+		.full_width > div > .widget > .slideshow.original
+		{
+			padding-left: 0;
+			padding-right: 0;
+		}
 
 		.is_tablet .slideshow.original .slideshow_container
 		{
@@ -380,7 +389,7 @@ echo "@media all
 				}
 		/* ############################## */";
 
-	$result = $wpdb->get_results($wpdb->prepare("SELECT ID, post_parent, meta_value FROM ".$wpdb->posts." INNER JOIN ".$wpdb->postmeta." ON ".$wpdb->posts.".ID = ".$wpdb->postmeta.".post_id WHERE post_type = %s AND post_status = %s AND post_parent > '0' ORDER BY post_parent ASC", $obj_slideshow->post_type, 'publish', $obj_slideshow->meta_prefix.'content_style')); //(post_parent > '0' OR meta_key = %s AND meta_value != '') // This will load [slide_parent_id] into CSS because parent style is also loaded
+	$result = $wpdb->get_results($wpdb->prepare("SELECT ID, post_parent, meta_value FROM ".$wpdb->posts." INNER JOIN ".$wpdb->postmeta." ON ".$wpdb->posts.".ID = ".$wpdb->postmeta.".post_id WHERE post_type = %s AND post_status = %s AND post_parent > '0' ORDER BY post_parent ASC", $obj_slideshow->post_type, 'publish')); //(post_parent > '0' OR meta_key = %s AND meta_value != '') //, $obj_slideshow->meta_prefix.'content_style' // This will load [slide_parent_id] into CSS because parent style is also loaded
 
 	if($wpdb->num_rows > 0)
 	{
