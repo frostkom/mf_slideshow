@@ -3,7 +3,7 @@
 Plugin Name: MF Slideshow
 Plugin URI: https://github.com/frostkom/mf_slideshow
 Description: 
-Version: 4.8.11
+Version: 4.8.12
 Licence: GPLv2 or later
 Author: Martin Fors
 Author URI: https://frostkom.se
@@ -14,7 +14,7 @@ Depends: Meta Box, MF Base
 GitHub Plugin URI: frostkom/mf_slideshow
 */
 
-if(is_plugin_active("mf_base/index.php"))
+if(function_exists('is_plugin_active') && is_plugin_active("mf_base/index.php"))
 {
 	include_once("include/classes.php");
 
