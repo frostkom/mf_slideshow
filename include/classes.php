@@ -7,7 +7,7 @@ class mf_slideshow
 		$this->post_type = 'slideshow';
 		$this->meta_prefix = 'mf_slide_';
 
-		$this->allow_widget_override_default = array('background', 'image_columns', 'height_ratio', 'display_controls', 'thumbnail_columns', 'autoplay'); // 'image_fit'
+		$this->allow_widget_override_default = array('background', 'image_columns', 'height_ratio', 'display_controls', 'thumbnail_columns', 'autoplay');
 	}
 
 	function get_display_controls_for_select()
@@ -16,12 +16,8 @@ class mf_slideshow
 			'arrows' => __("Arrows", 'lang_slideshow'),
 			'dots' => __("Dots", 'lang_slideshow'),
 			'magnifying_glass' => __("Magnifying Glass", 'lang_slideshow'),
+			'thumbnails' => __("Thumbnails", 'lang_slideshow'),
 		);
-
-		/*if(in_array('original', get_option('setting_slideshow_style', array('original'))))
-		{*/
-			$arr_data['thumbnails'] = __("Thumbnails", 'lang_slideshow');
-		//}
 
 		return $arr_data;
 	}
@@ -61,7 +57,6 @@ class mf_slideshow
 			'background' => __("Background", 'lang_slideshow'),
 			'image_columns' => __("Image Columns", 'lang_slideshow'),
 			'height_ratio' => __("Height Ratio", 'lang_slideshow'),
-			//'image_fit' => __("Image Fit", 'lang_slideshow'),
 			'display_controls' => __("Display", 'lang_slideshow'),
 			'thumbnail_columns' => __("Thumbnails", 'lang_slideshow'),
 			'autoplay' => __("Autoplay", 'lang_slideshow'),
@@ -328,7 +323,6 @@ class mf_slideshow
 		$arr_data = array(
 			'no' => __("No", 'lang_slideshow'),
 			'yes' => __("Yes", 'lang_slideshow')." (".__("When link is external", 'lang_slideshow').")",
-			//'yes_always' => __("Yes", 'lang_slideshow')." (".__("Always", 'lang_slideshow').")",
 		);
 
 		echo show_select(array('data' => $arr_data, 'name' => $setting_key, 'value' => $option));
@@ -343,12 +337,6 @@ class mf_slideshow
 			'context' => 'side',
 			'priority' => 'low',
 			'fields' => array(
-				/*array(
-					'name' => __("Height", 'lang_slideshow'),
-					'id' => $this->meta_prefix.'height',
-					'type' => 'number',
-					'min' => 1,
-				),*/
 				array(
 					'name' => __("Content Position", 'lang_slideshow'),
 					'id' => $this->meta_prefix.'content_position',
