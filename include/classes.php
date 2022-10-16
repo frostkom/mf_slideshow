@@ -122,7 +122,7 @@ class mf_slideshow
 
 		$arr_settings['setting_slideshow_autoplay'] = __("Autoplay", 'lang_slideshow');
 
-		if(get_option('setting_slideshow_autoplay') == 1)
+		if(get_option('setting_slideshow_autoplay') == 1 || get_option('setting_slideshow_autoplay') == 'yes')
 		{
 			$arr_settings['setting_slideshow_animate'] = __("Animate", 'lang_slideshow');
 			$arr_settings['setting_slideshow_duration'] = __("Duration", 'lang_slideshow');
@@ -278,9 +278,9 @@ class mf_slideshow
 	function setting_slideshow_autoplay_callback()
 	{
 		$setting_key = get_setting_key(__FUNCTION__);
-		$option = get_option($setting_key);
+		$option = get_option($setting_key, 'no');
 
-		echo show_select(array('data' => get_yes_no_for_select(array('return_integer' => true)), 'name' => $setting_key, 'value' => $option));
+		echo show_select(array('data' => get_yes_no_for_select(), 'name' => $setting_key, 'value' => $option)); //array('return_integer' => true)
 	}
 
 	function setting_slideshow_animate_callback()
@@ -310,7 +310,7 @@ class mf_slideshow
 	function setting_slideshow_random_callback()
 	{
 		$setting_key = get_setting_key(__FUNCTION__);
-		$option = get_option($setting_key);
+		$option = get_option($setting_key, 'no');
 
 		echo show_select(array('data' => get_yes_no_for_select(array('return_integer' => true)), 'name' => $setting_key, 'value' => $option));
 	}
@@ -422,7 +422,7 @@ class mf_slideshow
 			'height_ratio' => $setting_slideshow_height_ratio,
 			'height_ratio_mobile' => $setting_slideshow_height_ratio_mobile,
 			'display_controls' => get_option('setting_slideshow_display_controls'),
-			'autoplay' => get_option_or_default('setting_slideshow_autoplay', 0),
+			'autoplay' => get_option_or_default('setting_slideshow_autoplay', 'no'),
 			'duration' => (get_option_or_default('setting_slideshow_duration', 5) * 1000),
 		);
 
@@ -432,7 +432,7 @@ class mf_slideshow
 		if(in_array('original', $setting_slideshow_style))
 		{
 			$arr_settings['fade_duration'] = get_option_or_default('setting_slideshow_fade_duration', 400);
-			$arr_settings['random'] = get_option('setting_slideshow_random');
+			$arr_settings['random'] = get_option('setting_slideshow_random', 'no');
 
 			mf_enqueue_style('style_slideshow', $plugin_include_url."style.php", $plugin_version);
 			mf_enqueue_script('script_swipe', $plugin_include_url."lib/jquery.touchSwipe.min.js", $plugin_version);
@@ -468,11 +468,11 @@ class mf_slideshow
 			'height_ratio' => get_option_or_default('setting_slideshow_height_ratio', '0.5'),
 			'height_ratio_mobile' => get_option_or_default('setting_slideshow_height_ratio_mobile', '1'),
 			'display_controls' => get_option('setting_slideshow_display_controls'),
-			'autoplay' => get_option_or_default('setting_slideshow_autoplay', 0),
+			'autoplay' => get_option_or_default('setting_slideshow_autoplay', 'no'),
 			'animate' => get_option_or_default('setting_slideshow_animate', 'no'),
 			'duration' => get_option_or_default('setting_slideshow_duration', 5),
 			'fade_duration' => get_option_or_default('setting_slideshow_fade_duration', 400),
-			'random' => get_option_or_default('setting_slideshow_random', 0),
+			'random' => get_option_or_default('setting_slideshow_random', 'no'),
 		), $atts));
 
 		return $this->get_slideshow(array(
@@ -615,7 +615,7 @@ class mf_slideshow
 			if(!isset($data['settings']['slideshow_animate'])){						$data['settings']['slideshow_animate'] = get_option_or_default('setting_slideshow_animate', 'no');}
 
 			$setting_slideshow_style = (isset($data['settings']['slideshow_style']) ? $data['settings']['slideshow_style'] : get_option('setting_slideshow_style', array('original')));
-			$setting_random = (isset($data['settings']['slideshow_random']) ? $data['settings']['slideshow_random'] : get_option('setting_slideshow_random'));
+			$setting_random = (isset($data['settings']['slideshow_random']) ? $data['settings']['slideshow_random'] : get_option('setting_slideshow_random', 'no'));
 
 			$setting_slideshow_open_links_in_new_tab = get_option('setting_slideshow_open_links_in_new_tab');
 
@@ -920,11 +920,11 @@ class widget_slideshow extends WP_Widget
 
 		if(1 == 1 || in_array('autoplay', $this->setting_slideshow_allow_widget_override))
 		{
-			$this->arr_default['slideshow_autoplay'] = get_option_or_default('setting_slideshow_autoplay', 0);
+			$this->arr_default['slideshow_autoplay'] = get_option_or_default('setting_slideshow_autoplay', 'no');
 			$this->arr_default['slideshow_animate'] = get_option_or_default('setting_slideshow_animate', 'no');
 			$this->arr_default['slideshow_duration'] = get_option_or_default('setting_slideshow_duration', 5);
 			$this->arr_default['slideshow_fade_duration'] = get_option_or_default('setting_slideshow_fade_duration', 400);
-			$this->arr_default['slideshow_random'] = get_option('setting_slideshow_random', 0);
+			$this->arr_default['slideshow_random'] = get_option('setting_slideshow_random', 'no');
 		}
 
 		parent::__construct('slideshow-widget', __("Slideshow", 'lang_slideshow'), $this->widget_ops);
@@ -1066,7 +1066,12 @@ class widget_slideshow extends WP_Widget
 
 					if(in_array('autoplay', $this->setting_slideshow_allow_widget_override))
 					{
-						echo show_select(array('data' => get_yes_no_for_select(array('return_integer' => true)), 'name' => $this->get_field_name('slideshow_autoplay'), 'text' => __("Autoplay", 'lang_slideshow'), 'value' => $instance['slideshow_autoplay']));
+						if($instance['slideshow_autoplay'] == '') // Backwards compatibility
+						{
+							$instance['slideshow_autoplay'] = 'no';
+						}
+
+						echo show_select(array('data' => get_yes_no_for_select(), 'name' => $this->get_field_name('slideshow_autoplay'), 'text' => __("Autoplay", 'lang_slideshow'), 'value' => $instance['slideshow_autoplay'])); //array('return_integer' => true)
 					}
 
 				echo "</div>";
@@ -1074,7 +1079,7 @@ class widget_slideshow extends WP_Widget
 
 			if(is_array($this->setting_slideshow_allow_widget_override) && in_array('autoplay', $this->setting_slideshow_allow_widget_override))
 			{
-				if($instance['slideshow_autoplay'] == 1)
+				if($instance['slideshow_autoplay'] == 1 || $instance['slideshow_autoplay'] == 'yes')
 				{
 					echo "<div class='flex_flow'>"
 						.show_select(array('data' => get_yes_no_for_select(), 'name' => $this->get_field_name('slideshow_animate'), 'text' => __("Animate", 'lang_slideshow'), 'value' => $instance['slideshow_animate']))
@@ -1084,9 +1089,14 @@ class widget_slideshow extends WP_Widget
 
 				if($instance['slideshow_style'] == 'original')
 				{
+					if($instance['slideshow_random'] == '') // Backwards compatibility
+					{
+						$instance['slideshow_random'] = 'no';
+					}
+
 					echo "<div class='flex_flow'>"
 						.show_textfield(array('type' => 'number', 'name' => $this->get_field_name('slideshow_fade_duration'), 'text' => __("Fade Duration", 'lang_slideshow'), 'value' => $instance['slideshow_fade_duration'], 'xtra' => "min='400' max='4000'", 'suffix' => __("ms", 'lang_slideshow')))
-						.show_select(array('data' => get_yes_no_for_select(array('return_integer' => true)), 'name' => $this->get_field_name('slideshow_random'), 'text' => __("Random", 'lang_slideshow'), 'value' => $instance['slideshow_random']))
+						.show_select(array('data' => get_yes_no_for_select(), 'name' => $this->get_field_name('slideshow_random'), 'text' => __("Random", 'lang_slideshow'), 'value' => $instance['slideshow_random'])) //array('return_integer' => true)
 					."</div>";
 				}
 			}
