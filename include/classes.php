@@ -395,6 +395,51 @@ class mf_slideshow
 		return $meta_boxes;
 	}
 
+	function column_header($cols)
+	{
+		global $post_type;
+
+		unset($cols['date']);
+
+		switch($post_type)
+		{
+			case $this->post_type:
+				$cols['images'] = __("Images", 'lang_slideshow');
+				$cols['shortcode'] = __("Shortcode", 'lang_slideshow');
+			break;
+		}
+
+		return $cols;
+	}
+
+	function column_cell($col, $id)
+	{
+		global $wpdb, $post;
+
+		switch($post->post_type)
+		{
+			case $this->post_type:
+				switch($col)
+				{
+					case 'images':
+						$arr_images = get_post_meta($id, $this->meta_prefix.$col);
+
+						echo count($arr_images);
+					break;
+
+					case 'shortcode':
+						$shortcode = "[mf_slideshow id=".$id."]";
+
+						echo show_textfield(array('value' => $shortcode, 'readonly' => true, 'xtra' => "onclick='this.select()'"))
+						."<div class='row-actions'>
+							<a href='".admin_url("post-new.php?post_type=page&content=".$shortcode)."'>".__("Add New Page", 'lang_slideshow')."</a>
+						</div>";
+					break;
+				}
+			break;
+		}
+	}
+
 	function wp_head()
 	{
 		$setting_slideshow_style = get_option_or_default('setting_slideshow_style', array('original'));
