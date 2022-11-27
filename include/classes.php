@@ -99,6 +99,7 @@ class mf_slideshow
 
 		$arr_settings['setting_slideshow_allow_widget_override'] = __("Allow Widget Override", 'lang_slideshow');
 		$arr_settings['setting_slideshow_background_color'] = __("Background Color", 'lang_slideshow');
+		$arr_settings['setting_slideshow_background_opacity'] = " - ".__("Opacity", 'lang_slideshow');
 		$arr_settings['setting_slideshow_display_text_background'] = __("Display Text Background", 'lang_slideshow');
 		$arr_settings['setting_slideshow_image_columns'] = __("Image Columns", 'lang_slideshow');
 
@@ -169,6 +170,14 @@ class mf_slideshow
 
 		echo show_textfield(array('type' => 'color', 'name' => $setting_key, 'value' => $option));
 	}
+
+		function setting_slideshow_background_opacity_callback()
+		{
+			$setting_key = get_setting_key(__FUNCTION__);
+			$option = get_option($setting_key, 100);
+
+			echo show_textfield(array('type' => 'number', 'name' => $setting_key, 'value' => $option, 'suffix' => "%"));
+		}
 
 	function setting_slideshow_display_text_background_callback()
 	{
@@ -326,6 +335,15 @@ class mf_slideshow
 		);
 
 		echo show_select(array('data' => $arr_data, 'name' => $setting_key, 'value' => $option));
+	}
+
+	function admin_menu()
+	{
+		$menu_start = "edit.php?post_type=".$this->post_type;
+		$menu_capability = override_capability(array('page' => $menu_start, 'default' => 'edit_pages'));
+
+		$menu_title = __("Settings", 'lang_slideshow');
+		add_submenu_page($menu_start, $menu_title, $menu_title, $menu_capability, admin_url("options-general.php?page=settings_mf_base#settings_slideshow"));
 	}
 
 	function rwmb_meta_boxes($meta_boxes)
@@ -507,6 +525,7 @@ class mf_slideshow
 			'id' => '',
 			'style' => get_option_or_default('setting_slideshow_style', 'original'),
 			'background' => get_option('setting_slideshow_background_color'),
+			'background_opacity' => get_option('setting_slideshow_background_opacity'),
 			'display_text_background' => get_option_or_default('setting_slideshow_display_text_background', 'yes'),
 			'image_columns' => get_option_or_default('setting_slideshow_image_columns', 1),
 			'image_steps' => get_option_or_default('setting_slideshow_image_steps', 1),
@@ -524,6 +543,7 @@ class mf_slideshow
 			'parent' => $id,
 			'slideshow_style' => $style,
 			'slideshow_background' => $background,
+			'slideshow_background_opacity' => $background_opacity,
 			'slideshow_display_text_background' => $display_text_background,
 			'slideshow_image_columns' => $image_columns,
 			'slideshow_image_steps' => $image_steps,
@@ -652,8 +672,9 @@ class mf_slideshow
 		if(count($data['images']) > 0)
 		{
 			if(!isset($data['settings']['slideshow_style'])){						$data['settings']['slideshow_style'] = get_option_or_default('setting_slideshow_style', 'original');}
-			if(!isset($data['settings']['slideshow_background']) || $data['settings']['slideshow_background'] == ''){	$data['settings']['slideshow_background']  = get_option_or_default('setting_slideshow_background_color', "#000000");}
-			if(!isset($data['settings']['slideshow_display_text_background'])){		$data['settings']['slideshow_display_text_background']  = get_option_or_default('setting_slideshow_slideshow_display_text_background', 'yes');}
+			if(!isset($data['settings']['slideshow_background']) || $data['settings']['slideshow_background'] == ''){	$data['settings']['slideshow_background'] = get_option_or_default('setting_slideshow_background_color', "#000000");}
+			if(!isset($data['settings']['slideshow_background_opacity']) || $data['settings']['slideshow_background_opacity'] == ''){	$data['settings']['slideshow_background_opacity'] = get_option_or_default('setting_slideshow_background_opacity', 100);}
+			if(!isset($data['settings']['slideshow_display_text_background'])){		$data['settings']['slideshow_display_text_background'] = get_option_or_default('setting_slideshow_slideshow_display_text_background', 'yes');}
 			if(!isset($data['settings']['slideshow_image_columns'])){				$data['settings']['slideshow_image_columns'] = get_option_or_default('setting_slideshow_image_columns', 1);}
 			if(!isset($data['settings']['slideshow_image_steps'])){					$data['settings']['slideshow_image_steps'] = get_option_or_default('setting_slideshow_image_steps', 1);}
 			if(!isset($data['settings']['slideshow_display_controls'])){			$data['settings']['slideshow_display_controls'] = get_option('setting_slideshow_display_controls');}
@@ -792,8 +813,15 @@ class mf_slideshow
 				$slideshow_classes .= " display_text_background";
 			}
 
-			if($data['settings']['slideshow_background'] != '')
+			if($data['settings']['slideshow_background'] != '') // && $data['settings']['slideshow_background'] != '#435355'
 			{
+				if($data['settings']['slideshow_background_opacity'] != '')
+				{
+					list($r, $g, $b) = sscanf($data['settings']['slideshow_background'], "#%02x%02x%02x");
+
+					$data['settings']['slideshow_background'] = "rgba(".$r.", ".$g.", ".$b.", ".($data['settings']['slideshow_background_opacity'] / 100).")";
+				}
+
 				$slideshow_style .= ($slideshow_style != '' ? " " : "")."background-color: ".$data['settings']['slideshow_background'].";";
 			}
 
@@ -943,6 +971,7 @@ class widget_slideshow extends WP_Widget
 		if(1 == 1 || in_array('background', $this->setting_slideshow_allow_widget_override))
 		{
 			$this->arr_default['slideshow_background'] = get_option('setting_slideshow_background_color');
+			$this->arr_default['slideshow_background_opacity'] = get_option('setting_slideshow_background_opacity');
 			$this->arr_default['slideshow_display_text_background'] = get_option_or_default('setting_slideshow_display_text_background', 'yes');
 		}
 
@@ -1021,6 +1050,7 @@ class widget_slideshow extends WP_Widget
 		if(1 == 1 || in_array('background', $this->setting_slideshow_allow_widget_override))
 		{
 			$instance['slideshow_background'] = sanitize_text_field($new_instance['slideshow_background']);
+			$instance['slideshow_background_opacity'] = sanitize_text_field($new_instance['slideshow_background_opacity']);
 			$instance['slideshow_display_text_background'] = sanitize_text_field($new_instance['slideshow_display_text_background']);
 		}
 
@@ -1071,6 +1101,7 @@ class widget_slideshow extends WP_Widget
 			{
 				echo "<div class='flex_flow'>"
 					.show_textfield(array('type' => 'color', 'name' => $this->get_field_name('slideshow_background'), 'text' => __("Background Color", 'lang_slideshow'), 'value' => $instance['slideshow_background']))
+					.show_textfield(array('type' => 'number', 'name' => $this->get_field_name('slideshow_background_opacity'), 'text' => " - ".__("Opacity", 'lang_slideshow'), 'value' => $instance['slideshow_background_opacity']))
 					.show_select(array('data' => get_yes_no_for_select(), 'name' => $this->get_field_name('slideshow_display_text_background'), 'text' => __("Display Text Background", 'lang_slideshow'), 'value' => $instance['slideshow_display_text_background']))
 				."</div>";
 			}

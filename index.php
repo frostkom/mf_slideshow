@@ -3,10 +3,10 @@
 Plugin Name: MF Slideshow
 Plugin URI: https://github.com/frostkom/mf_slideshow
 Description:
-Version: 4.8.17
+Version: 4.8.22
 Licence: GPLv2 or later
 Author: Martin Fors
-Author URI: https://frostkom.se
+Author URI: https://martinfors.se
 Text Domain: lang_slideshow
 Domain Path: /lang
 
@@ -30,6 +30,7 @@ if(!function_exists('is_plugin_active') || function_exists('is_plugin_active') &
 		register_uninstall_hook(__FILE__, 'uninstall_slideshow');
 
 		add_action('admin_init', array($obj_slideshow, 'settings_slideshow'));
+		add_action('admin_menu', array($obj_slideshow, 'admin_menu'));
 		add_action('rwmb_meta_boxes', array($obj_slideshow, 'rwmb_meta_boxes'));
 
 		add_filter('manage_'.$obj_slideshow->post_type.'_posts_columns', array($obj_slideshow, 'column_header'), 5);
@@ -66,7 +67,7 @@ if(!function_exists('is_plugin_active') || function_exists('is_plugin_active') &
 		$obj_slideshow = new mf_slideshow();
 
 		mf_uninstall_plugin(array(
-			'options' => array('setting_slideshow_style', 'setting_slideshow_allow_widget_override', 'setting_slideshow_background_color', 'setting_slideshow_display_text_background', 'setting_slideshow_image_columns', 'setting_slideshow_image_steps', 'setting_slideshow_height_ratio', 'setting_slideshow_height_ratio_mobile', 'setting_slideshow_display_controls', 'setting_slideshow_thumbnail_columns', 'setting_slideshow_thumbnail_rows', 'setting_slideshow_autoplay', 'setting_slideshow_animate', 'setting_slideshow_duration', 'setting_slideshow_fade_duration', 'setting_slideshow_random', 'setting_slideshow_open_links_in_new_tab', 'setting_slideshow_show_controls', 'setting_slideshow_display_thumbnails'),
+			'options' => array('setting_slideshow_style', 'setting_slideshow_allow_widget_override', 'setting_slideshow_background_color', 'setting_slideshow_background_opacity', 'setting_slideshow_display_text_background', 'setting_slideshow_image_columns', 'setting_slideshow_image_steps', 'setting_slideshow_height_ratio', 'setting_slideshow_height_ratio_mobile', 'setting_slideshow_display_controls', 'setting_slideshow_thumbnail_columns', 'setting_slideshow_thumbnail_rows', 'setting_slideshow_autoplay', 'setting_slideshow_animate', 'setting_slideshow_duration', 'setting_slideshow_fade_duration', 'setting_slideshow_random', 'setting_slideshow_open_links_in_new_tab', 'setting_slideshow_show_controls', 'setting_slideshow_display_thumbnails'),
 			'post_types' => array($obj_slideshow->post_type),
 		));
 	}

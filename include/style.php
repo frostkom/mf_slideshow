@@ -224,7 +224,7 @@ echo "@media all
 
 				.slideshow.original .controls_arrows .panel_arrow_left:hover .arrow_left
 				{
-					opacity: 0;
+					opacity: .1;
 				}
 
 			.slideshow.original .controls_arrows .panel_arrow_right
@@ -237,7 +237,7 @@ echo "@media all
 
 				.slideshow.original .controls_arrows .panel_arrow_right:hover .arrow_right
 				{
-					opacity: 0;
+					opacity: .1;
 				}
 
 			.slideshow.original .controls_arrows .fa
