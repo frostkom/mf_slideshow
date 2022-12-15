@@ -1013,7 +1013,7 @@ class widget_slideshow extends WP_Widget
 
 		if($instance['parent'] > 0)
 		{
-			echo $before_widget;
+			echo apply_filters('filter_before_widget', $before_widget);
 
 				if($instance['slideshow_heading'] != '')
 				{
