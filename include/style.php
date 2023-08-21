@@ -300,6 +300,7 @@ echo "@media all
 			bottom: 1em;
 			left: 10%;
 			opacity: .2;
+			padding: 0;
 			position: absolute;
 			right: 10%;
 			text-align: center;
