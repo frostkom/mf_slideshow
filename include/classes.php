@@ -955,13 +955,21 @@ class mf_slideshow
 
 class widget_slideshow extends WP_Widget
 {
+	var $obj_slideshow = "";
+
+	var $widget_ops = array();
+
+	var $arr_default = array();
+
+	var $setting_slideshow_allow_widget_override = "";
+
 	function __construct()
 	{
 		$this->obj_slideshow = new mf_slideshow();
 
 		$this->widget_ops = array(
 			'classname' => 'slideshow_wrapper',
-			'description' => __("Display a slideshow that you have created", 'lang_slideshow')
+			'description' => __("Display a slideshow that you have created", 'lang_slideshow'),
 		);
 
 		$this->setting_slideshow_allow_widget_override = get_option('setting_slideshow_allow_widget_override', $this->obj_slideshow->allow_widget_override_default);
