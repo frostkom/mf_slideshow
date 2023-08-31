@@ -2,12 +2,16 @@
 
 class mf_slideshow
 {
+	var $post_type = 'slideshow';
+	var $meta_prefix = 'mf_slide_';
+	var $allow_widget_override_default = array('background', 'image_columns', 'height_ratio', 'display_controls', 'thumbnail_columns', 'autoplay');
+
 	function __construct()
 	{
-		$this->post_type = 'slideshow';
+		/*$this->post_type = 'slideshow';
 		$this->meta_prefix = 'mf_slide_';
 
-		$this->allow_widget_override_default = array('background', 'image_columns', 'height_ratio', 'display_controls', 'thumbnail_columns', 'autoplay');
+		$this->allow_widget_override_default = array('background', 'image_columns', 'height_ratio', 'display_controls', 'thumbnail_columns', 'autoplay');*/
 	}
 
 	function get_display_controls_for_select()
