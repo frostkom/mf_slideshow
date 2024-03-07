@@ -6,13 +6,7 @@ class mf_slideshow
 	var $meta_prefix = 'mf_slide_';
 	var $allow_widget_override_default = array('background', 'image_columns', 'height_ratio', 'display_controls', 'thumbnail_columns', 'autoplay');
 
-	function __construct()
-	{
-		/*$this->post_type = 'slideshow';
-		$this->meta_prefix = 'mf_slide_';
-
-		$this->allow_widget_override_default = array('background', 'image_columns', 'height_ratio', 'display_controls', 'thumbnail_columns', 'autoplay');*/
-	}
+	function __construct(){}
 
 	function get_display_controls_for_select()
 	{
