@@ -61,8 +61,30 @@ class mf_slideshow
 		);
 	}
 
+	function block_render_callback($attributes)
+	{
+		$attributes['slideshow_style'] = get_option_or_default('setting_slideshow_style', 'original');
+		$attributes['slideshow_background'] = get_option_or_default('setting_slideshow_background_color');
+		$attributes['slideshow_background_opacity'] = get_option_or_default('setting_slideshow_background_opacity');
+		$attributes['slideshow_display_text_background'] = get_option_or_default('setting_slideshow_display_text_background', 'yes');
+		$attributes['slideshow_image_columns'] = get_option_or_default('setting_slideshow_image_columns', 1);
+		$attributes['slideshow_image_steps'] = get_option_or_default('setting_slideshow_image_steps', 1);
+		$attributes['slideshow_height_ratio'] = get_option_or_default('setting_slideshow_height_ratio', '0.5');
+		$attributes['slideshow_height_ratio_mobile'] = get_option_or_default('setting_slideshow_height_ratio_mobile', '1');
+		$attributes['slideshow_display_controls'] = get_option_or_default('setting_slideshow_display_controls');
+		$attributes['slideshow_autoplay'] = get_option_or_default('setting_slideshow_autoplay', 'no');
+		$attributes['slideshow_animate'] = get_option_or_default('setting_slideshow_animate', 'no');
+		$attributes['slideshow_duration'] = get_option_or_default('setting_slideshow_duration', 5);
+		$attributes['slideshow_fade_duration'] = get_option_or_default('setting_slideshow_fade_duration', 400);
+		$attributes['slideshow_random'] = get_option_or_default('setting_slideshow_random', 'no');
+
+		return $this->get_slideshow($attributes);
+	}
+
 	function init()
 	{
+		// Post types
+		#######################
 		$labels = array(
 			'name' => _x(__("Slideshows", 'lang_slideshow'), 'post type general name'),
 			'singular_name' => _x(__("Slideshow", 'lang_slideshow'), 'post type singular name'),
@@ -83,6 +105,27 @@ class mf_slideshow
 		);
 
 		register_post_type($this->post_type, $args);
+		#######################
+
+		// Blocks
+		#######################
+		$plugin_include_url = plugin_dir_url(__FILE__);
+		$plugin_version = get_plugin_version(__FILE__);
+
+		wp_register_script('script_slideshow_block_wp', $plugin_include_url."block/script_wp.js", array('wp-blocks', 'wp-i18n', 'wp-element', 'wp-components', 'wp-editor'), $plugin_version);
+
+		$arr_data_parents = array();
+		get_post_children(array('add_choose_here' => true, 'post_type' => $this->post_type, 'allow_depth' => false), $arr_data_parents);
+
+		wp_localize_script('script_slideshow_block_wp', 'script_slideshow_block_wp', array('parent' => $arr_data_parents));
+
+		register_block_type('mf/slideshow', array(
+			'editor_script' => 'script_slideshow_block_wp',
+			'editor_style' => 'style_base_block_wp',
+			'render_callback' => array($this, 'block_render_callback'),
+			//'style' => 'style_base_block_wp',
+		));
+		#######################
 	}
 
 	function settings_slideshow()
@@ -346,6 +389,9 @@ class mf_slideshow
 
 	function rwmb_meta_boxes($meta_boxes)
 	{
+		$arr_data_pages = array();
+		get_post_children(array('add_choose_here' => true, 'post_type' => $this->post_type), $arr_data_pages);
+
 		$meta_boxes[] = array(
 			'id' => $this->meta_prefix.'settings',
 			'title' => __("Settings", 'lang_slideshow'),
@@ -375,7 +421,7 @@ class mf_slideshow
 					'name' => __("Page", 'lang_slideshow'),
 					'id' => $this->meta_prefix.'page',
 					'type' => 'select',
-					'options' => get_posts_for_select(array('add_choose_here' => true, 'optgroup' => false)),
+					'options' => $arr_data_pages,
 					'attributes' => array(
 						'condition_type' => 'show_if',
 						'condition_field' => $this->meta_prefix.'link',
@@ -517,8 +563,6 @@ class mf_slideshow
 
 	function shortcode_slideshow($atts)
 	{
-		global $wpdb, $has_image;
-
 		extract(shortcode_atts(array(
 			'id' => '',
 			'style' => get_option_or_default('setting_slideshow_style', 'original'),
@@ -949,13 +993,10 @@ class mf_slideshow
 
 class widget_slideshow extends WP_Widget
 {
-	var $obj_slideshow = "";
-
-	var $widget_ops = array();
-
-	var $arr_default = array();
-
-	var $setting_slideshow_allow_widget_override = "";
+	var $obj_slideshow;
+	var $widget_ops;
+	var $arr_default;
+	var $setting_slideshow_allow_widget_override;
 
 	function __construct()
 	{
