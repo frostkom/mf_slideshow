@@ -467,7 +467,7 @@ class mf_slideshow
 		{
 			case $this->post_type:
 				$cols['images'] = __("Images", 'lang_slideshow');
-				$cols['shortcode'] = __("Shortcode", 'lang_slideshow');
+				//$cols['shortcode'] = __("Shortcode", 'lang_slideshow');
 			break;
 		}
 
@@ -489,14 +489,14 @@ class mf_slideshow
 						echo count($arr_images);
 					break;
 
-					case 'shortcode':
+					/*case 'shortcode':
 						$shortcode = "[mf_slideshow id=".$id."]";
 
 						echo show_textfield(array('value' => $shortcode, 'readonly' => true, 'xtra' => "onclick='this.select()'"))
 						."<div class='row-actions'>
 							<a href='".admin_url("post-new.php?post_type=page&content=".$shortcode)."'>".__("Add New Page", 'lang_slideshow')."</a>
 						</div>";
-					break;
+					break;*/
 				}
 			break;
 		}
