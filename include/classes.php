@@ -387,6 +387,16 @@ class mf_slideshow
 		add_submenu_page($menu_start, $menu_title, $menu_title, $menu_capability, admin_url("options-general.php?page=settings_mf_base#settings_slideshow"));
 	}
 
+	function filter_sites_table_pages($arr_pages)
+	{
+		$arr_pages[$this->post_type] = array(
+			'icon' => "fas fa-images",
+			'title' => __("Slideshows", 'lang_slideshow'),
+		);
+
+		return $arr_pages;
+	}
+
 	function rwmb_meta_boxes($meta_boxes)
 	{
 		$arr_data_pages = array();
