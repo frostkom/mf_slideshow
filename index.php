@@ -38,6 +38,8 @@ if(!function_exists('is_plugin_active') || function_exists('is_plugin_active') &
 
 		add_filter('manage_'.$obj_slideshow->post_type.'_posts_columns', array($obj_slideshow, 'column_header'), 5);
 		add_action('manage_'.$obj_slideshow->post_type.'_posts_custom_column', array($obj_slideshow, 'column_cell'), 5, 2);
+
+		add_filter('page_row_actions', array($obj_slideshow, 'row_actions'), 10, 2);
 	}
 
 	else

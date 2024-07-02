@@ -512,6 +512,49 @@ class mf_slideshow
 		}
 	}
 
+	function filter_actions($data = array())
+	{
+		global $post;
+
+		if(!isset($data['actions'])){	$data['actions'] = array();}
+		if(!isset($data['class'])){		$data['class'] = "";}
+
+		$block_code = '<!-- wp:mf/slideshow {"parent":"'.$post->ID.'"} /-->';
+		$arr_ids = apply_filters('get_page_from_block_code', array(), $block_code);
+
+		if(count($arr_ids) == 0)
+		{
+			$shortcode = "[mf_slideshow id=".$post->ID."]";
+			$arr_ids = get_pages_from_shortcode($shortcode);
+		}
+
+		if(count($arr_ids) > 0)
+		{
+			foreach($arr_ids as $post_id_temp)
+			{
+				$data['actions']['edit_page'] = "<a href='".admin_url("post.php?post=".$post_id_temp."&action=edit")."'".($data['class'] != '' ? " class='".$data['class']."'" : "").">".__("Edit Page", 'lang_slideshow')."</a>";
+				$data['actions']['view_page'] = "<a href='".get_permalink($post_id_temp)."'".($data['class'] != '' ? " class='".$data['class']."'" : "").">".__("View", 'lang_slideshow')."</a>";
+			}
+		}
+
+		else
+		{
+			//$data['actions']['create_page'] = "<a href='".wp_nonce_url(admin_url("admin.php?page=mf_form/create/index.php&btnPageCreate&intFormID=".$this->id."&strFormName=".$this->name), 'page_create_'.$this->id, '_wpnonce_page_create')."'".($data['class'] != '' ? " class='".$data['class']."'" : "").">".__("Add New Page", 'lang_slideshow')."</a>";
+		}
+
+		return $data['actions'];
+	}
+
+	function row_actions($actions, $post)
+	{
+		if($post->post_type == $this->post_type)
+		{
+			$actions = $this->filter_actions(array('actions' => $actions));
+		}
+
+		return $actions;
+	}
+
 	function wp_head()
 	{
 		$setting_slideshow_style = get_option_or_default('setting_slideshow_style', array('original'));
