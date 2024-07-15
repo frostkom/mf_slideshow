@@ -380,11 +380,14 @@ class mf_slideshow
 
 	function admin_menu()
 	{
-		$menu_start = "edit.php?post_type=".$this->post_type;
-		$menu_capability = override_capability(array('page' => $menu_start, 'default' => 'edit_pages'));
+		if(IS_EDITOR)
+		{
+			$menu_start = "edit.php?post_type=".$this->post_type;
+			$menu_capability = override_capability(array('page' => $menu_start, 'default' => 'edit_pages'));
 
-		$menu_title = __("Settings", 'lang_slideshow');
-		add_submenu_page($menu_start, $menu_title, $menu_title, $menu_capability, admin_url("options-general.php?page=settings_mf_base#settings_slideshow"));
+			$menu_title = __("Settings", 'lang_slideshow');
+			add_submenu_page($menu_start, $menu_title, $menu_title, $menu_capability, admin_url("options-general.php?page=settings_mf_base#settings_slideshow"));
+		}
 	}
 
 	function filter_sites_table_pages($arr_pages)
