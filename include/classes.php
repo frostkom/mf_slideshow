@@ -951,7 +951,7 @@ class mf_slideshow
 			}
 
 			$out = "<div"
-				." class='".$slideshow_classes."'"
+				." class='".$slideshow_classes.(isset($data['settings']['className']) && $data['settings']['className'] != '' ? " ".$data['settings']['className'] : "")."'"
 				.$slideshow_attributes
 			.">
 				<div class='slideshow_container'>
