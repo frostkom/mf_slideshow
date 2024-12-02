@@ -10,8 +10,8 @@
 	{
 		title: __("Slideshow", 'lang_slideshow'),
 		description: __("Display Slideshow", 'lang_slideshow'),
-		icon: 'format-gallery', /* https://developer.wordpress.org/resource/dashicons/ */
-		category: 'widgets', /* common, formatting, layout, widgets, embed */
+		icon: 'format-gallery',
+		category: 'widgets',
 		'attributes':
 		{
 			'align':
@@ -51,6 +51,10 @@
 			{
 				'fontSize': true,
 				'lineHeight': true
+			},
+			"__experimentalBorder":
+			{
+				"radius": true
 			}
 		},
 		edit: function(props)

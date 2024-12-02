@@ -791,7 +791,7 @@ class mf_slideshow
 			$images = $dots = "";
 			$i = 1;
 
-			$active_i = $setting_random == true ? mt_rand(1, count($data['images'])) : 1;
+			$active_i = ($setting_random == true ? mt_rand(1, count($data['images'])) : 1);
 
 			if($data['settings']['slideshow_style'] == 'carousel')
 			{
