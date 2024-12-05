@@ -83,6 +83,8 @@ class mf_slideshow
 
 	function init()
 	{
+		load_plugin_textdomain('lang_slideshow', false, str_replace("/include", "", dirname(plugin_basename(__FILE__)))."/lang/");
+
 		// Post types
 		#######################
 		$labels = array(
