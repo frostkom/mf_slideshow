@@ -489,7 +489,7 @@ class mf_slideshow
 		return $cols;
 	}
 
-	function column_cell($col, $id)
+	function column_cell($col, $post_id)
 	{
 		global $wpdb, $post;
 
@@ -499,13 +499,13 @@ class mf_slideshow
 				switch($col)
 				{
 					case 'images':
-						$arr_images = get_post_meta($id, $this->meta_prefix.$col);
+						$arr_images = get_post_meta($post_id, $this->meta_prefix.$col);
 
 						echo count($arr_images);
 					break;
 
 					/*case 'shortcode':
-						$shortcode = "[mf_slideshow id=".$id."]";
+						$shortcode = "[mf_slideshow id=".$post_id."]";
 
 						echo show_textfield(array('value' => $shortcode, 'readonly' => true, 'xtra' => "onclick='this.select()'"))
 						."<div class='row-actions'>
