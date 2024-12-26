@@ -84,18 +84,6 @@
 
 			/* Select */
 			/* ################### */
-			var arr_options = [];
-
-			jQuery.each(script_slideshow_block_wp.parent, function(index, value)
-			{
-				if(index == "")
-				{
-					index = 0;
-				}
-
-				arr_options.push({label: value, value: index});
-			});
-
 			arr_out.push(el(
 				'div',
 				{className: "wp_mf_block " + props.className},
@@ -104,7 +92,7 @@
 					{
 						label: __("Parent", 'lang_slideshow'),
 						value: props.attributes.parent,
-						options: arr_options,
+						options: convert_php_array_to_block_js(script_slideshow_block_wp.parent),
 						onChange: function(value)
 						{
 							props.setAttributes({parent: value});
