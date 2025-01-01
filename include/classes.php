@@ -114,12 +114,19 @@ class mf_slideshow
 		$plugin_include_url = plugin_dir_url(__FILE__);
 		$plugin_version = get_plugin_version(__FILE__);
 
-		wp_register_script('script_slideshow_block_wp', $plugin_include_url."block/script_wp.js", array('wp-blocks', 'wp-i18n', 'wp-element', 'wp-components', 'wp-editor'), $plugin_version);
+		wp_register_script('script_slideshow_block_wp', $plugin_include_url."block/script_wp.js", array('wp-blocks', 'wp-element', 'wp-components', 'wp-editor', 'wp-block-editor'), $plugin_version);
 
 		$arr_data_parents = array();
 		get_post_children(array('add_choose_here' => true, 'post_type' => $this->post_type, 'allow_depth' => false), $arr_data_parents);
 
-		wp_localize_script('script_slideshow_block_wp', 'script_slideshow_block_wp', array('parent' => $arr_data_parents));
+		wp_localize_script('script_slideshow_block_wp', 'script_slideshow_block_wp', array(
+			'block_title' => __("Slideshow", 'lang_slideshow'),
+			'block_description' => __("Display Slideshow", 'lang_slideshow'),
+			'slideshow_heading_label' => __("Heading", 'lang_slideshow'),
+			'parent_label' => __("Parent", 'lang_slideshow'),
+			'arr_parents' => $arr_data_parents,
+			'settings_label' => __("Settings", 'lang_slideshow'),
+		));
 
 		register_block_type('mf/slideshow', array(
 			'editor_script' => 'script_slideshow_block_wp',
