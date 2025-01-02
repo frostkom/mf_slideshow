@@ -3,7 +3,8 @@
 	var el = wp.element.createElement,
 		registerBlockType = wp.blocks.registerBlockType,
 		SelectControl = wp.components.SelectControl,
-		TextControl = wp.components.TextControl;
+		TextControl = wp.components.TextControl,
+		InspectorControls = wp.blockEditor.InspectorControls;
 
 	registerBlockType('mf/slideshow',
 	{
