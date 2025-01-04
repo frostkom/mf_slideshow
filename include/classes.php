@@ -153,7 +153,23 @@ class mf_slideshow
 			break;
 
 			case 'mosaic':
-				mf_enqueue_style('style_slideshow', $plugin_include_url."style_mosaic.php", $plugin_version);
+				global $obj_base;
+
+				if(!isset($obj_base))
+				{
+					$obj_base = new mf_base();
+				}
+
+				$plugin_base_include_url = plugins_url()."/mf_base/include/";
+
+				$obj_base->load_font_awesome(array(
+					'type' => 'public',
+					'plugin_include_url' => $plugin_base_include_url,
+					'plugin_version' => $plugin_version,
+				));
+
+				mf_enqueue_script('script_slideshow_mosaic', $plugin_include_url."script_mosaic.js", $plugin_version);
+				mf_enqueue_style('style_slideshow_mosaic', $plugin_include_url."style_mosaic.css", $plugin_version);
 			break;
 
 			case 'original';
@@ -712,7 +728,8 @@ class mf_slideshow
 
 		if(in_array('mosaic', $setting_slideshow_style))
 		{
-			mf_enqueue_style('style_slideshow', $plugin_include_url."style_mosaic.php", $plugin_version);
+			mf_enqueue_script('script_slideshow_mosaic', $plugin_include_url."script_mosaic.js", $plugin_version);
+			mf_enqueue_style('style_slideshow_mosaic', $plugin_include_url."style_mosaic.css", $plugin_version);
 		}
 
 		if(in_array('original', $setting_slideshow_style))
@@ -895,11 +912,9 @@ class mf_slideshow
 
 			$setting_slideshow_open_links_in_new_tab = get_option('setting_slideshow_open_links_in_new_tab');
 
-			if(is_array($setting_slideshow_style) && !in_array($data['settings']['slideshow_style'], $setting_slideshow_style))
+			if(is_array($data['settings']['slideshow_style']))
 			{
-				$test = $data['settings']['slideshow_style'];
-
-				$data['settings']['slideshow_style'] = $setting_slideshow_style[0];
+				$data['settings']['slideshow_style'] = $data['settings']['slideshow_style'][0];
 			}
 
 			$images_html = $dots_html = "";
@@ -1027,7 +1042,7 @@ class mf_slideshow
 
 			$arr_attributes = array('autoplay', 'animate', 'duration', 'fade_duration', 'display_text_background', 'image_columns', 'image_steps', 'height_ratio', 'height_ratio_mobile'); //, 'display_controls'
 
-			$slideshow_classes = "slideshow ".$data['settings']['slideshow_style'];
+			$slideshow_classes = "slideshow ".($data['settings']['slideshow_style']);
 			$slideshow_style = $slideshow_attributes = "";
 
 			if($data['settings']['slideshow_display_text_background'] == 'yes')
