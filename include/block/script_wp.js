@@ -28,6 +28,21 @@
 			{
                 'type': 'string',
                 'default': ''
+            },
+			'slideshow_style':
+			{
+                'type': 'string',
+                'default': ''
+            },
+			'slideshow_background':
+			{
+                'type': 'string',
+                'default': ''
+            },
+			'slideshow_random':
+			{
+                'type': 'string',
+                'default': ''
             }
 		},
 		'supports':
@@ -91,13 +106,49 @@
 							}
 						),
 						el(
+							SelectControl,
+							{
+								label: script_slideshow_block_wp.slideshow_style_label,
+								value: props.attributes.slideshow_style,
+								options: convert_php_array_to_block_js(script_slideshow_block_wp.arr_slideshow_style),
+								onChange: function(value)
+								{
+									props.setAttributes({slideshow_style: value});
+								}
+							}
+						),
+						el(
+							TextControl,
+							{
+								label: script_slideshow_block_wp.slideshow_background_label,
+								type: 'color',
+								value: props.attributes.slideshow_background,
+								onChange: function(value)
+								{
+									props.setAttributes({slideshow_background: value});
+								}
+							}
+						),
+						el(
+							SelectControl,
+							{
+								label: script_slideshow_block_wp.slideshow_random_label,
+								value: props.attributes.slideshow_random,
+								options: convert_php_array_to_block_js(script_slideshow_block_wp.yes_no_for_select),
+								onChange: function(value)
+								{
+									props.setAttributes({slideshow_random: value});
+								}
+							}
+						)/*,
+						el(
 							'a',
 							{
 								className: "wp_mf_block " + props.className,
 								href: "/wp-admin/options-general.php?page=settings_mf_base#settings_slideshow"
 							},
 							script_slideshow_block_wp.settings_label
-						)
+						)*/
 					),
 					el(
 						'strong',
