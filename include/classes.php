@@ -165,7 +165,7 @@ class mf_slideshow
 				$obj_base->load_font_awesome(array(
 					'type' => 'public',
 					'plugin_include_url' => $plugin_base_include_url,
-					'plugin_version' => $plugin_version,
+					//'plugin_version' => $plugin_version,
 				));
 
 				mf_enqueue_script('script_slideshow_mosaic', $plugin_include_url."script_mosaic.js", $plugin_version);
@@ -1059,18 +1059,18 @@ class mf_slideshow
 					$data['settings']['slideshow_background'] = "rgba(".$r.", ".$g.", ".$b.", ".($data['settings']['slideshow_background_opacity'] / 100).")";
 				}
 
-				$slideshow_style .= ($slideshow_style != '' ? " " : "")."background-color: ".$data['settings']['slideshow_background'].";";
+				$slideshow_style .= "background-color: ".$data['settings']['slideshow_background'].";";
 			}
 
 			if($data['height'] > 0)
 			{
-				$slideshow_style .= ($slideshow_style != '' ? " " : "")."height: ".$data['height']."px;";
+				$slideshow_style .= "height: ".$data['height']."px;";
 			}
 
-			if($slideshow_style != '')
+			/*if($slideshow_style != '')
 			{
 				$slideshow_attributes .= " style='".$slideshow_style."'";
-			}
+			}*/
 
 			$slideshow_attributes .= " data-random='".$data['settings']['slideshow_random']."'";
 
@@ -1090,9 +1090,10 @@ class mf_slideshow
 			}
 
 			$out = "<div"
-				." class='".$slideshow_classes.(isset($data['settings']['className']) && $data['settings']['className'] != '' ? " ".$data['settings']['className'] : "")."'"
+				.parse_block_attributes(array('class' => $slideshow_classes, 'attributes' => $data['settings'], 'style' => $slideshow_style))
+				//." class='"..(isset($data['settings']['className']) && $data['settings']['className'] != '' ? " ".$data['settings']['className'] : "")."'"
 				.$slideshow_attributes
-			.">"; //
+			.">";
 
 				switch($data['settings']['slideshow_style'])
 				{

@@ -134,7 +134,7 @@ msgstr "Mobil"
 
 #: ../include/classes.php:154
 msgid "Image Fit"
-msgstr "Bilderpassning"
+msgstr "Bildanpassning"
 
 #: ../include/classes.php:161
 msgid "Thumbnail Columns"
