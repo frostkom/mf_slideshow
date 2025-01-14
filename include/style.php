@@ -88,43 +88,7 @@ echo "@media all
 					transition: transform 20s ease;
 					-webkit-transform: scale(1);
 					transform: scale(1);
-				}
-
-					.slideshow.original .slideshow_container .slide_item.animate > img
-					{
-						-webkit-transform: scale(1.2);
-						transform: scale(1.2);
-					}
-
-		/* Columns */
-		/* ############################## */
-		.slideshow.original .slideshow_container .has_columns
-		{
-			display: -webkit-box;
-			display: -ms-flexbox;
-			display: -webkit-flex;
-			display: flex;
-			gap: ".$column_gap."%;
-		}
-
-			.slideshow.original .slideshow_container .columns_2 .slide_item
-			{
-				-webkit-box-flex: 0 1 ".$columns_2_width."%;
-				-webkit-flex: 0 1 ".$columns_2_width."%;
-				-ms-flex: 0 1 ".$columns_2_width."%;
-				flex: 0 1 ".$columns_2_width."%;
-				width: ".$columns_2_width."%;
-			}
-
-			.slideshow.original .slideshow_container .columns_3 .slide_item
-			{
-				-webkit-box-flex: 0 1 ".$columns_3_width."%;
-				-webkit-flex: 0 1 ".$columns_3_width."%;
-				-ms-flex: 0 1 ".$columns_3_width."%;
-				flex: 0 1 ".$columns_3_width."%;
-				width: ".$columns_3_width."%;
-			}
-		/* ############################## */
+				}2025-01-14
 
 		/* Content */
 		/* ############################## */

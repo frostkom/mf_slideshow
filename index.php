@@ -30,8 +30,11 @@ if(!function_exists('is_plugin_active') || function_exists('is_plugin_active') &
 		register_activation_hook(__FILE__, 'activate_slideshow');
 		register_uninstall_hook(__FILE__, 'uninstall_slideshow');
 
-		add_action('admin_init', array($obj_slideshow, 'settings_slideshow'));
-		add_action('admin_menu', array($obj_slideshow, 'admin_menu'));
+		if(wp_is_block_theme() == false)
+		{
+			add_action('admin_init', array($obj_slideshow, 'settings_slideshow'));
+			add_action('admin_menu', array($obj_slideshow, 'admin_menu'));
+		}
 
 		add_filter('filter_sites_table_pages', array($obj_slideshow, 'filter_sites_table_pages'));
 
@@ -45,9 +48,12 @@ if(!function_exists('is_plugin_active') || function_exists('is_plugin_active') &
 
 	else
 	{
-		add_action('wp_head', array($obj_slideshow, 'wp_head'), 0);
+		if(wp_is_block_theme() == false)
+		{
+			add_action('wp_head', array($obj_slideshow, 'wp_head'), 0);
 
-		add_shortcode('mf_slideshow', array($obj_slideshow, 'shortcode_slideshow'));
+			add_shortcode('mf_slideshow', array($obj_slideshow, 'shortcode_slideshow'));
+		}
 	}
 
 	add_filter('filter_is_file_used', array($obj_slideshow, 'filter_is_file_used'));
@@ -61,10 +67,9 @@ if(!function_exists('is_plugin_active') || function_exists('is_plugin_active') &
 	{
 		require_plugin("meta-box/meta-box.php", "Meta Box");
 
-		// Add later
-		/*mf_uninstall_plugin(array(
-			'options' => array('setting_slideshow_show_controls', 'setting_slideshow_display_thumbnails'),
-		));*/
+		mf_uninstall_plugin(array(
+			'options' => array('setting_slideshow_show_controls', 'setting_slideshow_image_steps', 'setting_slideshow_image_columns', 'setting_slideshow_animate'), //, 'setting_slideshow_display_thumbnails'
+		));
 	}
 
 	function uninstall_slideshow()

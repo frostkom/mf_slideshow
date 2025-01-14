@@ -13,17 +13,11 @@ jQuery(function($)
 			setting_duration = dom_obj.attr('data-duration') || script_slideshow.duration,
 			setting_fade_duration = parseInt(dom_obj.attr('data-fade_duration') || script_slideshow.fade_duration),
 			setting_random = dom_obj.attr('data-random') || script_slideshow.random,
-			setting_image_columns = dom_obj.attr('data-image_columns') || script_slideshow.image_columns,
+			setting_image_columns = 1,
 			setting_image_columns_orig = setting_image_columns,
-			setting_image_steps = parseInt(dom_obj.attr('data-image_steps') || script_slideshow.image_steps),
+			setting_image_steps = 1,
 			setting_height_ratio = dom_obj.attr('data-height_ratio') || script_slideshow.height_ratio,
 			setting_height_ratio_mobile = dom_obj.attr('data-height_ratio_mobile') || script_slideshow.height_ratio_mobile;
-
-		/*function preload(url)
-		{
-			var img = new Image();
-			img.src = url;
-		}*/
 
 		function disable_autoplay()
 		{

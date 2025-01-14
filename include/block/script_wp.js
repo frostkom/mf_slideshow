@@ -19,11 +19,6 @@
 				'type': 'string',
 				'default': ''
 			},
-			'slideshow_heading':
-			{
-                'type': 'string',
-                'default': ''
-            },
 			'parent':
 			{
                 'type': 'string',
@@ -34,10 +29,45 @@
                 'type': 'string',
                 'default': ''
             },
-			'slideshow_background':
+			'slideshow_display_text_background':
+			{
+                'type': 'string',
+                'default': 'yes'
+            },
+			'slideshow_height_ratio':
+			{
+                'type': 'string',
+                'default': '0.5'
+            },
+			'slideshow_height_ratio_mobile':
+			{
+                'type': 'string',
+                'default': '1'
+            },
+			'slideshow_image_fit':
 			{
                 'type': 'string',
                 'default': ''
+            },
+			'slideshow_display_controls':
+			{
+                'type': 'string',
+                'default': ''
+            },
+			'slideshow_autoplay':
+			{
+                'type': 'string',
+                'default': 'no'
+            },
+			'slideshow_duration':
+			{
+                'type': 'string',
+                'default': '5'
+            },
+			'slideshow_fade_duration':
+			{
+                'type': 'string',
+                'default': '400'
             },
 			'slideshow_random':
 			{
@@ -82,18 +112,6 @@
 						InspectorControls,
 						'div',
 						el(
-							TextControl,
-							{
-								label: script_slideshow_block_wp.slideshow_heading_label,
-								type: 'text',
-								value: props.attributes.slideshow_heading,
-								onChange: function(value)
-								{
-									props.setAttributes({slideshow_heading: value});
-								}
-							}
-						),
-						el(
 							SelectControl,
 							{
 								label: script_slideshow_block_wp.parent_label,
@@ -118,14 +136,99 @@
 							}
 						),
 						el(
-							TextControl,
+							SelectControl,
 							{
-								label: script_slideshow_block_wp.slideshow_background_label,
-								type: 'color',
-								value: props.attributes.slideshow_background,
+								label: script_slideshow_block_wp.slideshow_display_text_background_label,
+								value: props.attributes.slideshow_display_text_background,
+								options: convert_php_array_to_block_js(script_slideshow_block_wp.yes_no_for_select),
 								onChange: function(value)
 								{
-									props.setAttributes({slideshow_background: value});
+									props.setAttributes({slideshow_display_text_background: value});
+								}
+							}
+						),
+						el(
+							TextControl,
+							{
+								label: script_slideshow_block_wp.slideshow_height_ratio_label,
+								type: 'text',
+								value: props.attributes.slideshow_height_ratio,
+								onChange: function(value)
+								{
+									props.setAttributes({slideshow_height_ratio: value});
+								}
+							}
+						),
+						el(
+							TextControl,
+							{
+								label: script_slideshow_block_wp.slideshow_height_ratio_mobile_label,
+								type: 'text',
+								value: props.attributes.slideshow_height_ratio_mobile,
+								onChange: function(value)
+								{
+									props.setAttributes({slideshow_height_ratio_mobile: value});
+								}
+							}
+						),
+						el(
+							SelectControl,
+							{
+								label: script_slideshow_block_wp.slideshow_image_fit_label,
+								value: props.attributes.slideshow_image_fit,
+								options: convert_php_array_to_block_js(script_slideshow_block_wp.arr_slideshow_image_fit),
+								onChange: function(value)
+								{
+									props.setAttributes({slideshow_image_fit: value});
+								}
+							}
+						),
+						el(
+							SelectControl,
+							{
+								label: script_slideshow_block_wp.slideshow_display_controls_label,
+								value: props.attributes.slideshow_display_controls,
+								options: convert_php_array_to_block_js(script_slideshow_block_wp.arr_slideshow_display_controls),
+								multiple: true,
+								onChange: function(value)
+								{
+									props.setAttributes({slideshow_display_controls: value});
+								}
+							}
+						),
+						el(
+							SelectControl,
+							{
+								label: script_slideshow_block_wp.slideshow_autoplay_label,
+								value: props.attributes.slideshow_autoplay,
+								options: convert_php_array_to_block_js(script_slideshow_block_wp.yes_no_for_select),
+								onChange: function(value)
+								{
+									props.setAttributes({slideshow_autoplay: value});
+								}
+							}
+						),
+						el(
+							TextControl,
+							{
+								label: script_slideshow_block_wp.slideshow_duration_label,
+								type: 'number',
+								value: props.attributes.slideshow_duration,
+								onChange: function(value)
+								{
+									props.setAttributes({slideshow_duration: value});
+								}
+							}
+						),
+						el(
+							TextControl,
+							{
+								label: script_slideshow_block_wp.slideshow_fade_duration_label,
+								type: 'number',
+								value: props.attributes.slideshow_fade_duration,
+								onChange: function(value)
+								{
+									props.setAttributes({slideshow_fade_duration: value});
 								}
 							}
 						),
@@ -140,15 +243,7 @@
 									props.setAttributes({slideshow_random: value});
 								}
 							}
-						)/*,
-						el(
-							'a',
-							{
-								className: "wp_mf_block " + props.className,
-								href: "/wp-admin/options-general.php?page=settings_mf_base#settings_slideshow"
-							},
-							script_slideshow_block_wp.settings_label
-						)*/
+						)
 					),
 					el(
 						'strong',
