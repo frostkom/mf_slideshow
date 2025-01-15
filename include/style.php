@@ -86,7 +86,6 @@ echo "@media all
 					object-fit: ".$setting_slideshow_image_fit.";
 					width: 100%;
 					transition: transform 20s ease;
-					-webkit-transform: scale(1);
 					transform: scale(1);
 				}2025-01-14
 
@@ -144,7 +143,6 @@ echo "@media all
 
 				.slideshow.original .content:not(.bottom) > div
 				{
-					-webkit-transform: translateY(-50%);
 					transform: translateY(-50%);
 				}
 
@@ -213,7 +211,6 @@ echo "@media all
 				opacity: .2;
 				position: absolute;
 				top: 50%;
-				-webkit-transform: translateY(-50%);
 				transform: translateY(-50%);
 				transition: all 2s ease;
 			}
@@ -275,7 +272,6 @@ echo "@media all
 			.slideshow.original:hover .controls_dots
 			{
 				opacity: .8;
-				-webkit-transform: scale(1.2);
 				transform: scale(1.2);
 			}
 
@@ -307,9 +303,6 @@ echo "@media all
 		/* ############################## */
 		.slideshow .slideshow_thumbnails
 		{
-			display: -webkit-box;
-			display: -ms-flexbox;
-			display: -webkit-flex;
 			display: flex;
 			flex-wrap: wrap;
 			list-style: none;
@@ -330,9 +323,6 @@ echo "@media all
 
 					echo ".slideshow .slideshow_thumbnails.thumbnail_columns_".$i." li
 					{
-						-webkit-box-flex: 0 0 ".$thumbnail_width."%;
-						-webkit-flex: 0 0 ".$thumbnail_width."%;
-						-ms-flex: 0 0 ".$thumbnail_width."%;
 						flex: 0 0 ".$thumbnail_width."%;
 					}";
 				}

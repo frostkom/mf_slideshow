@@ -116,7 +116,6 @@ class mf_slideshow
 		$out = "";
 
 		$plugin_include_url = plugin_dir_url(__FILE__);
-		$plugin_version = get_plugin_version(__FILE__);
 
 		switch($attributes['slideshow_style'])
 		{
@@ -137,15 +136,15 @@ class mf_slideshow
 		switch($attributes['slideshow_style'])
 		{
 			case 'carousel':
-				mf_enqueue_style('style_slideshow_carousel', $plugin_include_url."style_carousel.css", $plugin_version);
-				mf_enqueue_script('script_slideshow_carousel', $plugin_include_url."script_carousel.js", $arr_settings, $plugin_version);
+				mf_enqueue_style('style_slideshow_carousel', $plugin_include_url."style_carousel.css");
+				mf_enqueue_script('script_slideshow_carousel', $plugin_include_url."script_carousel.js", $arr_settings);
 			break;
 
 			case 'flickity':
-				mf_enqueue_style('style_flickity', $plugin_include_url."lib/flickity.min.css", $plugin_version);
-				mf_enqueue_style('style_slideshow_flickity', $plugin_include_url."style_flickity.css", $plugin_version);
-				mf_enqueue_script('script_flickity', $plugin_include_url."lib/flickity.pkgd.min.js", $plugin_version);
-				mf_enqueue_script('script_slideshow_flickity', $plugin_include_url."script_flickity.js", $arr_settings, $plugin_version);
+				mf_enqueue_style('style_flickity', $plugin_include_url."lib/flickity.min.css");
+				mf_enqueue_style('style_slideshow_flickity', $plugin_include_url."style_flickity.css");
+				mf_enqueue_script('script_flickity', $plugin_include_url."lib/flickity.pkgd.min.js");
+				mf_enqueue_script('script_slideshow_flickity', $plugin_include_url."script_flickity.js", $arr_settings);
 			break;
 
 			case 'mosaic':
@@ -161,20 +160,19 @@ class mf_slideshow
 				$obj_base->load_font_awesome(array(
 					'type' => 'public',
 					'plugin_include_url' => $plugin_base_include_url,
-					//'plugin_version' => $plugin_version,
 				));
 
-				mf_enqueue_script('script_slideshow_mosaic', $plugin_include_url."script_mosaic.js", $plugin_version);
-				mf_enqueue_style('style_slideshow_mosaic', $plugin_include_url."style_mosaic.css", $plugin_version);
+				mf_enqueue_script('script_slideshow_mosaic', $plugin_include_url."script_mosaic.js");
+				mf_enqueue_style('style_slideshow_mosaic', $plugin_include_url."style_mosaic.css");
 			break;
 
 			case 'original';
 				$arr_settings['fade_duration'] = get_option_or_default('setting_slideshow_fade_duration', 400);
 				//$arr_settings['random'] = get_option('setting_slideshow_random', 'no');
 
-				mf_enqueue_style('style_slideshow', $plugin_include_url."style.php", $plugin_version);
-				mf_enqueue_script('script_swipe', $plugin_include_url."lib/jquery.touchSwipe.min.js", $plugin_version);
-				mf_enqueue_script('script_slideshow', $plugin_include_url."script.js", $arr_settings, $plugin_version);
+				mf_enqueue_style('style_slideshow', $plugin_include_url."style.php");
+				mf_enqueue_script('script_swipe', $plugin_include_url."lib/jquery.touchSwipe.min.js");
+				mf_enqueue_script('script_slideshow', $plugin_include_url."script.js", $arr_settings);
 			break;
 		}
 
@@ -360,7 +358,7 @@ class mf_slideshow
 
 		echo show_textfield(array('name' => $setting_key, 'value' => $option));
 	}
-	
+
 	function get_image_fit_for_select()
 	{
 		return array(
@@ -683,26 +681,25 @@ class mf_slideshow
 		);
 
 		$plugin_include_url = plugin_dir_url(__FILE__);
-		$plugin_version = get_plugin_version(__FILE__);
 
 		if(in_array('carousel', $setting_slideshow_style))
 		{
-			mf_enqueue_style('style_slideshow_carousel', $plugin_include_url."style_carousel.css", $plugin_version);
-			mf_enqueue_script('script_slideshow_carousel', $plugin_include_url."script_carousel.js", $arr_settings, $plugin_version);
+			mf_enqueue_style('style_slideshow_carousel', $plugin_include_url."style_carousel.css");
+			mf_enqueue_script('script_slideshow_carousel', $plugin_include_url."script_carousel.js", $arr_settings);
 		}
 
 		if(in_array('flickity', $setting_slideshow_style))
 		{
-			mf_enqueue_style('style_flickity', $plugin_include_url."lib/flickity.min.css", $plugin_version);
-			mf_enqueue_style('style_slideshow_flickity', $plugin_include_url."style_flickity.css", $plugin_version);
-			mf_enqueue_script('script_flickity', $plugin_include_url."lib/flickity.pkgd.min.js", $plugin_version);
-			mf_enqueue_script('script_slideshow_flickity', $plugin_include_url."script_flickity.js", $arr_settings, $plugin_version);
+			mf_enqueue_style('style_flickity', $plugin_include_url."lib/flickity.min.css");
+			mf_enqueue_style('style_slideshow_flickity', $plugin_include_url."style_flickity.css");
+			mf_enqueue_script('script_flickity', $plugin_include_url."lib/flickity.pkgd.min.js");
+			mf_enqueue_script('script_slideshow_flickity', $plugin_include_url."script_flickity.js", $arr_settings);
 		}
 
 		if(in_array('mosaic', $setting_slideshow_style))
 		{
-			mf_enqueue_script('script_slideshow_mosaic', $plugin_include_url."script_mosaic.js", $plugin_version);
-			mf_enqueue_style('style_slideshow_mosaic', $plugin_include_url."style_mosaic.css", $plugin_version);
+			mf_enqueue_script('script_slideshow_mosaic', $plugin_include_url."script_mosaic.js");
+			mf_enqueue_style('style_slideshow_mosaic', $plugin_include_url."style_mosaic.css");
 		}
 
 		if(in_array('original', $setting_slideshow_style))
@@ -710,9 +707,9 @@ class mf_slideshow
 			$arr_settings['fade_duration'] = get_option_or_default('setting_slideshow_fade_duration', 400);
 			$arr_settings['random'] = get_option('setting_slideshow_random', 'no');
 
-			mf_enqueue_style('style_slideshow', $plugin_include_url."style.php", $plugin_version);
-			mf_enqueue_script('script_swipe', $plugin_include_url."lib/jquery.touchSwipe.min.js", $plugin_version);
-			mf_enqueue_script('script_slideshow', $plugin_include_url."script.js", $arr_settings, $plugin_version);
+			mf_enqueue_style('style_slideshow', $plugin_include_url."style.php");
+			mf_enqueue_script('script_swipe', $plugin_include_url."lib/jquery.touchSwipe.min.js");
+			mf_enqueue_script('script_slideshow', $plugin_include_url."script.js", $arr_settings);
 		}
 	}
 
@@ -1280,7 +1277,7 @@ class widget_slideshow extends WP_Widget
 
 						echo show_textfield(array('name' => $this->get_field_name('slideshow_height_ratio'), 'text' => __("Height Ratio", 'lang_slideshow')." <i class='fa fa-info-circle' title='".sprintf(__("From %s to %s. %s means the slideshow will be presented in landscape, %s means square format and %s means the slideshow is presented in portrait", 'lang_slideshow'), "0.3", "2", "0.3", "1", "2")."'></i>", 'value' => $instance['slideshow_height_ratio']))
 						.show_textfield(array('name' => $this->get_field_name('slideshow_height_ratio_mobile'), 'text' => __("Height Ratio", 'lang_slideshow')." (".__("Mobile", 'lang_slideshow').")", 'value' => $instance['slideshow_height_ratio_mobile']));
-						
+
 					echo "</div>";
 				}
 			}

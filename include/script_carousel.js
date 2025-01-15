@@ -64,9 +64,6 @@ jQuery(function($)
 			{
 				$(this).css(
 				{
-					'-webkit-transform': "rotateY(" + count_deg + "deg) translateZ(-750px)",
-					'-moz-transform': "rotateY(" + count_deg + "deg) translateZ(-750px)",
-					'-o-transform': "rotateY(" + count_deg + "deg) translateZ(-750px)",
 					'transform': "rotateY(" + count_deg + "deg) translateZ(-750px)",
 				});
 
@@ -87,9 +84,6 @@ jQuery(function($)
 
 				carousel.css(
 				{
-					'-webkit-transform': "rotateY(" + currdeg + "deg)",
-					'-moz-transform': "rotateY(" + currdeg + "deg)",
-					'-o-transform': "rotateY(" + currdeg + "deg)",
 					'transform': "rotateY(" + currdeg + "deg)"
 				});
 			}

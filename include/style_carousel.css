@@ -31,9 +31,6 @@
 					height: 100%;
 					object-fit: contain;
 					width: 100%;
-					-webkit-transform: scale(.7);
-					-moz-transform: scale(.7);
-					-o-transform: scale(.7);
 					transform: scale(.7);
 				}
 
@@ -48,9 +45,6 @@
 				padding: 1em 1.2em;
 				position: absolute;
 				top: 50%;
-				-webkit-transform: translateY(-50%);
-				-moz-transform: translateY(-50%);
-				-o-transform: translateY(-50%);
 				transform: translateY(-50%);
 			}
 

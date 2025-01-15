@@ -37,14 +37,14 @@
 			{
 				display: block;
 			}
-			
+
 				.slideshow.mosaic > div.active:hover::before
 				{
 					right: 2%;
 					top: 0;
 					transform: rotate(90deg);
 				}
-		
+
 			.slideshow.mosaic > div:nth-child(3n + 1)
 			{
 				grid-row: span 2 / auto;
