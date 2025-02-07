@@ -635,11 +635,6 @@ class mf_slideshow
 			}
 		}
 
-		else
-		{
-			//$data['actions']['create_page'] = "<a href='".wp_nonce_url(admin_url("admin.php?page=mf_form/create/index.php&btnPageCreate&intFormID=".$this->id."&strFormName=".$this->name), 'page_create_'.$this->id, '_wpnonce_page_create')."'".($data['class'] != '' ? " class='".$data['class']."'" : "").">".__("Add New Page", 'lang_slideshow')."</a>";
-		}
-
 		return $data['actions'];
 	}
 
