@@ -187,14 +187,12 @@ class mf_slideshow
 
 		// Post types
 		#######################
-		$labels = array(
-			'name' => _x(__("Slideshows", 'lang_slideshow'), 'post type general name'),
-			'singular_name' => _x(__("Slideshow", 'lang_slideshow'), 'post type singular name'),
-			'menu_name' => __("Slideshow", 'lang_slideshow')
-		);
-
-		$args = array(
-			'labels' => $labels,
+		register_post_type($this->post_type, array(
+			'labels' => array(
+				'name' => _x(__("Slideshows", 'lang_slideshow'), 'post type general name'),
+				'singular_name' => _x(__("Slideshow", 'lang_slideshow'), 'post type singular name'),
+				'menu_name' => __("Slideshow", 'lang_slideshow')
+			),
 			'public' => false,
 			'show_ui' => true,
 			'exclude_from_search' => true,
@@ -204,9 +202,7 @@ class mf_slideshow
 			'supports' => array('title', 'editor', 'page-attributes'),
 			'hierarchical' => true,
 			'has_archive' => false,
-		);
-
-		register_post_type($this->post_type, $args);
+		));
 		#######################
 
 		// Blocks
