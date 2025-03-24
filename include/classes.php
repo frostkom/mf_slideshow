@@ -706,7 +706,9 @@ class mf_slideshow
 
 	function shortcode_slideshow($atts)
 	{
-		extract(shortcode_atts(array(
+		$out = "";
+
+		/*extract(shortcode_atts(array(
 			'id' => '',
 			'style' => get_option_or_default('setting_slideshow_style', 'original'),
 			'background' => get_option('setting_slideshow_background_color'),
@@ -721,7 +723,7 @@ class mf_slideshow
 			'random' => get_option_or_default('setting_slideshow_random', 'no'),
 		), $atts));
 
-		return $this->get_slideshow(array(
+		$out = $this->get_slideshow(array(
 			'parent' => $id,
 			'slideshow_style' => $style,
 			'slideshow_background' => $background,
@@ -734,7 +736,11 @@ class mf_slideshow
 			'slideshow_duration' => $duration,
 			'slideshow_fade_duration' => $fade_duration,
 			'slideshow_random' => $random,
-		));
+		));*/
+
+		do_log(__FUNCTION__.": Add a block instead (".var_export($atts, true).")");
+
+		return $out;
 	}
 
 	function get_slideshow($data)
