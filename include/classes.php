@@ -706,6 +706,8 @@ class mf_slideshow
 
 	function shortcode_slideshow($atts)
 	{
+		global $post;
+
 		$out = "";
 
 		/*extract(shortcode_atts(array(
@@ -738,7 +740,7 @@ class mf_slideshow
 			'slideshow_random' => $random,
 		));*/
 
-		do_log(__FUNCTION__.": Add a block instead (".var_export($atts, true).")");
+		do_log(__FUNCTION__.": Add a block instead (#".$post->ID.", ".var_export($atts, true).")");
 
 		return $out;
 	}
