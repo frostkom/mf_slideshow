@@ -189,8 +189,8 @@ class mf_slideshow
 		#######################
 		register_post_type($this->post_type, array(
 			'labels' => array(
-				'name' => _x(__("Slideshows", 'lang_slideshow'), 'post type general name'),
-				'singular_name' => _x(__("Slideshow", 'lang_slideshow'), 'post type singular name'),
+				'name' => __("Slideshows", 'lang_slideshow'),
+				'singular_name' => __("Slideshow", 'lang_slideshow'),
 				'menu_name' => __("Slideshow", 'lang_slideshow')
 			),
 			'public' => false,
