@@ -374,6 +374,8 @@ class mf_slideshow
 
 	function setting_slideshow_display_controls_callback()
 	{
+		$arr_default = array();
+
 		/*switch(get_option('setting_slideshow_show_controls'))
 		{
 			case 'none':
