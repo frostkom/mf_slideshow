@@ -742,7 +742,7 @@ class mf_slideshow
 			'slideshow_random' => $random,
 		));*/
 
-		do_log(__FUNCTION__.": Add a block instead (#".$post->ID.", ".var_export($atts, true).")");
+		do_log(__FUNCTION__.": Add a block instead (#".$post->ID.", ".var_export($atts, true).")", 'publish', false);
 
 		return $out;
 	}
@@ -1193,6 +1193,8 @@ class widget_slideshow extends WP_Widget
 
 	function widget($args, $instance)
 	{
+		do_log(__CLASS__."->".__FUNCTION__."(): Add a block instead", 'publish', false);
+
 		global $wpdb;
 
 		extract($args);
