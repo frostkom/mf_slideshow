@@ -79,6 +79,10 @@ class mf_slideshow
 			replace_post_meta(array('old' => 'mf_slide_page', 'new' => $this->meta_prefix.'page'));
 			replace_post_meta(array('old' => 'mf_slide_link', 'new' => $this->meta_prefix.'link'));
 			replace_post_meta(array('old' => 'mf_slide_images', 'new' => $this->meta_prefix.'images'));
+
+			mf_uninstall_plugin(array(
+				'options' => array('setting_slideshow_show_controls', 'setting_slideshow_image_steps', 'setting_slideshow_image_columns', 'setting_slideshow_animate'), //, 'setting_slideshow_display_thumbnails'
+			));
 		}
 
 		$obj_cron->end();

@@ -3,7 +3,7 @@
 Plugin Name: MF Slideshow
 Plugin URI: https://github.com/frostkom/mf_slideshow
 Description:
-Version: 4.10.10
+Version: 4.10.11
 Licence: GPLv2 or later
 Author: Martin Fors
 Author URI: https://martinfors.se
@@ -66,10 +66,6 @@ if(!function_exists('is_plugin_active') || function_exists('is_plugin_active') &
 	function activate_slideshow()
 	{
 		require_plugin("meta-box/meta-box.php", "Meta Box");
-
-		mf_uninstall_plugin(array(
-			'options' => array('setting_slideshow_show_controls', 'setting_slideshow_image_steps', 'setting_slideshow_image_columns', 'setting_slideshow_animate'), //, 'setting_slideshow_display_thumbnails'
-		));
 	}
 
 	function uninstall_slideshow()
