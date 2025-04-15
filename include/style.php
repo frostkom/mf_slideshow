@@ -45,7 +45,7 @@ echo "@media all
 			padding-right: 0;
 		}
 
-		.is_tablet .slideshow.original .slideshow_container
+		/*.is_tablet .slideshow.original .slideshow_container
 		{
 			font-size: .8em;
 		}
@@ -53,7 +53,7 @@ echo "@media all
 		.is_mobile .slideshow.original .slideshow_container
 		{
 			font-size: .6em;
-		}
+		}*/
 
 		.widget .slideshow.original .slideshow_container
 		{
@@ -87,7 +87,7 @@ echo "@media all
 					width: 100%;
 					transition: transform 20s ease;
 					transform: scale(1);
-				}2025-01-14
+				}
 
 		/* Content */
 		/* ############################## */

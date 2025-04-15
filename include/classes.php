@@ -31,10 +31,8 @@ class mf_slideshow
 		);
 	}
 
-	function get_slideshow_styles_for_select($data = array())
+	function get_slideshow_styles_for_select()
 	{
-		if(!isset($data['styles'])){	$data['styles'] = get_option('setting_slideshow_style', array('original'));}
-
 		$arr_data = array(
 			'original' => __("Default", 'lang_slideshow'),
 			'mosaic' => __("Mosaic", 'lang_slideshow'),
@@ -71,7 +69,7 @@ class mf_slideshow
 			replace_post_meta(array('old' => 'mf_slide_images', 'new' => $this->meta_prefix.'images'));
 
 			mf_uninstall_plugin(array(
-				'options' => array('setting_slideshow_show_controls', 'setting_slideshow_image_steps', 'setting_slideshow_image_columns', 'setting_slideshow_animate', 'setting_slideshow_open_links_in_new_tab'),
+				'options' => array('setting_slideshow_show_controls', 'setting_slideshow_image_steps', 'setting_slideshow_image_columns', 'setting_slideshow_animate', 'setting_slideshow_open_links_in_new_tab', 'setting_slideshow_random', 'setting_slideshow_fade_duration', 'setting_slideshow_duration', 'setting_slideshow_autoplay', 'setting_slideshow_height_ratio', 'setting_slideshow_height_ratio_mobile', 'setting_slideshow_display_text_background', 'setting_slideshow_background_opacity', 'setting_slideshow_style', 'setting_slideshow_background_color'),
 			));
 		}
 
@@ -83,8 +81,8 @@ class mf_slideshow
 		global $wpdb;
 
 		if(!isset($attributes['slideshow_style'])){					$attributes['slideshow_style'] = 'original';}
-		if(!isset($attributes['slideshow_background'])){			$attributes['slideshow_background'] = "";}
-		if(!isset($attributes['slideshow_background_opacity'])){	$attributes['slideshow_background_opacity'] = "";}
+		//if(!isset($attributes['slideshow_background'])){			$attributes['slideshow_background'] = "";}
+		//if(!isset($attributes['slideshow_background_opacity'])){	$attributes['slideshow_background_opacity'] = "";}
 		if(!isset($attributes['slideshow_height_ratio'])){			$attributes['slideshow_height_ratio'] = '0.5';}
 		if(!isset($attributes['slideshow_height_ratio_mobile'])){	$attributes['slideshow_height_ratio_mobile'] = '1';}
 		if(!isset($attributes['slideshow_display_controls'])){		$attributes['slideshow_display_controls'] = array();}
@@ -140,7 +138,7 @@ class mf_slideshow
 					'random' => $attributes['slideshow_random'],
 				);
 
-				$arr_settings['fade_duration'] = get_option_or_default('setting_slideshow_fade_duration', 400);
+				$arr_settings['fade_duration'] = 400;
 
 				mf_enqueue_style('style_slideshow', $plugin_include_url."style.php");
 				mf_enqueue_script('script_swipe', $plugin_include_url."jquery.touchSwipe.min.js");
@@ -200,19 +198,19 @@ class mf_slideshow
 
 		if($count_slide_images > 0)
 		{
-			if(!isset($attributes['slideshow_style'])){						$attributes['slideshow_style'] = get_option_or_default('setting_slideshow_style', 'original');}
-			if($attributes['slideshow_background'] == ''){					$attributes['slideshow_background'] = get_option_or_default('setting_slideshow_background_color');}
-			if($attributes['slideshow_background_opacity'] == ''){			$attributes['slideshow_background_opacity'] = get_option_or_default('setting_slideshow_background_opacity', 100);}
+			if(!isset($attributes['slideshow_style'])){						$attributes['slideshow_style'] = 'original';}
+			//if($attributes['slideshow_background'] == ''){					$attributes['slideshow_background'] = "#000000";}
+			//if($attributes['slideshow_background_opacity'] == ''){			$attributes['slideshow_background_opacity'] = 100;}
 			if(!isset($attributes['slideshow_display_text_background'])){	$attributes['slideshow_display_text_background'] = get_option_or_default('setting_slideshow_slideshow_display_text_background', 'yes');}
 			if(!isset($attributes['slideshow_display_controls'])){			$attributes['slideshow_display_controls'] = get_option('setting_slideshow_display_controls');}
-			if(!isset($attributes['slideshow_random'])){					$attributes['slideshow_random'] = get_option('setting_slideshow_random', 'no');}
+			if(!isset($attributes['slideshow_random'])){					$attributes['slideshow_random'] = 'no';}
 
 			//$setting_slideshow_open_links_in_new_tab = get_option('setting_slideshow_open_links_in_new_tab');
 
-			if(is_array($attributes['slideshow_style']))
+			/*if(is_array($attributes['slideshow_style']))
 			{
 				$attributes['slideshow_style'] = $attributes['slideshow_style'][0];
-			}
+			}*/
 
 			$images_html = $dots_html = "";
 			$i = $active_i = 1;
@@ -301,7 +299,7 @@ class mf_slideshow
 				$i++;
 			}
 
-			$slideshow_classes = "widget slideshow ".($attributes['slideshow_style']);
+			$slideshow_classes = "widget slideshow ".$attributes['slideshow_style'];
 			$slideshow_style = $slideshow_attributes = "";
 
 			if($attributes['slideshow_display_text_background'] == 'yes')
@@ -309,7 +307,7 @@ class mf_slideshow
 				$slideshow_classes .= " display_text_background";
 			}
 
-			if($attributes['slideshow_background'] != '')
+			/*if($attributes['slideshow_background'] != '')
 			{
 				if($attributes['slideshow_background_opacity'] != '')
 				{
@@ -319,7 +317,7 @@ class mf_slideshow
 				}
 
 				$slideshow_style .= "background-color: ".$attributes['slideshow_background'].";";
-			}
+			}*/
 
 			$slideshow_attributes .= " data-random='".$attributes['slideshow_random']."'";
 
@@ -494,7 +492,7 @@ class mf_slideshow
 			'parent_label' => __("Parent", 'lang_slideshow'),
 			'arr_parents' => $arr_data_parents,
 			'slideshow_style_label' => __("Style", 'lang_slideshow'),
-			'arr_slideshow_style' => $this->get_slideshow_styles_for_select(array('styles' => array('original'))),
+			'arr_slideshow_style' => $this->get_slideshow_styles_for_select(),
 			'yes_no_for_select' => get_yes_no_for_select(),
 			'slideshow_height_ratio_label' => __("Height Ratio", 'lang_slideshow'),
 			'slideshow_height_ratio_mobile_label' => " - ".__("Mobile", 'lang_slideshow'),
@@ -524,14 +522,13 @@ class mf_slideshow
 		add_settings_section($options_area, "", array($this, $options_area."_callback"), BASE_OPTIONS_PAGE);
 
 		$arr_settings = array();
-
-		$arr_settings['setting_slideshow_style'] = __("Style", 'lang_slideshow');
+		//$arr_settings['setting_slideshow_style'] = __("Style", 'lang_slideshow');
 		$arr_settings['setting_slideshow_allow_widget_override'] = __("Allow Widget Override", 'lang_slideshow');
-		$arr_settings['setting_slideshow_background_color'] = __("Background Color", 'lang_slideshow');
-		$arr_settings['setting_slideshow_background_opacity'] = " - ".__("Opacity", 'lang_slideshow');
-		$arr_settings['setting_slideshow_display_text_background'] = __("Display Text Background", 'lang_slideshow');
-		$arr_settings['setting_slideshow_height_ratio'] = __("Height Ratio", 'lang_slideshow');
-		$arr_settings['setting_slideshow_height_ratio_mobile'] = __("Height Ratio", 'lang_slideshow')." (".__("Mobile", 'lang_slideshow').")";
+		//$arr_settings['setting_slideshow_background_color'] = __("Background Color", 'lang_slideshow');
+		//$arr_settings['setting_slideshow_background_opacity'] = " - ".__("Opacity", 'lang_slideshow');
+		//$arr_settings['setting_slideshow_display_text_background'] = __("Display Text Background", 'lang_slideshow');
+		//$arr_settings['setting_slideshow_height_ratio'] = __("Height Ratio", 'lang_slideshow');
+		//$arr_settings['setting_slideshow_height_ratio_mobile'] = __("Height Ratio", 'lang_slideshow')." (".__("Mobile", 'lang_slideshow').")";
 		$arr_settings['setting_slideshow_image_fit'] = __("Image Fit", 'lang_slideshow');
 		$arr_settings['setting_slideshow_display_controls'] = __("Display", 'lang_slideshow');
 
@@ -543,14 +540,14 @@ class mf_slideshow
 			$arr_settings['setting_slideshow_thumbnail_rows'] = __("Thumbnail Rows", 'lang_slideshow');
 		}
 
-		$arr_settings['setting_slideshow_autoplay'] = __("Autoplay", 'lang_slideshow');
+		//$arr_settings['setting_slideshow_autoplay'] = __("Autoplay", 'lang_slideshow');
 
-		if(get_option('setting_slideshow_autoplay') == 1 || get_option('setting_slideshow_autoplay') == 'yes')
+		/*if(get_option('setting_slideshow_autoplay') == 1 || get_option('setting_slideshow_autoplay') == 'yes')
 		{
 			$arr_settings['setting_slideshow_duration'] = __("Duration", 'lang_slideshow');
-		}
+		}*/
 
-		if(in_array('original', get_option('setting_slideshow_style', array('original'))))
+		/*if(in_array('original', get_option('setting_slideshow_style', array('original'))))
 		{
 			$arr_settings['setting_slideshow_fade_duration'] = __("Fade Duration", 'lang_slideshow');
 
@@ -558,7 +555,7 @@ class mf_slideshow
 			{
 				$arr_settings['setting_slideshow_random'] = __("Random", 'lang_slideshow');
 			}
-		}
+		}*/
 
 		//$arr_settings['setting_slideshow_open_links_in_new_tab'] = __("Open Links in new Tabs", 'lang_slideshow');
 
@@ -572,13 +569,13 @@ class mf_slideshow
 		echo settings_header($setting_key, __("Slideshow", 'lang_slideshow'));
 	}
 
-	function setting_slideshow_style_callback()
+	/*function setting_slideshow_style_callback()
 	{
 		$setting_key = get_setting_key(__FUNCTION__);
 		$option = get_option($setting_key, array('original'));
 
-		echo show_select(array('data' => $this->get_slideshow_styles_for_select(array('styles' => array('original'))), 'name' => $setting_key."[]", 'value' => $option));
-	}
+		echo show_select(array('data' => $this->get_slideshow_styles_for_select(), 'name' => $setting_key."[]", 'value' => $option));
+	}*/
 
 	function setting_slideshow_allow_widget_override_callback()
 	{
@@ -588,31 +585,31 @@ class mf_slideshow
 		echo show_select(array('data' => $this->get_allow_widget_override_for_select(), 'name' => $setting_key."[]", 'value' => $option));
 	}
 
-	function setting_slideshow_background_color_callback()
+	/*function setting_slideshow_background_color_callback()
 	{
 		$setting_key = get_setting_key(__FUNCTION__);
 		$option = get_option($setting_key, "#000000");
 
 		echo show_textfield(array('type' => 'color', 'name' => $setting_key, 'value' => $option));
-	}
+	}*/
 
-		function setting_slideshow_background_opacity_callback()
+		/*function setting_slideshow_background_opacity_callback()
 		{
 			$setting_key = get_setting_key(__FUNCTION__);
 			$option = get_option($setting_key, 100);
 
 			echo show_textfield(array('type' => 'number', 'name' => $setting_key, 'value' => $option, 'suffix' => "%"));
-		}
+		}*/
 
-	function setting_slideshow_display_text_background_callback()
+	/*function setting_slideshow_display_text_background_callback()
 	{
 		$setting_key = get_setting_key(__FUNCTION__);
 		$option = get_option($setting_key, 'yes');
 
 		echo show_select(array('data' => get_yes_no_for_select(), 'name' => $setting_key, 'value' => $option));
-	}
+	}*/
 
-	function setting_slideshow_height_ratio_callback()
+	/*function setting_slideshow_height_ratio_callback()
 	{
 		$setting_key = get_setting_key(__FUNCTION__);
 		$option = get_option($setting_key, '0.5');
@@ -626,7 +623,7 @@ class mf_slideshow
 		$option = get_option($setting_key, '1');
 
 		echo show_textfield(array('name' => $setting_key, 'value' => $option));
-	}
+	}*/
 
 	function get_image_fit_for_select()
 	{
@@ -647,15 +644,8 @@ class mf_slideshow
 
 	function setting_slideshow_display_controls_callback()
 	{
-		$arr_default = array();
-
-		if(in_array('original', get_option('setting_slideshow_style', array('original'))) && get_option('setting_slideshow_display_thumbnails') == 'yes')
-		{
-			$arr_default[] = 'thumbnails';
-		}
-
 		$setting_key = get_setting_key(__FUNCTION__);
-		$option = get_option($setting_key, $arr_default);
+		$option = get_option($setting_key, array('thumbnails'));
 
 		echo show_select(array('data' => $this->get_display_controls_for_select(), 'name' => $setting_key."[]", 'value' => $option));
 	}
@@ -676,37 +666,37 @@ class mf_slideshow
 		echo show_select(array('data' => $this->get_thumbnail_rows_for_select(), 'name' => $setting_key, 'value' => $option));
 	}
 
-	function setting_slideshow_autoplay_callback()
+	/*function setting_slideshow_autoplay_callback()
 	{
 		$setting_key = get_setting_key(__FUNCTION__);
 		$option = get_option($setting_key, 'no');
 
 		echo show_select(array('data' => get_yes_no_for_select(), 'name' => $setting_key, 'value' => $option)); //array('return_integer' => true)
-	}
+	}*/
 
-	function setting_slideshow_duration_callback()
+	/*function setting_slideshow_duration_callback()
 	{
 		$setting_key = get_setting_key(__FUNCTION__);
 		$option = get_option($setting_key, 5);
 
 		echo show_textfield(array('type' => 'number', 'name' => $setting_key, 'value' => $option, 'xtra' => "min='2'", 'suffix' => __("s", 'lang_slideshow')));
-	}
+	}*/
 
-	function setting_slideshow_fade_duration_callback()
+	/*function setting_slideshow_fade_duration_callback()
 	{
 		$setting_key = get_setting_key(__FUNCTION__);
 		$option = get_option($setting_key, 400);
 
 		echo show_textfield(array('type' => 'number', 'name' => $setting_key, 'value' => $option, 'xtra' => "min='400' max='2000'", 'suffix' => __("ms", 'lang_slideshow')));
-	}
+	}*/
 
-	function setting_slideshow_random_callback()
+	/*function setting_slideshow_random_callback()
 	{
 		$setting_key = get_setting_key(__FUNCTION__);
 		$option = get_option($setting_key, 'no');
 
 		echo show_select(array('data' => get_yes_no_for_select(array('return_integer' => true)), 'name' => $setting_key, 'value' => $option));
-	}
+	}*/
 
 	/*function setting_slideshow_open_links_in_new_tab_callback()
 	{
@@ -720,18 +710,6 @@ class mf_slideshow
 
 		echo show_select(array('data' => $arr_data, 'name' => $setting_key, 'value' => $option));
 	}*/
-
-	function admin_menu()
-	{
-		if(IS_EDITOR)
-		{
-			$menu_start = "edit.php?post_type=".$this->post_type;
-			$menu_capability = override_capability(array('page' => $menu_start, 'default' => 'edit_pages'));
-
-			$menu_title = __("Settings", 'lang_slideshow');
-			add_submenu_page($menu_start, $menu_title, $menu_title, $menu_capability, admin_url("options-general.php?page=settings_mf_base#settings_slideshow"));
-		}
-	}
 
 	function filter_sites_table_pages($arr_pages)
 	{
@@ -899,61 +877,6 @@ class mf_slideshow
 		return $actions;
 	}
 
-	function wp_head()
-	{
-		$setting_slideshow_style = get_option_or_default('setting_slideshow_style', array('original'));
-		$setting_slideshow_height_ratio = get_option_or_default('setting_slideshow_height_ratio', '0.5');
-		$setting_slideshow_height_ratio_mobile = get_option_or_default('setting_slideshow_height_ratio_mobile', '1');
-
-		$setting_slideshow_height_ratio = str_replace(",", ".", $setting_slideshow_height_ratio);
-		$setting_slideshow_height_ratio_mobile = str_replace(",", ".", $setting_slideshow_height_ratio_mobile);
-
-		if($setting_slideshow_height_ratio > 2 || $setting_slideshow_height_ratio < 0.2)
-		{
-			$setting_slideshow_height_ratio = 1;
-		}
-
-		if($setting_slideshow_height_ratio_mobile > 2 || $setting_slideshow_height_ratio_mobile < 0.2)
-		{
-			$setting_slideshow_height_ratio_mobile = 1;
-		}
-
-		$arr_settings = array(
-			'height_ratio' => $setting_slideshow_height_ratio,
-			'height_ratio_mobile' => $setting_slideshow_height_ratio_mobile,
-			'display_controls' => get_option('setting_slideshow_display_controls'),
-			'autoplay' => get_option_or_default('setting_slideshow_autoplay', 'no'),
-			'duration' => (get_option_or_default('setting_slideshow_duration', 5) * 1000),
-		);
-
-		$plugin_include_url = plugin_dir_url(__FILE__);
-
-		if(in_array('mosaic', $setting_slideshow_style))
-		{
-			mf_enqueue_script('script_slideshow_mosaic', $plugin_include_url."script_mosaic.js");
-			mf_enqueue_style('style_slideshow_mosaic', $plugin_include_url."style_mosaic.css");
-		}
-
-		if(in_array('original', $setting_slideshow_style))
-		{
-			$arr_settings['fade_duration'] = get_option_or_default('setting_slideshow_fade_duration', 400);
-			$arr_settings['random'] = get_option('setting_slideshow_random', 'no');
-
-			mf_enqueue_style('style_slideshow', $plugin_include_url."style.php");
-			mf_enqueue_script('script_swipe', $plugin_include_url."jquery.touchSwipe.min.js");
-			mf_enqueue_script('script_slideshow', $plugin_include_url."script.js", $arr_settings);
-		}
-	}
-
-	function shortcode_slideshow($atts)
-	{
-		global $post;
-
-		do_log(__FUNCTION__.": Add a block instead (#".$post->ID.", ".var_export($atts, true).")", 'publish', false);
-
-		return "";
-	}
-
 	function filter_is_file_used($arr_used)
 	{
 		global $wpdb;
@@ -1006,19 +929,19 @@ class widget_slideshow extends WP_Widget
 		$this->arr_default = array(
 			'slideshow_heading' => '',
 			'parent' => '',
-			'slideshow_style' => get_option_or_default('setting_slideshow_style', 'original'),
+			'slideshow_style' => 'original',
 		);
 
-		$this->arr_default['slideshow_background'] = get_option('setting_slideshow_background_color');
-		$this->arr_default['slideshow_background_opacity'] = get_option('setting_slideshow_background_opacity');
-		$this->arr_default['slideshow_display_text_background'] = get_option_or_default('setting_slideshow_display_text_background', 'yes');
-		$this->arr_default['slideshow_height_ratio'] = get_option_or_default('setting_slideshow_height_ratio', '0.5');
-		$this->arr_default['slideshow_height_ratio_mobile'] = get_option_or_default('setting_slideshow_height_ratio_mobile', '1');
+		//$this->arr_default['slideshow_background'] = "#000000";
+		//$this->arr_default['slideshow_background_opacity'] = 100;
+		$this->arr_default['slideshow_display_text_background'] = 'yes';
+		$this->arr_default['slideshow_height_ratio'] = '0.5';
+		$this->arr_default['slideshow_height_ratio_mobile'] = '1';
 		$this->arr_default['slideshow_display_controls'] = get_option('setting_slideshow_display_controls');
-		$this->arr_default['slideshow_autoplay'] = get_option_or_default('setting_slideshow_autoplay', 'no');
-		$this->arr_default['slideshow_duration'] = get_option_or_default('setting_slideshow_duration', 5);
-		$this->arr_default['slideshow_fade_duration'] = get_option_or_default('setting_slideshow_fade_duration', 400);
-		$this->arr_default['slideshow_random'] = get_option('setting_slideshow_random', 'no');
+		$this->arr_default['slideshow_autoplay'] = 'no';
+		$this->arr_default['slideshow_duration'] = 5;
+		$this->arr_default['slideshow_fade_duration'] = 400;
+		$this->arr_default['slideshow_random'] = 'no';
 
 		parent::__construct('slideshow-widget', __("Slideshow", 'lang_slideshow'), $this->widget_ops);
 	}
@@ -1026,28 +949,6 @@ class widget_slideshow extends WP_Widget
 	function widget($args, $instance)
 	{
 		do_log(__CLASS__."->".__FUNCTION__."(): Add a block instead", 'publish', false);
-
-		/*global $wpdb;
-
-		extract($args);
-		$instance = wp_parse_args((array)$instance, $this->arr_default);
-
-		if($instance['parent'] > 0)
-		{
-			echo apply_filters('filter_before_widget', $before_widget);
-
-				if($instance['slideshow_heading'] != '')
-				{
-					$instance['slideshow_heading'] = apply_filters('widget_title', $instance['slideshow_heading'], $instance, $this->id_base);
-
-					echo $before_title
-						.$instance['slideshow_heading']
-					.$after_title;
-				}
-
-				echo $this->obj_slideshow->get_slideshow($instance)
-			.$after_widget;
-		}*/
 	}
 
 	function update($new_instance, $old_instance)
@@ -1062,8 +963,8 @@ class widget_slideshow extends WP_Widget
 		$instance['slideshow_duration'] = sanitize_text_field($new_instance['slideshow_duration']);
 		$instance['slideshow_fade_duration'] = sanitize_text_field($new_instance['slideshow_fade_duration']);
 		$instance['slideshow_random'] = sanitize_text_field($new_instance['slideshow_random']);
-		$instance['slideshow_background'] = sanitize_text_field($new_instance['slideshow_background']);
-		$instance['slideshow_background_opacity'] = sanitize_text_field($new_instance['slideshow_background_opacity']);
+		//$instance['slideshow_background'] = sanitize_text_field($new_instance['slideshow_background']);
+		//$instance['slideshow_background_opacity'] = sanitize_text_field($new_instance['slideshow_background_opacity']);
 		$instance['slideshow_display_text_background'] = sanitize_text_field($new_instance['slideshow_display_text_background']);
 		$instance['slideshow_display_controls'] = is_array($new_instance['slideshow_display_controls']) ? $new_instance['slideshow_display_controls'] : array();
 		$instance['slideshow_height_ratio'] = str_replace(",", ".", sanitize_text_field($new_instance['slideshow_height_ratio']));
@@ -1079,27 +980,16 @@ class widget_slideshow extends WP_Widget
 		$arr_data_parents = array();
 		get_post_children(array('add_choose_here' => true, 'post_type' => $this->obj_slideshow->post_type, 'allow_depth' => false), $arr_data_parents);
 
-		$arr_data_styles = $this->obj_slideshow->get_slideshow_styles_for_select();
-
 		echo "<div class='mf_form'>"
 			.show_textfield(array('name' => $this->get_field_name('slideshow_heading'), 'text' => __("Heading", 'lang_slideshow'), 'value' => $instance['slideshow_heading'], 'xtra' => " id='".$this->widget_ops['classname']."-title'"))
-			.show_select(array('data' => $arr_data_parents, 'name' => $this->get_field_name('parent'), 'text' => __("Parent", 'lang_slideshow'), 'value' => $instance['parent'], 'suffix' => get_option_page_suffix(array('post_type' => $this->obj_slideshow->post_type, 'value' => $instance['parent']))));
-
-			if(count($arr_data_styles) > 1)
-			{
-				echo show_select(array('data' => $arr_data_styles, 'name' => $this->get_field_name('slideshow_style'), 'text' => __("Style", 'lang_slideshow'), 'value' => $instance['slideshow_style']));
-			}
-
-			else
-			{
-				echo input_hidden(array('name' => $this->get_field_name('slideshow_style'), 'value' => (is_array($instance['slideshow_style']) ? $instance['slideshow_style'][0] : $instance['slideshow_style'])));
-			}
+			.show_select(array('data' => $arr_data_parents, 'name' => $this->get_field_name('parent'), 'text' => __("Parent", 'lang_slideshow'), 'value' => $instance['parent'], 'suffix' => get_option_page_suffix(array('post_type' => $this->obj_slideshow->post_type, 'value' => $instance['parent']))))
+			.show_select(array('data' => $this->obj_slideshow->get_slideshow_styles_for_select(), 'name' => $this->get_field_name('slideshow_style'), 'text' => __("Style", 'lang_slideshow'), 'value' => $instance['slideshow_style']));
 
 			if(is_array($this->setting_slideshow_allow_widget_override) && in_array('background', $this->setting_slideshow_allow_widget_override))
 			{
 				echo "<div class='flex_flow'>"
-					.show_textfield(array('type' => 'color', 'name' => $this->get_field_name('slideshow_background'), 'text' => __("Background Color", 'lang_slideshow'), 'value' => $instance['slideshow_background']))
-					.show_textfield(array('type' => 'number', 'name' => $this->get_field_name('slideshow_background_opacity'), 'text' => " - ".__("Opacity", 'lang_slideshow'), 'value' => $instance['slideshow_background_opacity']))
+					//.show_textfield(array('type' => 'color', 'name' => $this->get_field_name('slideshow_background'), 'text' => __("Background Color", 'lang_slideshow'), 'value' => $instance['slideshow_background']))
+					//.show_textfield(array('type' => 'number', 'name' => $this->get_field_name('slideshow_background_opacity'), 'text' => " - ".__("Opacity", 'lang_slideshow'), 'value' => $instance['slideshow_background_opacity']))
 					.show_select(array('data' => get_yes_no_for_select(), 'name' => $this->get_field_name('slideshow_display_text_background'), 'text' => __("Display Text Background", 'lang_slideshow'), 'value' => $instance['slideshow_display_text_background']))
 				."</div>";
 			}
@@ -1133,7 +1023,7 @@ class widget_slideshow extends WP_Widget
 							$instance['slideshow_autoplay'] = 'no';
 						}
 
-						echo show_select(array('data' => get_yes_no_for_select(), 'name' => $this->get_field_name('slideshow_autoplay'), 'text' => __("Autoplay", 'lang_slideshow'), 'value' => $instance['slideshow_autoplay'])); //array('return_integer' => true)
+						echo show_select(array('data' => get_yes_no_for_select(), 'name' => $this->get_field_name('slideshow_autoplay'), 'text' => __("Autoplay", 'lang_slideshow'), 'value' => $instance['slideshow_autoplay']));
 					}
 
 				echo "</div>";
@@ -1155,7 +1045,7 @@ class widget_slideshow extends WP_Widget
 
 					echo "<div class='flex_flow'>"
 						.show_textfield(array('type' => 'number', 'name' => $this->get_field_name('slideshow_fade_duration'), 'text' => __("Fade Duration", 'lang_slideshow'), 'value' => $instance['slideshow_fade_duration'], 'xtra' => "min='400' max='4000'", 'suffix' => __("ms", 'lang_slideshow')))
-						.show_select(array('data' => get_yes_no_for_select(), 'name' => $this->get_field_name('slideshow_random'), 'text' => __("Random", 'lang_slideshow'), 'value' => $instance['slideshow_random'])) //array('return_integer' => true)
+						.show_select(array('data' => get_yes_no_for_select(), 'name' => $this->get_field_name('slideshow_random'), 'text' => __("Random", 'lang_slideshow'), 'value' => $instance['slideshow_random']))
 					."</div>";
 				}
 			}
