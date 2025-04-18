@@ -69,7 +69,7 @@ class mf_slideshow
 			replace_post_meta(array('old' => 'mf_slide_images', 'new' => $this->meta_prefix.'images'));
 
 			mf_uninstall_plugin(array(
-				'options' => array('setting_slideshow_show_controls', 'setting_slideshow_image_steps', 'setting_slideshow_image_columns', 'setting_slideshow_animate', 'setting_slideshow_open_links_in_new_tab', 'setting_slideshow_random', 'setting_slideshow_fade_duration', 'setting_slideshow_duration', 'setting_slideshow_autoplay', 'setting_slideshow_height_ratio', 'setting_slideshow_height_ratio_mobile', 'setting_slideshow_display_text_background', 'setting_slideshow_background_opacity', 'setting_slideshow_style', 'setting_slideshow_background_color'),
+				'options' => array('setting_slideshow_show_controls', 'setting_slideshow_image_steps', 'setting_slideshow_image_columns', 'setting_slideshow_animate', 'setting_slideshow_open_links_in_new_tab', 'setting_slideshow_random', 'setting_slideshow_fade_duration', 'setting_slideshow_duration', 'setting_slideshow_autoplay', 'setting_slideshow_height_ratio', 'setting_slideshow_height_ratio_mobile', 'setting_slideshow_display_text_background', 'setting_slideshow_background_opacity', 'setting_slideshow_style', 'setting_slideshow_background_color', 'setting_slideshow_allow_widget_override', 'setting_slideshow_display_controls'),
 			));
 		}
 
@@ -199,10 +199,10 @@ class mf_slideshow
 		if($count_slide_images > 0)
 		{
 			if(!isset($attributes['slideshow_style'])){						$attributes['slideshow_style'] = 'original';}
-			//if($attributes['slideshow_background'] == ''){					$attributes['slideshow_background'] = "#000000";}
-			//if($attributes['slideshow_background_opacity'] == ''){			$attributes['slideshow_background_opacity'] = 100;}
+			//if($attributes['slideshow_background'] == ''){				$attributes['slideshow_background'] = "#000000";}
+			//if($attributes['slideshow_background_opacity'] == ''){		$attributes['slideshow_background_opacity'] = 100;}
 			if(!isset($attributes['slideshow_display_text_background'])){	$attributes['slideshow_display_text_background'] = get_option_or_default('setting_slideshow_slideshow_display_text_background', 'yes');}
-			if(!isset($attributes['slideshow_display_controls'])){			$attributes['slideshow_display_controls'] = get_option('setting_slideshow_display_controls');}
+			if(!isset($attributes['slideshow_display_controls'])){			$attributes['slideshow_display_controls'] = array();} //get_option('setting_slideshow_display_controls')
 			if(!isset($attributes['slideshow_random'])){					$attributes['slideshow_random'] = 'no';}
 
 			//$setting_slideshow_open_links_in_new_tab = get_option('setting_slideshow_open_links_in_new_tab');
@@ -370,12 +370,10 @@ class mf_slideshow
 
 							if($count_slide_images > 1)
 							{
-								$display_controls_exists = (isset($attributes['slideshow_display_controls']) && is_array($attributes['slideshow_display_controls']));
-
 								$out .= "<div class='controls_arrows'>
 									<div class='panel_arrow_left'>";
 
-										if($display_controls_exists && in_array('arrows', $attributes['slideshow_display_controls']))
+										if(is_array($attributes['slideshow_display_controls']) && in_array('arrows', $attributes['slideshow_display_controls']))
 										{
 											$out .= "<i class='fa fa-chevron-left arrow_left'></i>";
 										}
@@ -383,7 +381,7 @@ class mf_slideshow
 									$out .= "</div>
 									<div class='panel_arrow_right'>";
 
-										if($display_controls_exists && in_array('arrows', $attributes['slideshow_display_controls']))
+										if(is_array($attributes['slideshow_display_controls']) && in_array('arrows', $attributes['slideshow_display_controls']))
 										{
 											$out .= "<i class='fa fa-chevron-right arrow_right'></i>";
 										}
@@ -391,7 +389,7 @@ class mf_slideshow
 									$out .= "</div>
 								</div>";
 
-								if($display_controls_exists)
+								if(is_array($attributes['slideshow_display_controls']))
 								{
 									if(in_array('magnifying_glass', $attributes['slideshow_display_controls']))
 									{
@@ -523,22 +521,22 @@ class mf_slideshow
 
 		$arr_settings = array();
 		//$arr_settings['setting_slideshow_style'] = __("Style", 'lang_slideshow');
-		$arr_settings['setting_slideshow_allow_widget_override'] = __("Allow Widget Override", 'lang_slideshow');
+		//$arr_settings['setting_slideshow_allow_widget_override'] = __("Allow Widget Override", 'lang_slideshow');
 		//$arr_settings['setting_slideshow_background_color'] = __("Background Color", 'lang_slideshow');
 		//$arr_settings['setting_slideshow_background_opacity'] = " - ".__("Opacity", 'lang_slideshow');
 		//$arr_settings['setting_slideshow_display_text_background'] = __("Display Text Background", 'lang_slideshow');
 		//$arr_settings['setting_slideshow_height_ratio'] = __("Height Ratio", 'lang_slideshow');
 		//$arr_settings['setting_slideshow_height_ratio_mobile'] = __("Height Ratio", 'lang_slideshow')." (".__("Mobile", 'lang_slideshow').")";
 		$arr_settings['setting_slideshow_image_fit'] = __("Image Fit", 'lang_slideshow');
-		$arr_settings['setting_slideshow_display_controls'] = __("Display", 'lang_slideshow');
+		/*$arr_settings['setting_slideshow_display_controls'] = __("Display", 'lang_slideshow');
 
 		$setting_slideshow_display_controls = get_option('setting_slideshow_display_controls');
 
 		if(is_array($setting_slideshow_display_controls) && in_array('thumbnails', $setting_slideshow_display_controls))
-		{
+		{*/
 			$arr_settings['setting_slideshow_thumbnail_columns'] = __("Thumbnail Columns", 'lang_slideshow');
 			$arr_settings['setting_slideshow_thumbnail_rows'] = __("Thumbnail Rows", 'lang_slideshow');
-		}
+		//}
 
 		//$arr_settings['setting_slideshow_autoplay'] = __("Autoplay", 'lang_slideshow');
 
@@ -577,13 +575,13 @@ class mf_slideshow
 		echo show_select(array('data' => $this->get_slideshow_styles_for_select(), 'name' => $setting_key."[]", 'value' => $option));
 	}*/
 
-	function setting_slideshow_allow_widget_override_callback()
+	/*function setting_slideshow_allow_widget_override_callback()
 	{
 		$setting_key = get_setting_key(__FUNCTION__);
 		$option = get_option($setting_key, $this->allow_widget_override_default);
 
 		echo show_select(array('data' => $this->get_allow_widget_override_for_select(), 'name' => $setting_key."[]", 'value' => $option));
-	}
+	}*/
 
 	/*function setting_slideshow_background_color_callback()
 	{
@@ -642,13 +640,13 @@ class mf_slideshow
 		echo show_select(array('data' => $this->get_image_fit_for_select(), 'name' => $setting_key, 'value' => $option));
 	}
 
-	function setting_slideshow_display_controls_callback()
+	/*function setting_slideshow_display_controls_callback()
 	{
 		$setting_key = get_setting_key(__FUNCTION__);
 		$option = get_option($setting_key, array('thumbnails'));
 
 		echo show_select(array('data' => $this->get_display_controls_for_select(), 'name' => $setting_key."[]", 'value' => $option));
-	}
+	}*/
 
 	function setting_slideshow_thumbnail_columns_callback()
 	{
@@ -916,7 +914,7 @@ class widget_slideshow extends WP_Widget
 	var $obj_slideshow;
 	var $widget_ops;
 	var $arr_default;
-	var $setting_slideshow_allow_widget_override;
+	//var $setting_slideshow_allow_widget_override;
 
 	function __construct()
 	{
@@ -927,7 +925,7 @@ class widget_slideshow extends WP_Widget
 			'description' => __("Display a slideshow that you have created", 'lang_slideshow'),
 		);
 
-		$this->setting_slideshow_allow_widget_override = get_option('setting_slideshow_allow_widget_override', $this->obj_slideshow->allow_widget_override_default);
+		//$this->setting_slideshow_allow_widget_override = get_option('setting_slideshow_allow_widget_override', $this->obj_slideshow->allow_widget_override_default);
 
 		$this->arr_default = array(
 			'slideshow_heading' => '',
@@ -940,7 +938,7 @@ class widget_slideshow extends WP_Widget
 		$this->arr_default['slideshow_display_text_background'] = 'yes';
 		$this->arr_default['slideshow_height_ratio'] = '0.5';
 		$this->arr_default['slideshow_height_ratio_mobile'] = '1';
-		$this->arr_default['slideshow_display_controls'] = get_option('setting_slideshow_display_controls');
+		$this->arr_default['slideshow_display_controls'] = array(); //get_option('setting_slideshow_display_controls')
 		$this->arr_default['slideshow_autoplay'] = 'no';
 		$this->arr_default['slideshow_duration'] = 5;
 		$this->arr_default['slideshow_fade_duration'] = 400;
@@ -988,52 +986,52 @@ class widget_slideshow extends WP_Widget
 			.show_select(array('data' => $arr_data_parents, 'name' => $this->get_field_name('parent'), 'text' => __("Parent", 'lang_slideshow'), 'value' => $instance['parent'], 'suffix' => get_option_page_suffix(array('post_type' => $this->obj_slideshow->post_type, 'value' => $instance['parent']))))
 			.show_select(array('data' => $this->obj_slideshow->get_slideshow_styles_for_select(), 'name' => $this->get_field_name('slideshow_style'), 'text' => __("Style", 'lang_slideshow'), 'value' => $instance['slideshow_style']));
 
-			if(is_array($this->setting_slideshow_allow_widget_override) && in_array('background', $this->setting_slideshow_allow_widget_override))
-			{
+			/*if(is_array($this->setting_slideshow_allow_widget_override) && in_array('background', $this->setting_slideshow_allow_widget_override))
+			{*/
 				echo "<div class='flex_flow'>"
 					//.show_textfield(array('type' => 'color', 'name' => $this->get_field_name('slideshow_background'), 'text' => __("Background Color", 'lang_slideshow'), 'value' => $instance['slideshow_background']))
 					//.show_textfield(array('type' => 'number', 'name' => $this->get_field_name('slideshow_background_opacity'), 'text' => " - ".__("Opacity", 'lang_slideshow'), 'value' => $instance['slideshow_background_opacity']))
 					.show_select(array('data' => get_yes_no_for_select(), 'name' => $this->get_field_name('slideshow_display_text_background'), 'text' => __("Display Text Background", 'lang_slideshow'), 'value' => $instance['slideshow_display_text_background']))
 				."</div>";
-			}
+			//}
 
-			if(is_array($this->setting_slideshow_allow_widget_override) && (in_array('image_columns', $this->setting_slideshow_allow_widget_override) || in_array('height_ratio', $this->setting_slideshow_allow_widget_override)))
+			/*if(is_array($this->setting_slideshow_allow_widget_override) && (in_array('image_columns', $this->setting_slideshow_allow_widget_override) || in_array('height_ratio', $this->setting_slideshow_allow_widget_override)))
 			{
 				if(in_array('height_ratio', $this->setting_slideshow_allow_widget_override))
-				{
+				{*/
 					echo "<div class='flex_flow'>";
 
 						echo show_textfield(array('name' => $this->get_field_name('slideshow_height_ratio'), 'text' => __("Height Ratio", 'lang_slideshow')." <i class='fa fa-info-circle' title='".sprintf(__("From %s to %s. %s means the slideshow will be presented in landscape, %s means square format and %s means the slideshow is presented in portrait", 'lang_slideshow'), "0.3", "2", "0.3", "1", "2")."'></i>", 'value' => $instance['slideshow_height_ratio']))
 						.show_textfield(array('name' => $this->get_field_name('slideshow_height_ratio_mobile'), 'text' => __("Height Ratio", 'lang_slideshow')." (".__("Mobile", 'lang_slideshow').")", 'value' => $instance['slideshow_height_ratio_mobile']));
 
 					echo "</div>";
-				}
-			}
+				/*}
+			}*/
 
-			if(is_array($this->setting_slideshow_allow_widget_override) && in_array('display_controls', $this->setting_slideshow_allow_widget_override) || in_array('autoplay', $this->setting_slideshow_allow_widget_override))
-			{
+			/*if(is_array($this->setting_slideshow_allow_widget_override) && in_array('display_controls', $this->setting_slideshow_allow_widget_override) || in_array('autoplay', $this->setting_slideshow_allow_widget_override))
+			{*/
 				echo "<div class='flex_flow'>";
 
-					if(in_array('display_controls', $this->setting_slideshow_allow_widget_override))
-					{
+					/*if(in_array('display_controls', $this->setting_slideshow_allow_widget_override))
+					{*/
 						echo show_select(array('data' => $this->obj_slideshow->get_display_controls_for_select(), 'name' => $this->get_field_name('slideshow_display_controls')."[]", 'text' => __("Display", 'lang_slideshow'), 'value' => $instance['slideshow_display_controls']));
-					}
+					//}
 
-					if(in_array('autoplay', $this->setting_slideshow_allow_widget_override))
-					{
+					/*if(in_array('autoplay', $this->setting_slideshow_allow_widget_override))
+					{*/
 						if($instance['slideshow_autoplay'] == '') // Backwards compatibility
 						{
 							$instance['slideshow_autoplay'] = 'no';
 						}
 
 						echo show_select(array('data' => get_yes_no_for_select(), 'name' => $this->get_field_name('slideshow_autoplay'), 'text' => __("Autoplay", 'lang_slideshow'), 'value' => $instance['slideshow_autoplay']));
-					}
+					//}
 
 				echo "</div>";
-			}
+			//}
 
-			if(is_array($this->setting_slideshow_allow_widget_override) && in_array('autoplay', $this->setting_slideshow_allow_widget_override))
-			{
+			/*if(is_array($this->setting_slideshow_allow_widget_override) && in_array('autoplay', $this->setting_slideshow_allow_widget_override))
+			{*/
 				if($instance['slideshow_autoplay'] == 1 || $instance['slideshow_autoplay'] == 'yes')
 				{
 					echo show_textfield(array('type' => 'number', 'name' => $this->get_field_name('slideshow_duration'), 'text' => __("Duration", 'lang_slideshow'), 'value' => $instance['slideshow_duration'], 'xtra' => "min='2'", 'suffix' => __("s", 'lang_slideshow')));
@@ -1051,7 +1049,7 @@ class widget_slideshow extends WP_Widget
 						.show_select(array('data' => get_yes_no_for_select(), 'name' => $this->get_field_name('slideshow_random'), 'text' => __("Random", 'lang_slideshow'), 'value' => $instance['slideshow_random']))
 					."</div>";
 				}
-			}
+			//}
 
 		echo "</div>";
 	}
