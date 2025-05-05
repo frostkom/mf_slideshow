@@ -847,11 +847,11 @@ class mf_slideshow
 		$block_code = '<!-- wp:mf/slideshow {"parent":"'.$post->ID.'"} /-->';
 		$arr_ids = apply_filters('get_page_from_block_code', array(), $block_code);
 
-		if(count($arr_ids) == 0)
+		/*if(count($arr_ids) == 0)
 		{
 			$shortcode = "[mf_slideshow id=".$post->ID."]";
 			$arr_ids = get_pages_from_shortcode($shortcode);
-		}
+		}*/
 
 		if(count($arr_ids) > 0)
 		{

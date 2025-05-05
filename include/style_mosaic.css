@@ -22,7 +22,7 @@
 			.slideshow.mosaic > div:hover::before
 			{
 				color: rgba(255, 255, 255, .3);
-				content: "\2716";
+				content: "\2716"; /* X */
 				font-family: 'Font Awesome 5 Free';
 				font-size: 5em;
 				right: 50%;
