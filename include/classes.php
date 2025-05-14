@@ -76,6 +76,20 @@ class mf_slideshow
 		$obj_cron->end();
 	}
 
+	function shuffle_assoc($array)
+	{
+		$keys = array_keys($array);
+		shuffle($keys);
+		$new = [];
+
+		foreach($keys as $key)
+		{
+			$new[$key] = $array[$key];
+		}
+
+		return $new;
+	}
+
 	function block_render_callback($attributes)
 	{
 		global $wpdb;
@@ -151,49 +165,6 @@ class mf_slideshow
 		$arr_slide_images = get_post_meta_file_src(array('post_id' => $attributes['parent'], 'meta_key' => $this->meta_prefix.'images', 'single' => false));
 		$arr_slide_texts = array();
 
-		/*if(count($arr_slide_images) == 0)
-		{
-			$result = $wpdb->get_results($wpdb->prepare("SELECT ID, post_title, post_content FROM ".$wpdb->posts." WHERE post_type = %s AND post_status = %s AND post_parent = '%d' ORDER BY menu_order ASC", $this->post_type, 'publish', $attributes['parent']));
-
-			foreach($result as $r)
-			{
-				$post_id = $r->ID;
-				$post_title = $r->post_title;
-				$post_content = $r->post_content;
-
-				$arr_slide_images_child = get_post_meta_file_src(array('post_id' => $post_id, 'meta_key' => $this->meta_prefix.'images', 'single' => false));
-
-				if(count($arr_slide_images_child) > 0)
-				{
-					$post_content_position = get_post_meta($post_id, $this->meta_prefix.'content_position', true);
-					$post_page = get_post_meta($post_id, $this->meta_prefix.'page', true);
-
-					if(intval($post_page) > 0)
-					{
-						$post_url = get_permalink($post_page);
-					}
-
-					else
-					{
-						$post_url = get_post_meta($post_id, $this->meta_prefix.'link', true);
-					}
-
-					foreach($arr_slide_images_child as $child)
-					{
-						$arr_slide_images[] = $child;
-						$arr_slide_texts[] = array(
-							'parent_id' => $attributes['parent'],
-							'id' => $post_id,
-							'title' => $post_title,
-							'content' => $post_content,
-							'content_position' => $post_content_position,
-							'url' => $post_url,
-						);
-					}
-				}
-			}
-		}*/
-
 		$count_slide_images = count($arr_slide_images);
 
 		if($count_slide_images > 0)
@@ -217,7 +188,8 @@ class mf_slideshow
 
 			if($attributes['slideshow_random'] == 'yes')
 			{
-				shuffle($arr_slide_images);
+				//shuffle($arr_slide_images);
+				$arr_slide_images = $this->shuffle_assoc($arr_slide_images);
 			}
 
 			foreach($arr_slide_images as $key => $image)
@@ -225,7 +197,9 @@ class mf_slideshow
 				switch($attributes['slideshow_style'])
 				{
 					case 'mosaic':
-						$images_html .= "<div><img src='".$image."'></div>";
+						$images_html .= "<div rel='".$key."'>"
+							.render_image_tag(array('id' => $key, 'src' => str_replace($site_url, "", $image), 'size' => 'full'))
+						."</div>";
 					break;
 
 					default:
@@ -428,7 +402,7 @@ class mf_slideshow
 										.($thumbnail_class != '' ? " class='".$thumbnail_class."'" : "")
 										." rel='".$i."'"
 									.">"
-										.render_image_tag(array('src' => str_replace($site_url, "", $image), 'size' => 'thumbnail'))
+										.render_image_tag(array('id' => $key, 'src' => str_replace($site_url, "", $image), 'size' => 'thumbnail'))
 									."</li>";
 
 									$i++;
