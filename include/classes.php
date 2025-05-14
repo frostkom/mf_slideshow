@@ -198,7 +198,7 @@ class mf_slideshow
 				{
 					case 'mosaic':
 						$images_html .= "<div rel='".$key."'>"
-							.render_image_tag(array('id' => $key, 'src' => str_replace($site_url, "", $image), 'size' => 'full'))
+							.render_image_tag(array('id' => $key, 'src' => $image, 'size' => 'full'))
 						."</div>";
 					break;
 
@@ -402,7 +402,7 @@ class mf_slideshow
 										.($thumbnail_class != '' ? " class='".$thumbnail_class."'" : "")
 										." rel='".$i."'"
 									.">"
-										.render_image_tag(array('id' => $key, 'src' => str_replace($site_url, "", $image), 'size' => 'thumbnail'))
+										.render_image_tag(array('id' => $key, 'src' => $image, 'size' => 'thumbnail'))
 									."</li>";
 
 									$i++;
