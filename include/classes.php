@@ -766,33 +766,33 @@ class mf_slideshow
 		return $meta_boxes;
 	}
 
-	function column_header($cols)
+	function column_header($columns)
 	{
 		global $post_type;
 
-		unset($cols['date']);
+		unset($columns['date']);
 
 		switch($post_type)
 		{
 			case $this->post_type:
-				$cols['images'] = __("Images", 'lang_slideshow');
+				$columns['images'] = __("Images", 'lang_slideshow');
 			break;
 		}
 
-		return $cols;
+		return $columns;
 	}
 
-	function column_cell($col, $post_id)
+	function column_cell($column, $post_id)
 	{
 		global $wpdb, $post;
 
 		switch($post->post_type)
 		{
 			case $this->post_type:
-				switch($col)
+				switch($column)
 				{
 					case 'images':
-						$arr_images = get_post_meta($post_id, $this->meta_prefix.$col);
+						$arr_images = get_post_meta($post_id, $this->meta_prefix.$column);
 
 						echo count($arr_images);
 					break;
