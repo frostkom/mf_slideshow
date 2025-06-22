@@ -465,6 +465,7 @@ class mf_slideshow
 			'arr_parents' => $arr_data_parents,
 			'slideshow_style_label' => __("Style", 'lang_slideshow'),
 			'arr_slideshow_style' => $this->get_slideshow_styles_for_select(),
+			'slideshow_display_text_background_label' => __("Display Text Background", 'lang_slideshow'),
 			'yes_no_for_select' => get_yes_no_for_select(),
 			'slideshow_height_ratio_label' => __("Height Ratio", 'lang_slideshow'),
 			'slideshow_height_ratio_mobile_label' => " - ".__("Mobile", 'lang_slideshow'),
