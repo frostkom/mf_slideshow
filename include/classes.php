@@ -94,6 +94,7 @@ class mf_slideshow
 	{
 		global $wpdb;
 
+		if(!isset($attributes['parent'])){							$attributes['parent'] = '';}
 		if(!isset($attributes['slideshow_style'])){					$attributes['slideshow_style'] = 'original';}
 		//if(!isset($attributes['slideshow_background'])){			$attributes['slideshow_background'] = "";}
 		//if(!isset($attributes['slideshow_background_opacity'])){	$attributes['slideshow_background_opacity'] = "";}
@@ -105,320 +106,328 @@ class mf_slideshow
 		if(!isset($attributes['slideshow_fade_duration'])){			$attributes['slideshow_fade_duration'] = 400;}
 		if(!isset($attributes['slideshow_random'])){				$attributes['slideshow_random'] = 'no';}
 
-		$attributes['slideshow_height_ratio'] = str_replace(",", ".", $attributes['slideshow_height_ratio']);
-		$attributes['slideshow_height_ratio_mobile'] = str_replace(",", ".", $attributes['slideshow_height_ratio_mobile']);
-
-		if($attributes['slideshow_height_ratio'] > 2 || $attributes['slideshow_height_ratio'] < 0.2)
+		if($attributes['parent'] > 0)
 		{
-			$attributes['slideshow_height_ratio'] = 1;
-		}
+			$attributes['slideshow_height_ratio'] = str_replace(",", ".", $attributes['slideshow_height_ratio']);
+			$attributes['slideshow_height_ratio_mobile'] = str_replace(",", ".", $attributes['slideshow_height_ratio_mobile']);
 
-		if($attributes['slideshow_height_ratio_mobile'] > 2 || $attributes['slideshow_height_ratio_mobile'] < 0.2)
-		{
-			$attributes['slideshow_height_ratio_mobile'] = 1;
-		}
-
-		$plugin_include_url = plugin_dir_url(__FILE__);
-
-		switch($attributes['slideshow_style'])
-		{
-			case 'mosaic':
-				global $obj_base;
-
-				if(!isset($obj_base))
-				{
-					$obj_base = new mf_base();
-				}
-
-				$plugin_base_include_url = plugins_url()."/mf_base/include/";
-
-				$obj_base->load_font_awesome(array(
-					'type' => 'public',
-					'plugin_include_url' => $plugin_base_include_url,
-				));
-
-				mf_enqueue_script('script_slideshow_mosaic', $plugin_include_url."script_mosaic.js");
-				mf_enqueue_style('style_slideshow_mosaic', $plugin_include_url."style_mosaic.css");
-			break;
-
-			default:
-			case 'original';
-				$arr_settings = array(
-					'height_ratio' => $attributes['slideshow_height_ratio'],
-					'height_ratio_mobile' => $attributes['slideshow_height_ratio_mobile'],
-					'display_controls' => $attributes['slideshow_display_controls'],
-					'autoplay' => $attributes['slideshow_autoplay'],
-					'duration' => $attributes['slideshow_duration'],
-					'random' => $attributes['slideshow_random'],
-				);
-
-				$arr_settings['fade_duration'] = 400;
-
-				mf_enqueue_style('style_slideshow', $plugin_include_url."style.php");
-				mf_enqueue_script('script_swipe', $plugin_include_url."jquery.touchSwipe.min.js");
-				mf_enqueue_script('script_slideshow', $plugin_include_url."script.js", $arr_settings);
-			break;
-		}
-
-		$out = "";
-
-		$arr_slide_images = get_post_meta_file_src(array('post_id' => $attributes['parent'], 'meta_key' => $this->meta_prefix.'images', 'single' => false));
-		$arr_slide_texts = array();
-
-		$count_slide_images = count($arr_slide_images);
-
-		if($count_slide_images > 0)
-		{
-			if(!isset($attributes['slideshow_style'])){						$attributes['slideshow_style'] = 'original';}
-			//if($attributes['slideshow_background'] == ''){				$attributes['slideshow_background'] = "#000000";}
-			//if($attributes['slideshow_background_opacity'] == ''){		$attributes['slideshow_background_opacity'] = 100;}
-			if(!isset($attributes['slideshow_display_text_background'])){	$attributes['slideshow_display_text_background'] = get_option_or_default('setting_slideshow_slideshow_display_text_background', 'yes');}
-			if(!isset($attributes['slideshow_display_controls'])){			$attributes['slideshow_display_controls'] = array();} //get_option('setting_slideshow_display_controls')
-			if(!isset($attributes['slideshow_random'])){					$attributes['slideshow_random'] = 'no';}
-
-			//$setting_slideshow_open_links_in_new_tab = get_option('setting_slideshow_open_links_in_new_tab');
-
-			/*if(is_array($attributes['slideshow_style']))
+			if($attributes['slideshow_height_ratio'] > 2 || $attributes['slideshow_height_ratio'] < 0.2)
 			{
-				$attributes['slideshow_style'] = $attributes['slideshow_style'][0];
-			}*/
-
-			$images_html = $dots_html = "";
-			$i = $active_i = 1;
-
-			if($attributes['slideshow_random'] == 'yes')
-			{
-				//shuffle($arr_slide_images);
-				$arr_slide_images = $this->shuffle_assoc($arr_slide_images);
+				$attributes['slideshow_height_ratio'] = 1;
 			}
 
-			foreach($arr_slide_images as $key => $image)
+			if($attributes['slideshow_height_ratio_mobile'] > 2 || $attributes['slideshow_height_ratio_mobile'] < 0.2)
 			{
-				switch($attributes['slideshow_style'])
+				$attributes['slideshow_height_ratio_mobile'] = 1;
+			}
+
+			$plugin_include_url = plugin_dir_url(__FILE__);
+
+			switch($attributes['slideshow_style'])
+			{
+				case 'mosaic':
+					global $obj_base;
+
+					if(!isset($obj_base))
+					{
+						$obj_base = new mf_base();
+					}
+
+					$plugin_base_include_url = plugins_url()."/mf_base/include/";
+
+					$obj_base->load_font_awesome(array(
+						'type' => 'public',
+						'plugin_include_url' => $plugin_base_include_url,
+					));
+
+					mf_enqueue_script('script_slideshow_mosaic', $plugin_include_url."script_mosaic.js");
+					mf_enqueue_style('style_slideshow_mosaic', $plugin_include_url."style_mosaic.css");
+				break;
+
+				default:
+				case 'original';
+					$arr_settings = array(
+						'height_ratio' => $attributes['slideshow_height_ratio'],
+						'height_ratio_mobile' => $attributes['slideshow_height_ratio_mobile'],
+						'display_controls' => $attributes['slideshow_display_controls'],
+						'autoplay' => $attributes['slideshow_autoplay'],
+						'duration' => $attributes['slideshow_duration'],
+						'random' => $attributes['slideshow_random'],
+					);
+
+					$arr_settings['fade_duration'] = 400;
+
+					mf_enqueue_style('style_slideshow', $plugin_include_url."style.php");
+					mf_enqueue_script('script_swipe', $plugin_include_url."jquery.touchSwipe.min.js");
+					mf_enqueue_script('script_slideshow', $plugin_include_url."script.js", $arr_settings);
+				break;
+			}
+
+			$out = "";
+
+			$arr_slide_images = get_post_meta_file_src(array('post_id' => $attributes['parent'], 'meta_key' => $this->meta_prefix.'images', 'single' => false));
+			$arr_slide_texts = array();
+
+			$count_slide_images = count($arr_slide_images);
+
+			if($count_slide_images > 0)
+			{
+				if(!isset($attributes['slideshow_style'])){						$attributes['slideshow_style'] = 'original';}
+				//if($attributes['slideshow_background'] == ''){				$attributes['slideshow_background'] = "#000000";}
+				//if($attributes['slideshow_background_opacity'] == ''){		$attributes['slideshow_background_opacity'] = 100;}
+				if(!isset($attributes['slideshow_display_text_background'])){	$attributes['slideshow_display_text_background'] = get_option_or_default('setting_slideshow_slideshow_display_text_background', 'yes');}
+				if(!isset($attributes['slideshow_display_controls'])){			$attributes['slideshow_display_controls'] = array();} //get_option('setting_slideshow_display_controls')
+				if(!isset($attributes['slideshow_random'])){					$attributes['slideshow_random'] = 'no';}
+
+				//$setting_slideshow_open_links_in_new_tab = get_option('setting_slideshow_open_links_in_new_tab');
+
+				/*if(is_array($attributes['slideshow_style']))
 				{
-					case 'mosaic':
-						$images_html .= "<div rel='".$key."'>"
-							.render_image_tag(array('id' => $key, 'src' => $image, 'size' => 'full'))
-						."</div>";
-					break;
+					$attributes['slideshow_style'] = $attributes['slideshow_style'][0];
+				}*/
 
-					default:
-					case 'original':
-						$container_class = "slide_item";
+				$images_html = $dots_html = "";
+				$i = $active_i = 1;
 
-						$has_texts = (count($arr_slide_texts) > 0 && isset($arr_slide_texts[$key]));
+				if($attributes['slideshow_random'] == 'yes')
+				{
+					//shuffle($arr_slide_images);
+					$arr_slide_images = $this->shuffle_assoc($arr_slide_images);
+				}
 
-						if($has_texts)
-						{
-							$container_class .= ($container_class != '' ? " " : "")."slide_parent_".$arr_slide_texts[$key]['parent_id'];
-						}
+				foreach($arr_slide_images as $key => $image)
+				{
+					switch($attributes['slideshow_style'])
+					{
+						case 'mosaic':
+							$images_html .= "<div rel='".$key."'>"
+								.render_image_tag(array('id' => $key, 'src' => $image, 'size' => 'full'))
+							."</div>";
+						break;
 
-						if($i == $active_i)
-						{
-							$container_class .= ($container_class != '' ? " " : "")."active active_init";
-						}
+						default:
+						case 'original':
+							$container_class = "slide_item";
 
-						$images_html .= "<div"
-							.($has_texts ? " id='slide_".$arr_slide_texts[$key]['id']."'" : "")
-							.($container_class != '' ? " class='".$container_class."'" : "")
-							." rel='".$i."'"
-						.">
-							<img src='".$image."'>";
+							$has_texts = (count($arr_slide_texts) > 0 && isset($arr_slide_texts[$key]));
 
 							if($has_texts)
 							{
-								$content_class = "content";
-
-								if($arr_slide_texts[$key]['content_position'] != '')
-								{
-									$content_class .= ($content_class != '' ? " " : "").$arr_slide_texts[$key]['content_position'];
-								}
-
-								$images_html .= "<div class='".$content_class."'>
-									<div>
-										<h4>".$arr_slide_texts[$key]['title']."</h4>"
-										.apply_filters('the_content', $arr_slide_texts[$key]['content']);
-
-										if($arr_slide_texts[$key]['url'] != '')
-										{
-											$images_html .= "<a href='".$arr_slide_texts[$key]['url']."'";
-
-												/*switch($setting_slideshow_open_links_in_new_tab)
-												{
-													case 'yes':
-														if(strpos($arr_slide_texts[$key]['url'], get_site_url()) === false)
-														{
-															$images_html .= " rel='external'";
-														}
-													break;
-
-													default:
-														//Do nothing
-													break;
-												}*/
-
-											$images_html .= ">".__("Read More", 'lang_slideshow')."&hellip;</a>";
-										}
-
-									$images_html .= "</div>
-								</div>";
+								$container_class .= ($container_class != '' ? " " : "")."slide_parent_".$arr_slide_texts[$key]['parent_id'];
 							}
 
-						$images_html .= "</div>";
+							if($i == $active_i)
+							{
+								$container_class .= ($container_class != '' ? " " : "")."active active_init";
+							}
 
-						$dots_html .= "<li".($i == $active_i ? " class='active'" : "")." rel='".$i."'></li>";
-					break;
-				}
+							$images_html .= "<div"
+								.($has_texts ? " id='slide_".$arr_slide_texts[$key]['id']."'" : "")
+								.($container_class != '' ? " class='".$container_class."'" : "")
+								." rel='".$i."'"
+							.">
+								<img src='".$image."'>";
 
-				$i++;
-			}
+								if($has_texts)
+								{
+									$content_class = "content";
 
-			$slideshow_classes = "widget slideshow ".$attributes['slideshow_style'];
-			$slideshow_style = $slideshow_attributes = "";
+									if($arr_slide_texts[$key]['content_position'] != '')
+									{
+										$content_class .= ($content_class != '' ? " " : "").$arr_slide_texts[$key]['content_position'];
+									}
 
-			if($attributes['slideshow_display_text_background'] == 'yes')
-			{
-				$slideshow_classes .= " display_text_background";
-			}
+									$images_html .= "<div class='".$content_class."'>
+										<div>
+											<h4>".$arr_slide_texts[$key]['title']."</h4>"
+											.apply_filters('the_content', $arr_slide_texts[$key]['content']);
 
-			/*if($attributes['slideshow_background'] != '')
-			{
-				if($attributes['slideshow_background_opacity'] != '')
-				{
-					list($r, $g, $b) = sscanf($attributes['slideshow_background'], "#%02x%02x%02x");
+											if($arr_slide_texts[$key]['url'] != '')
+											{
+												$images_html .= "<a href='".$arr_slide_texts[$key]['url']."'";
 
-					$attributes['slideshow_background'] = "rgba(".$r.", ".$g.", ".$b.", ".($attributes['slideshow_background_opacity'] / 100).")";
-				}
+													/*switch($setting_slideshow_open_links_in_new_tab)
+													{
+														case 'yes':
+															if(strpos($arr_slide_texts[$key]['url'], get_site_url()) === false)
+															{
+																$images_html .= " rel='external'";
+															}
+														break;
 
-				$slideshow_style .= "background-color: ".$attributes['slideshow_background'].";";
-			}*/
+														default:
+															//Do nothing
+														break;
+													}*/
 
-			$slideshow_attributes .= " data-random='".$attributes['slideshow_random']."'";
+												$images_html .= ">".__("Read More", 'lang_slideshow')."&hellip;</a>";
+											}
 
-			$arr_attributes = array('autoplay', 'animate', 'duration', 'fade_duration', 'display_text_background', 'height_ratio', 'height_ratio_mobile');
+										$images_html .= "</div>
+									</div>";
+								}
 
-			foreach($arr_attributes as $attribute)
-			{
-				if(isset($attributes['slideshow_'.$attribute]))
-				{
-					switch($attribute)
-					{
-						case 'duration':
-							$attributes['slideshow_'.$attribute] *= 1000;
+							$images_html .= "</div>";
+
+							$dots_html .= "<li".($i == $active_i ? " class='active'" : "")." rel='".$i."'></li>";
 						break;
 					}
 
-					$slideshow_attributes .= " data-".$attribute."='".$attributes['slideshow_'.$attribute]."'";
-				}
-			}
-
-			$out = "<div"
-				.parse_block_attributes(array('class' => $slideshow_classes, 'attributes' => $attributes, 'style' => $slideshow_style))
-				.$slideshow_attributes
-			.">";
-
-				switch($attributes['slideshow_style'])
-				{
-					case 'mosaic':
-						// Add nothing
-					break;
-
-					default:
-					case 'original':
-						$out .= "<div class='slideshow_container'>
-							<div class='slideshow_images columns_1'>";
-					break;
+					$i++;
 				}
 
-					$out .= $images_html;
+				$slideshow_classes = "widget slideshow ".$attributes['slideshow_style'];
+				$slideshow_style = $slideshow_attributes = "";
 
-				switch($attributes['slideshow_style'])
+				if($attributes['slideshow_display_text_background'] == 'yes')
 				{
-					case 'mosaic':
-						// Add nothing
-					break;
+					$slideshow_classes .= " display_text_background";
+				}
 
-					default:
-					case 'original':
+				/*if($attributes['slideshow_background'] != '')
+				{
+					if($attributes['slideshow_background_opacity'] != '')
+					{
+						list($r, $g, $b) = sscanf($attributes['slideshow_background'], "#%02x%02x%02x");
+
+						$attributes['slideshow_background'] = "rgba(".$r.", ".$g.", ".$b.", ".($attributes['slideshow_background_opacity'] / 100).")";
+					}
+
+					$slideshow_style .= "background-color: ".$attributes['slideshow_background'].";";
+				}*/
+
+				$slideshow_attributes .= " data-random='".$attributes['slideshow_random']."'";
+
+				$arr_attributes = array('autoplay', 'animate', 'duration', 'fade_duration', 'display_text_background', 'height_ratio', 'height_ratio_mobile');
+
+				foreach($arr_attributes as $attribute)
+				{
+					if(isset($attributes['slideshow_'.$attribute]))
+					{
+						switch($attribute)
+						{
+							case 'duration':
+								$attributes['slideshow_'.$attribute] *= 1000;
+							break;
+						}
+
+						$slideshow_attributes .= " data-".$attribute."='".$attributes['slideshow_'.$attribute]."'";
+					}
+				}
+
+				$out = "<div"
+					.parse_block_attributes(array('class' => $slideshow_classes, 'attributes' => $attributes, 'style' => $slideshow_style))
+					.$slideshow_attributes
+				.">";
+
+					switch($attributes['slideshow_style'])
+					{
+						case 'mosaic':
+							// Add nothing
+						break;
+
+						default:
+						case 'original':
+							$out .= "<div class='slideshow_container'>
+								<div class='slideshow_images columns_1'>";
+						break;
+					}
+
+						$out .= $images_html;
+
+					switch($attributes['slideshow_style'])
+					{
+						case 'mosaic':
+							// Add nothing
+						break;
+
+						default:
+						case 'original':
+								$out .= "</div>";
+
+								if($count_slide_images > 1)
+								{
+									$out .= "<div class='controls_arrows'>
+										<div class='panel_arrow_left'>";
+
+											if(is_array($attributes['slideshow_display_controls']) && in_array('arrows', $attributes['slideshow_display_controls']))
+											{
+												$out .= "<i class='fa fa-chevron-left arrow_left'></i>";
+											}
+
+										$out .= "</div>
+										<div class='panel_arrow_right'>";
+
+											if(is_array($attributes['slideshow_display_controls']) && in_array('arrows', $attributes['slideshow_display_controls']))
+											{
+												$out .= "<i class='fa fa-chevron-right arrow_right'></i>";
+											}
+
+										$out .= "</div>
+									</div>";
+
+									if(is_array($attributes['slideshow_display_controls']))
+									{
+										if(in_array('magnifying_glass', $attributes['slideshow_display_controls']))
+										{
+											$out .= "<i class='fa fa-search controls_magnifying_glass'></i>";
+										}
+
+										if(in_array('dots', $attributes['slideshow_display_controls']))
+										{
+											$out .= "<ul class='controls_dots'>".$dots_html."</ul>";
+										}
+									}
+								}
+
 							$out .= "</div>";
 
-							if($count_slide_images > 1)
+							if($count_slide_images > 1 && is_array($attributes['slideshow_display_controls']) && in_array('thumbnails', $attributes['slideshow_display_controls']))
 							{
-								$out .= "<div class='controls_arrows'>
-									<div class='panel_arrow_left'>";
+								$site_url = get_site_url();
+								$i = 1;
 
-										if(is_array($attributes['slideshow_display_controls']) && in_array('arrows', $attributes['slideshow_display_controls']))
+								$setting_slideshow_thumbnail_columns = get_option('setting_slideshow_thumbnail_columns', 5);
+								$setting_slideshow_thumbnail_rows = get_option('setting_slideshow_thumbnail_rows');
+
+								$out .= "<ul class='slideshow_thumbnails thumbnail_columns_".$setting_slideshow_thumbnail_columns." thumbnail_rows_".$setting_slideshow_thumbnail_rows."'>";
+
+									foreach($arr_slide_images as $key => $image)
+									{
+										$thumbnail_class = "";
+
+										if($i == $active_i)
 										{
-											$out .= "<i class='fa fa-chevron-left arrow_left'></i>";
+											$thumbnail_class .= ($thumbnail_class != '' ? " " : "")."active";
 										}
 
-									$out .= "</div>
-									<div class='panel_arrow_right'>";
+										$out .= "<li"
+											.($thumbnail_class != '' ? " class='".$thumbnail_class."'" : "")
+											." rel='".$i."'"
+										.">"
+											.render_image_tag(array('id' => $key, 'src' => $image, 'size' => 'thumbnail'))
+										."</li>";
 
-										if(is_array($attributes['slideshow_display_controls']) && in_array('arrows', $attributes['slideshow_display_controls']))
-										{
-											$out .= "<i class='fa fa-chevron-right arrow_right'></i>";
-										}
-
-									$out .= "</div>
-								</div>";
-
-								if(is_array($attributes['slideshow_display_controls']))
-								{
-									if(in_array('magnifying_glass', $attributes['slideshow_display_controls']))
-									{
-										$out .= "<i class='fa fa-search controls_magnifying_glass'></i>";
+										$i++;
 									}
 
-									if(in_array('dots', $attributes['slideshow_display_controls']))
-									{
-										$out .= "<ul class='controls_dots'>".$dots_html."</ul>";
-									}
-								}
+								$out .= "</ul>";
 							}
+						break;
+					}
 
-						$out .= "</div>";
+				$out .= "</div>";
+			}
 
-						if($count_slide_images > 1 && is_array($attributes['slideshow_display_controls']) && in_array('thumbnails', $attributes['slideshow_display_controls']))
-						{
-							$site_url = get_site_url();
-							$i = 1;
-
-							$setting_slideshow_thumbnail_columns = get_option('setting_slideshow_thumbnail_columns', 5);
-							$setting_slideshow_thumbnail_rows = get_option('setting_slideshow_thumbnail_rows');
-
-							$out .= "<ul class='slideshow_thumbnails thumbnail_columns_".$setting_slideshow_thumbnail_columns." thumbnail_rows_".$setting_slideshow_thumbnail_rows."'>";
-
-								foreach($arr_slide_images as $key => $image)
-								{
-									$thumbnail_class = "";
-
-									if($i == $active_i)
-									{
-										$thumbnail_class .= ($thumbnail_class != '' ? " " : "")."active";
-									}
-
-									$out .= "<li"
-										.($thumbnail_class != '' ? " class='".$thumbnail_class."'" : "")
-										." rel='".$i."'"
-									.">"
-										.render_image_tag(array('id' => $key, 'src' => $image, 'size' => 'thumbnail'))
-									."</li>";
-
-									$i++;
-								}
-
-							$out .= "</ul>";
-						}
-					break;
-				}
-
-			$out .= "</div>";
+			else
+			{
+				$out .= "<p>".__("I could not find any images to load", 'lang_slideshow')."</p>";
+			}
 		}
 
 		else
 		{
-			$out .= "<p>".__("I could not find any images to load", 'lang_slideshow')."</p>";
+			$out .= "<p>".__("You have to choose a gallery to be displayed here", 'lang_slideshow')."</p>";
 		}
 
 		return $out;
