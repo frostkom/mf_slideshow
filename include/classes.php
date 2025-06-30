@@ -447,6 +447,7 @@ class mf_slideshow
 			),
 			'public' => false,
 			'show_ui' => true,
+			'show_in_rest' => true,
 			'exclude_from_search' => true,
 			'capability_type' => 'page',
 			'menu_position' => 21,

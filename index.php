@@ -3,7 +3,7 @@
 Plugin Name: MF Slideshow
 Plugin URI: https://github.com/frostkom/mf_slideshow
 Description:
-Version: 4.10.23
+Version: 4.10.24
 Licence: GPLv2 or later
 Author: Martin Fors
 Author URI: https://martinfors.se
