@@ -100,7 +100,7 @@ class mf_slideshow
 		//if(!isset($attributes['slideshow_background_opacity'])){	$attributes['slideshow_background_opacity'] = "";}
 		if(!isset($attributes['slideshow_height_ratio'])){			$attributes['slideshow_height_ratio'] = '0.5';}
 		if(!isset($attributes['slideshow_height_ratio_mobile'])){	$attributes['slideshow_height_ratio_mobile'] = '1';}
-		if(!isset($attributes['slideshow_display_controls'])){		$attributes['slideshow_display_controls'] = array();}
+		if(!isset($attributes['slideshow_display_controls'])){		$attributes['slideshow_display_controls'] = [];}
 		if(!isset($attributes['slideshow_autoplay'])){				$attributes['slideshow_autoplay'] = 'no';}
 		if(!isset($attributes['slideshow_duration'])){				$attributes['slideshow_duration'] = 5;}
 		if(!isset($attributes['slideshow_fade_duration'])){			$attributes['slideshow_fade_duration'] = 400;}
@@ -166,7 +166,7 @@ class mf_slideshow
 			$out = "";
 
 			$arr_slide_images = get_post_meta_file_src(array('post_id' => $attributes['parent'], 'meta_key' => $this->meta_prefix.'images', 'single' => false));
-			$arr_slide_texts = array();
+			$arr_slide_texts = [];
 
 			$count_slide_images = count($arr_slide_images);
 
@@ -176,7 +176,7 @@ class mf_slideshow
 				//if($attributes['slideshow_background'] == ''){				$attributes['slideshow_background'] = "#000000";}
 				//if($attributes['slideshow_background_opacity'] == ''){		$attributes['slideshow_background_opacity'] = 100;}
 				if(!isset($attributes['slideshow_display_text_background'])){	$attributes['slideshow_display_text_background'] = get_option_or_default('setting_slideshow_slideshow_display_text_background', 'yes');}
-				if(!isset($attributes['slideshow_display_controls'])){			$attributes['slideshow_display_controls'] = array();} //get_option('setting_slideshow_display_controls')
+				if(!isset($attributes['slideshow_display_controls'])){			$attributes['slideshow_display_controls'] = [];} //get_option('setting_slideshow_display_controls')
 				if(!isset($attributes['slideshow_random'])){					$attributes['slideshow_random'] = 'no';}
 
 				//$setting_slideshow_open_links_in_new_tab = get_option('setting_slideshow_open_links_in_new_tab');
@@ -465,7 +465,7 @@ class mf_slideshow
 
 		wp_register_script('script_slideshow_block_wp', $plugin_include_url."block/script_wp.js", array('wp-blocks', 'wp-element', 'wp-components', 'wp-editor', 'wp-block-editor'), $plugin_version, true);
 
-		$arr_data_parents = array();
+		$arr_data_parents = [];
 		get_post_children(array('add_choose_here' => true, 'post_type' => $this->post_type, 'allow_depth' => false), $arr_data_parents);
 
 		wp_localize_script('script_slideshow_block_wp', 'script_slideshow_block_wp', array(
@@ -504,7 +504,7 @@ class mf_slideshow
 
 		add_settings_section($options_area, "", array($this, $options_area."_callback"), BASE_OPTIONS_PAGE);
 
-		$arr_settings = array();
+		$arr_settings = [];
 		//$arr_settings['setting_slideshow_style'] = __("Style", 'lang_slideshow');
 		//$arr_settings['setting_slideshow_allow_widget_override'] = __("Allow Widget Override", 'lang_slideshow');
 		//$arr_settings['setting_slideshow_background_color'] = __("Background Color", 'lang_slideshow');
@@ -723,7 +723,7 @@ class mf_slideshow
 
 		if(wp_is_block_theme() == false)
 		{
-			$arr_data_pages = array();
+			$arr_data_pages = [];
 			get_post_children(array('add_choose_here' => true, 'post_type' => $this->post_type), $arr_data_pages);
 
 			$meta_boxes[] = array(
@@ -812,15 +812,15 @@ class mf_slideshow
 		}
 	}
 
-	function filter_actions($data = array())
+	function filter_actions($data = [])
 	{
 		global $post;
 
-		if(!isset($data['actions'])){	$data['actions'] = array();}
+		if(!isset($data['actions'])){	$data['actions'] = [];}
 		if(!isset($data['class'])){		$data['class'] = "";}
 
 		$block_code = '<!-- wp:mf/slideshow {"parent":"'.$post->ID.'"} /-->';
-		$arr_ids = apply_filters('get_page_from_block_code', array(), $block_code);
+		$arr_ids = apply_filters('get_page_from_block_code', [], $block_code);
 
 		if(count($arr_ids) > 0)
 		{
@@ -834,14 +834,14 @@ class mf_slideshow
 		return $data['actions'];
 	}
 
-	function row_actions($actions, $post)
+	function row_actions($arr_actions, $post)
 	{
 		if($post->post_type == $this->post_type)
 		{
-			$actions = $this->filter_actions(array('actions' => $actions));
+			$arr_actions = $this->filter_actions(array('actions' => $arr_actions));
 		}
 
-		return $actions;
+		return $arr_actions;
 	}
 
 	function filter_is_file_used($arr_used)
@@ -907,7 +907,7 @@ class widget_slideshow extends WP_Widget
 		$this->arr_default['slideshow_display_text_background'] = 'yes';
 		$this->arr_default['slideshow_height_ratio'] = '0.5';
 		$this->arr_default['slideshow_height_ratio_mobile'] = '1';
-		$this->arr_default['slideshow_display_controls'] = array(); //get_option('setting_slideshow_display_controls')
+		$this->arr_default['slideshow_display_controls'] = []; //get_option('setting_slideshow_display_controls')
 		$this->arr_default['slideshow_autoplay'] = 'no';
 		$this->arr_default['slideshow_duration'] = 5;
 		$this->arr_default['slideshow_fade_duration'] = 400;
@@ -936,7 +936,7 @@ class widget_slideshow extends WP_Widget
 		//$instance['slideshow_background'] = sanitize_text_field($new_instance['slideshow_background']);
 		//$instance['slideshow_background_opacity'] = sanitize_text_field($new_instance['slideshow_background_opacity']);
 		$instance['slideshow_display_text_background'] = sanitize_text_field($new_instance['slideshow_display_text_background']);
-		$instance['slideshow_display_controls'] = is_array($new_instance['slideshow_display_controls']) ? $new_instance['slideshow_display_controls'] : array();
+		$instance['slideshow_display_controls'] = is_array($new_instance['slideshow_display_controls']) ? $new_instance['slideshow_display_controls'] : [];
 		$instance['slideshow_height_ratio'] = str_replace(",", ".", sanitize_text_field($new_instance['slideshow_height_ratio']));
 		$instance['slideshow_height_ratio_mobile'] = str_replace(",", ".", sanitize_text_field($new_instance['slideshow_height_ratio_mobile']));
 
@@ -947,7 +947,7 @@ class widget_slideshow extends WP_Widget
 	{
 		$instance = wp_parse_args((array)$instance, $this->arr_default);
 
-		$arr_data_parents = array();
+		$arr_data_parents = [];
 		get_post_children(array('add_choose_here' => true, 'post_type' => $this->obj_slideshow->post_type, 'allow_depth' => false), $arr_data_parents);
 
 		echo "<div class='mf_form'>"
