@@ -433,33 +433,8 @@ class mf_slideshow
 		return $out;
 	}
 
-	function init()
+	function enqueue_block_editor_assets()
 	{
-		load_plugin_textdomain('lang_slideshow', false, str_replace("/include", "", dirname(plugin_basename(__FILE__)))."/lang/");
-
-		// Post types
-		#######################
-		register_post_type($this->post_type, array(
-			'labels' => array(
-				'name' => __("Slideshows", 'lang_slideshow'),
-				'singular_name' => __("Slideshow", 'lang_slideshow'),
-				'menu_name' => __("Slideshow", 'lang_slideshow')
-			),
-			'public' => false,
-			'show_ui' => true,
-			'show_in_rest' => true,
-			'exclude_from_search' => true,
-			'capability_type' => 'page',
-			'menu_position' => 21,
-			'menu_icon' => 'dashicons-format-gallery',
-			'supports' => array('title', 'editor', 'page-attributes'),
-			'hierarchical' => true,
-			'has_archive' => false,
-		));
-		#######################
-
-		// Blocks
-		#######################
 		$plugin_include_url = plugin_dir_url(__FILE__);
 		$plugin_version = get_plugin_version(__FILE__);
 
@@ -488,6 +463,29 @@ class mf_slideshow
 			'slideshow_fade_duration_label' => __("Fade Duration", 'lang_slideshow')." (ms)",
 			'slideshow_random_label' => __("Random", 'lang_slideshow'),
 		));
+	}
+
+	function init()
+	{
+		load_plugin_textdomain('lang_slideshow', false, str_replace("/include", "", dirname(plugin_basename(__FILE__)))."/lang/");
+
+		register_post_type($this->post_type, array(
+			'labels' => array(
+				'name' => __("Slideshows", 'lang_slideshow'),
+				'singular_name' => __("Slideshow", 'lang_slideshow'),
+				'menu_name' => __("Slideshow", 'lang_slideshow')
+			),
+			'public' => false,
+			'show_ui' => true,
+			'show_in_rest' => true,
+			'exclude_from_search' => true,
+			'capability_type' => 'page',
+			'menu_position' => 21,
+			'menu_icon' => 'dashicons-format-gallery',
+			'supports' => array('title', 'editor', 'page-attributes'),
+			'hierarchical' => true,
+			'has_archive' => false,
+		));
 
 		register_block_type('mf/slideshow', array(
 			'editor_script' => 'script_slideshow_block_wp',
@@ -495,7 +493,6 @@ class mf_slideshow
 			'render_callback' => array($this, 'block_render_callback'),
 			//'style' => 'style_base_block_wp',
 		));
-		#######################
 	}
 
 	function settings_slideshow()
