@@ -3,12 +3,14 @@
 Plugin Name: MF Slideshow
 Plugin URI: https://github.com/frostkom/mf_slideshow
 Description:
-Version: 4.11.1
+Version: 4.11.2
 Licence: GPLv2 or later
 Author: Martin Fors
 Author URI: https://martinfors.se
 Text Domain: lang_slideshow
 Domain Path: /lang
+
+Requires Plugins: meta-box
 */
 
 if(!function_exists('is_plugin_active') || function_exists('is_plugin_active') && is_plugin_active("mf_base/index.php"))
@@ -17,7 +19,6 @@ if(!function_exists('is_plugin_active') || function_exists('is_plugin_active') &
 
 	$obj_slideshow = new mf_slideshow();
 
-	add_action('cron_base', 'activate_slideshow', mt_rand(1, 10));
 	add_action('cron_base', array($obj_slideshow, 'cron_base'), mt_rand(1, 10));
 
 	add_action('enqueue_block_editor_assets', array($obj_slideshow, 'enqueue_block_editor_assets'));
@@ -25,7 +26,6 @@ if(!function_exists('is_plugin_active') || function_exists('is_plugin_active') &
 
 	if(is_admin())
 	{
-		register_activation_hook(__FILE__, 'activate_slideshow');
 		register_uninstall_hook(__FILE__, 'uninstall_slideshow');
 
 		add_action('admin_init', array($obj_slideshow, 'settings_slideshow'));
@@ -43,11 +43,6 @@ if(!function_exists('is_plugin_active') || function_exists('is_plugin_active') &
 	add_filter('filter_is_file_used', array($obj_slideshow, 'filter_is_file_used'));
 
 	add_action('widgets_init', array($obj_slideshow, 'widgets_init'));
-
-	function activate_slideshow()
-	{
-		require_plugin("meta-box/meta-box.php", "Meta Box");
-	}
 
 	function uninstall_slideshow()
 	{
