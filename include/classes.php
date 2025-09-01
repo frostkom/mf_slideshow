@@ -16,7 +16,6 @@ class mf_slideshow
 		$arr_data = array(
 			'arrows' => __("Arrows", 'lang_slideshow'),
 			'dots' => __("Dots", 'lang_slideshow'),
-			'magnifying_glass' => __("Magnifying Glass", 'lang_slideshow'),
 			'thumbnails' => __("Thumbnails", 'lang_slideshow'),
 		);
 
@@ -366,17 +365,9 @@ class mf_slideshow
 										$out .= "</div>
 									</div>";
 
-									if(is_array($attributes['slideshow_display_controls']))
+									if(is_array($attributes['slideshow_display_controls']) && in_array('dots', $attributes['slideshow_display_controls']))
 									{
-										if(in_array('magnifying_glass', $attributes['slideshow_display_controls']))
-										{
-											$out .= "<i class='fa fa-search controls_magnifying_glass'></i>";
-										}
-
-										if(in_array('dots', $attributes['slideshow_display_controls']))
-										{
-											$out .= "<ul class='controls_dots'>".$dots_html."</ul>";
-										}
+										$out .= "<ul class='controls_dots'>".$dots_html."</ul>";
 									}
 								}
 

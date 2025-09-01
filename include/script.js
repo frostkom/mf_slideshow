@@ -289,28 +289,6 @@ jQuery(function($)
 			allowPageScroll: 'vertical'
 		});
 
-		dom_obj_container.children(".controls_magnifying_glass").on('click', function()
-		{
-			disable_autoplay();
-
-			if($("#wrapper").length > 0)
-			{
-				var dom_obj = $(this).siblings("div.active"),
-					dom_overlay = $("#overlay_slideshow > div");
-
-				if(dom_overlay.length == 0)
-				{
-					$("#wrapper").append("<div id='overlay_slideshow' class='overlay_container modal'><div></div></div>");
-
-					dom_overlay = $("#overlay_slideshow > div");
-				}
-
-				dom_overlay.html("<i class='fa fa-times fa-2x'></i>" + dom_obj.html()).parent("#overlay_slideshow").fadeIn();
-			}
-
-			return false;
-		});
-
 		function hide_form_overlay()
 		{
 			$("#overlay_slideshow").fadeOut().children("div").html('');

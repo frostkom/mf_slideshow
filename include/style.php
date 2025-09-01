@@ -239,23 +239,6 @@ echo "@media all
 					right: 2%;
 				}
 
-		.slideshow.original .slideshow_container .controls_magnifying_glass
-		{
-			color: #fff;
-			font-size: 10em;
-			left: 50%;
-			opacity: 0;
-			position: absolute;
-			top: 50%;
-			transform: translate(-50%, -50%);
-			transition: all 2s ease;
-		}
-
-			.slideshow.original .slideshow_container:hover .controls_magnifying_glass
-			{
-				opacity: .4;
-			}
-
 		.slideshow.original .controls_dots
 		{
 			bottom: 1em;
