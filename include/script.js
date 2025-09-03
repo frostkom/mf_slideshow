@@ -185,7 +185,7 @@ jQuery(function($)
 
 		function set_slide_sizes(retry)
 		{
-			if($("body").length > 0 || retry == false) /*.is_mobile, body.is_tablet, body.is_desktop*/
+			if($("body").length > 0 || retry == false)
 			{
 				var dom_obj_width = parseInt(dom_obj_container.outerWidth()),
 					dom_height = (dom_obj_width * ($("body.is_mobile").length > 0 ? setting_height_ratio_mobile : setting_height_ratio));
