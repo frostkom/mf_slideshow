@@ -64,7 +64,7 @@ echo "@media all
 					display: none;
 				}
 
-				/* This will allow animte to fade in/out correctly */
+				/* This will allow animate to fade in/out correctly */
 				.slideshow.original .slideshow_container .columns_1 .slide_item
 				{
 					position: absolute;
