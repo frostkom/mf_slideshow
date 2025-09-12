@@ -464,7 +464,11 @@ class mf_slideshow
 			'labels' => array(
 				'name' => __("Slideshows", 'lang_slideshow'),
 				'singular_name' => __("Slideshow", 'lang_slideshow'),
-				'menu_name' => __("Slideshow", 'lang_slideshow')
+				'menu_name' => __("Slideshow", 'lang_slideshow'),
+				'all_items' => __('List', 'lang_slideshow'),
+				'edit_item' => __('Edit', 'lang_slideshow'),
+				'view_item' => __('View', 'lang_slideshow'),
+				'add_new_item' => __('Add New', 'lang_slideshow'),
 			),
 			'public' => false,
 			'show_ui' => true,
