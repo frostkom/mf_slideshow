@@ -824,7 +824,7 @@ class mf_slideshow
 		return $data['actions'];
 	}
 
-	function row_actions($arr_actions, $post)
+	function page_row_actions($arr_actions, $post)
 	{
 		if($post->post_type == $this->post_type)
 		{
