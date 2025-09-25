@@ -7,6 +7,6 @@ jQuery(function($)
 		dom_obj.toggleClass('active').siblings("div").toggleClass('hide');
 		dom_obj.parent(".slideshow.mosaic").toggleClass('has_active');
 
-		$("html, body").animate({scrollTop: (dom_obj.offset().top - 50)}, 800);
+		$("html, body").animate({scrollTop: (dom_obj.offset().top - 100)}, 800);
 	});
 });
