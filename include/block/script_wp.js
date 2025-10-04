@@ -51,7 +51,7 @@
             },
 			'slideshow_display_controls':
 			{
-                'type': 'string',
+                'type': 'array',
                 'default': ''
             },
 			'slideshow_autoplay':
