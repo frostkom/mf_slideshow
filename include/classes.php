@@ -178,7 +178,6 @@ class mf_slideshow
 				if(!isset($attributes['slideshow_display_controls'])){			$attributes['slideshow_display_controls'] = [];} //get_option('setting_slideshow_display_controls')
 				if(!isset($attributes['slideshow_random'])){					$attributes['slideshow_random'] = 'no';}
 
-				//$setting_slideshow_open_links_in_new_tab = get_option('setting_slideshow_open_links_in_new_tab');
 
 				/*if(is_array($attributes['slideshow_style']))
 				{
@@ -243,23 +242,7 @@ class mf_slideshow
 
 											if($arr_slide_texts[$key]['url'] != '')
 											{
-												$images_html .= "<a href='".$arr_slide_texts[$key]['url']."'";
-
-													/*switch($setting_slideshow_open_links_in_new_tab)
-													{
-														case 'yes':
-															if(strpos($arr_slide_texts[$key]['url'], get_site_url()) === false)
-															{
-																$images_html .= " rel='external'";
-															}
-														break;
-
-														default:
-															//Do nothing
-														break;
-													}*/
-
-												$images_html .= ">".__("Read More", 'lang_slideshow')."&hellip;</a>";
+												$images_html .= "<a href='".$arr_slide_texts[$key]['url']."'>".__("Read More", 'lang_slideshow')."&hellip;</a>";
 											}
 
 										$images_html .= "</div>
@@ -530,8 +513,6 @@ class mf_slideshow
 			}
 		}*/
 
-		//$arr_settings['setting_slideshow_open_links_in_new_tab'] = __("Open Links in new Tabs", 'lang_slideshow');
-
 		show_settings_fields(array('area' => $options_area, 'object' => $this, 'settings' => $arr_settings));
 	}
 
@@ -669,19 +650,6 @@ class mf_slideshow
 		$option = get_option($setting_key, 'no');
 
 		echo show_select(array('data' => get_yes_no_for_select(array('return_integer' => true)), 'name' => $setting_key, 'value' => $option));
-	}*/
-
-	/*function setting_slideshow_open_links_in_new_tab_callback()
-	{
-		$setting_key = get_setting_key(__FUNCTION__);
-		$option = get_option($setting_key, 'no');
-
-		$arr_data = array(
-			'no' => __("No", 'lang_slideshow'),
-			'yes' => __("Yes", 'lang_slideshow')." (".__("When link is external", 'lang_slideshow').")",
-		);
-
-		echo show_select(array('data' => $arr_data, 'name' => $setting_key, 'value' => $option));
 	}*/
 
 	function filter_sites_table_pages($arr_pages)
