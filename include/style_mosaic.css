@@ -1,65 +1,62 @@
-@media all
+.slideshow.mosaic:not(.has_active)
 {
-	.slideshow.mosaic:not(.has_active)
+	display: grid;
+	gap: 1rem;
+	grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+	grid-auto-rows: 240px;
+}
+
+	.slideshow.mosaic > div
 	{
-		display: grid;
-		gap: 1rem;
-		grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-		grid-auto-rows: 240px;
+		align-items: center;
+		border-radius: .3em;
+		cursor: pointer;
+		display: flex;
+		justify-content: center;
+		overflow: hidden;
+		position: relative;
 	}
 
-		.slideshow.mosaic > div
+		.slideshow.mosaic > div:hover::before
 		{
-			align-items: center;
-			border-radius: .3em;
-			cursor: pointer;
-			display: flex;
-			justify-content: center;
-			overflow: hidden;
-			position: relative;
+			color: rgba(255, 255, 255, .3);
+			content: "\2716"; /* X */
+			font-family: 'Font Awesome 5 Free';
+			font-size: 5em;
+			right: 50%;
+			position: absolute;
+			top: 50%;
+			text-shadow: .01em .01em .3em rgba(0, 0, 0, .2);
+			transform: translate(60%, -50%) rotate(45deg);
+			transition: all 1s ease;
 		}
 
-			.slideshow.mosaic > div:hover::before
+		.slideshow.mosaic > div.active
+		{
+			display: block;
+		}
+
+			.slideshow.mosaic > div.active:hover::before
 			{
-				color: rgba(255, 255, 255, .3);
-				content: "\2716"; /* X */
-				font-family: 'Font Awesome 5 Free';
-				font-size: 5em;
-				right: 50%;
-				position: absolute;
-				top: 50%;
-				text-shadow: .01em .01em .3em rgba(0, 0, 0, .2);
-				transform: translate(60%, -50%) rotate(45deg);
-				transition: all 1s ease;
+				right: 2%;
+				top: 0;
+				transform: rotate(90deg);
 			}
 
-			.slideshow.mosaic > div.active
+		.slideshow.mosaic > div:nth-child(3n + 1)
+		{
+			grid-row: span 2 / auto;
+		}
+
+		.slideshow.mosaic > div:nth-child(9n + 1)
+		{
+			grid-column: span 2 / auto;
+		}
+
+			.slideshow.mosaic > div img
 			{
 				display: block;
+				height: 100%;
+				object-fit: cover;
+				width: 100%;
 			}
-
-				.slideshow.mosaic > div.active:hover::before
-				{
-					right: 2%;
-					top: 0;
-					transform: rotate(90deg);
-				}
-
-			.slideshow.mosaic > div:nth-child(3n + 1)
-			{
-				grid-row: span 2 / auto;
-			}
-
-			.slideshow.mosaic > div:nth-child(9n + 1)
-			{
-				grid-column: span 2 / auto;
-			}
-
-				.slideshow.mosaic > div img
-				{
-					display: block;
-					height: 100%;
-					object-fit: cover;
-					width: 100%;
-				}
-}
