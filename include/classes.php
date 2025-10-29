@@ -486,32 +486,14 @@ class mf_slideshow
 		//$arr_settings['setting_slideshow_height_ratio'] = __("Height Ratio", 'lang_slideshow');
 		//$arr_settings['setting_slideshow_height_ratio_mobile'] = __("Height Ratio", 'lang_slideshow')." (".__("Mobile", 'lang_slideshow').")";
 		$arr_settings['setting_slideshow_image_fit'] = __("Image Fit", 'lang_slideshow');
-		/*$arr_settings['setting_slideshow_display_controls'] = __("Display", 'lang_slideshow');
-
-		$setting_slideshow_display_controls = get_option('setting_slideshow_display_controls');
-
-		if(is_array($setting_slideshow_display_controls) && in_array('thumbnails', $setting_slideshow_display_controls))
-		{*/
-			$arr_settings['setting_slideshow_thumbnail_columns'] = __("Thumbnail Columns", 'lang_slideshow');
-			$arr_settings['setting_slideshow_thumbnail_rows'] = __("Thumbnail Rows", 'lang_slideshow');
-		//}
+		//$arr_settings['setting_slideshow_display_controls'] = __("Display", 'lang_slideshow');
+		$arr_settings['setting_slideshow_thumbnail_columns'] = __("Thumbnail Columns", 'lang_slideshow');
+		$arr_settings['setting_slideshow_thumbnail_rows'] = __("Thumbnail Rows", 'lang_slideshow');
 
 		//$arr_settings['setting_slideshow_autoplay'] = __("Autoplay", 'lang_slideshow');
-
-		/*if(get_option('setting_slideshow_autoplay') == 1 || get_option('setting_slideshow_autoplay') == 'yes')
-		{
-			$arr_settings['setting_slideshow_duration'] = __("Duration", 'lang_slideshow');
-		}*/
-
-		/*if(in_array('original', get_option('setting_slideshow_style', array('original'))))
-		{
-			$arr_settings['setting_slideshow_fade_duration'] = __("Fade Duration", 'lang_slideshow');
-
-			if(wp_is_block_theme() == false)
-			{
-				$arr_settings['setting_slideshow_random'] = __("Random", 'lang_slideshow');
-			}
-		}*/
+		//$arr_settings['setting_slideshow_duration'] = __("Duration", 'lang_slideshow');
+		//$arr_settings['setting_slideshow_fade_duration'] = __("Fade Duration", 'lang_slideshow');
+		//$arr_settings['setting_slideshow_random'] = __("Random", 'lang_slideshow');
 
 		show_settings_fields(array('area' => $options_area, 'object' => $this, 'settings' => $arr_settings));
 	}
@@ -522,62 +504,6 @@ class mf_slideshow
 
 		echo settings_header($setting_key, __("Slideshow", 'lang_slideshow'));
 	}
-
-	/*function setting_slideshow_style_callback()
-	{
-		$setting_key = get_setting_key(__FUNCTION__);
-		$option = get_option($setting_key, array('original'));
-
-		echo show_select(array('data' => $this->get_slideshow_styles_for_select(), 'name' => $setting_key."[]", 'value' => $option));
-	}*/
-
-	/*function setting_slideshow_allow_widget_override_callback()
-	{
-		$setting_key = get_setting_key(__FUNCTION__);
-		$option = get_option($setting_key, $this->allow_widget_override_default);
-
-		echo show_select(array('data' => $this->get_allow_widget_override_for_select(), 'name' => $setting_key."[]", 'value' => $option));
-	}*/
-
-	/*function setting_slideshow_background_color_callback()
-	{
-		$setting_key = get_setting_key(__FUNCTION__);
-		$option = get_option($setting_key, "#000000");
-
-		echo show_textfield(array('type' => 'color', 'name' => $setting_key, 'value' => $option));
-	}*/
-
-		/*function setting_slideshow_background_opacity_callback()
-		{
-			$setting_key = get_setting_key(__FUNCTION__);
-			$option = get_option($setting_key, 100);
-
-			echo show_textfield(array('type' => 'number', 'name' => $setting_key, 'value' => $option, 'suffix' => "%"));
-		}*/
-
-	/*function setting_slideshow_display_text_background_callback()
-	{
-		$setting_key = get_setting_key(__FUNCTION__);
-		$option = get_option($setting_key, 'yes');
-
-		echo show_select(array('data' => get_yes_no_for_select(), 'name' => $setting_key, 'value' => $option));
-	}*/
-
-	/*function setting_slideshow_height_ratio_callback()
-	{
-		$setting_key = get_setting_key(__FUNCTION__);
-		$option = get_option($setting_key, '0.5');
-
-		echo show_textfield(array('name' => $setting_key, 'value' => $option, 'description' => sprintf(__("From %s to %s. %s means the slideshow will be presented in landscape, %s means square format and %s means the slideshow is presented in portrait", 'lang_slideshow'), "0.3", "2", "0.3", "1", "2")));
-	}
-
-	function setting_slideshow_height_ratio_mobile_callback()
-	{
-		$setting_key = get_setting_key(__FUNCTION__);
-		$option = get_option($setting_key, '1');
-
-		echo show_textfield(array('name' => $setting_key, 'value' => $option));
-	}*/
 
 	function get_image_fit_for_select()
 	{
@@ -596,14 +522,6 @@ class mf_slideshow
 		echo show_select(array('data' => $this->get_image_fit_for_select(), 'name' => $setting_key, 'value' => $option));
 	}
 
-	/*function setting_slideshow_display_controls_callback()
-	{
-		$setting_key = get_setting_key(__FUNCTION__);
-		$option = get_option($setting_key, array('thumbnails'));
-
-		echo show_select(array('data' => $this->get_display_controls_for_select(), 'name' => $setting_key."[]", 'value' => $option));
-	}*/
-
 	function setting_slideshow_thumbnail_columns_callback()
 	{
 		$setting_key = get_setting_key(__FUNCTION__);
@@ -619,38 +537,6 @@ class mf_slideshow
 
 		echo show_select(array('data' => $this->get_thumbnail_rows_for_select(), 'name' => $setting_key, 'value' => $option));
 	}
-
-	/*function setting_slideshow_autoplay_callback()
-	{
-		$setting_key = get_setting_key(__FUNCTION__);
-		$option = get_option($setting_key, 'no');
-
-		echo show_select(array('data' => get_yes_no_for_select(), 'name' => $setting_key, 'value' => $option)); //array('return_integer' => true)
-	}*/
-
-	/*function setting_slideshow_duration_callback()
-	{
-		$setting_key = get_setting_key(__FUNCTION__);
-		$option = get_option($setting_key, 5);
-
-		echo show_textfield(array('type' => 'number', 'name' => $setting_key, 'value' => $option, 'xtra' => "min='2'", 'suffix' => __("s", 'lang_slideshow')));
-	}*/
-
-	/*function setting_slideshow_fade_duration_callback()
-	{
-		$setting_key = get_setting_key(__FUNCTION__);
-		$option = get_option($setting_key, 400);
-
-		echo show_textfield(array('type' => 'number', 'name' => $setting_key, 'value' => $option, 'xtra' => "min='400' max='2000'", 'suffix' => __("ms", 'lang_slideshow')));
-	}*/
-
-	/*function setting_slideshow_random_callback()
-	{
-		$setting_key = get_setting_key(__FUNCTION__);
-		$option = get_option($setting_key, 'no');
-
-		echo show_select(array('data' => get_yes_no_for_select(array('return_integer' => true)), 'name' => $setting_key, 'value' => $option));
-	}*/
 
 	function filter_sites_table_pages($arr_pages)
 	{
