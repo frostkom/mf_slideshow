@@ -2,7 +2,7 @@
 
 class mf_slideshow
 {
-	var $post_type = 'mf_slideshow';
+	var $post_type = __CLASS__;
 	var $meta_prefix;
 	var $allow_widget_override_default = array('background', 'height_ratio', 'display_controls', 'thumbnail_columns', 'autoplay');
 
@@ -125,19 +125,7 @@ class mf_slideshow
 			switch($attributes['slideshow_style'])
 			{
 				case 'mosaic':
-					global $obj_base;
-
-					if(!isset($obj_base))
-					{
-						$obj_base = new mf_base();
-					}
-
-					$plugin_base_include_url = plugins_url()."/mf_base/include/";
-
-					$obj_base->load_font_awesome(array(
-						'type' => 'public',
-						'plugin_include_url' => $plugin_base_include_url,
-					));
+					do_action('load_font_awesome');
 
 					mf_enqueue_script('script_slideshow_mosaic', $plugin_include_url."script_mosaic.js");
 					mf_enqueue_style('style_slideshow_mosaic', $plugin_include_url."style_mosaic.css");
@@ -334,6 +322,8 @@ class mf_slideshow
 
 											if(is_array($attributes['slideshow_display_controls']) && in_array('arrows', $attributes['slideshow_display_controls']))
 											{
+												do_action('load_font_awesome');
+
 												$out .= "<i class='fa fa-chevron-left arrow_left'></i>";
 											}
 
