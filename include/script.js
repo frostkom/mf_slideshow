@@ -224,14 +224,6 @@ jQuery(function($)
 
 		if(slider_amount > 1)
 		{
-			/*if(dom_obj_container.is(":visible"))
-			{
-				dom_obj_slide_items.each(function()
-				{
-					preload($(this).children("img").attr('src'));
-				});
-			}*/
-
 			if(setting_autoplay == 1)
 			{
 				change_slide(setting_random == 1 ? Math.round(Math.random() * slider_amount) : slide_now);
@@ -244,7 +236,7 @@ jQuery(function($)
 
 			change_slide($(this).attr('rel'));
 
-			$("html, body").animate({scrollTop: dom_obj_container.offset().top}, 800);
+			$("html, body").animate({scrollTop: (dom_obj_container.offset().top - 40)}, 800);
 
 			return false;
 		});
