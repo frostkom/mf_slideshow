@@ -21,59 +21,59 @@
 			},
 			'parent':
 			{
-                'type': 'string',
-                'default': ''
-            },
+				'type': 'string',
+				'default': ''
+			},
 			'slideshow_style':
 			{
-                'type': 'string',
-                'default': ''
-            },
+				'type': 'string',
+				'default': ''
+			},
 			'slideshow_display_text_background':
 			{
-                'type': 'string',
-                'default': 'yes'
-            },
+				'type': 'string',
+				'default': 'yes'
+			},
 			'slideshow_height_ratio':
 			{
-                'type': 'string',
-                'default': '0.5'
-            },
+				'type': 'string',
+				'default': '0.5'
+			},
 			'slideshow_height_ratio_mobile':
 			{
-                'type': 'string',
-                'default': '1'
-            },
+				'type': 'string',
+				'default': '1'
+			},
 			'slideshow_image_fit':
 			{
-                'type': 'string',
-                'default': ''
-            },
+				'type': 'string',
+				'default': ''
+			},
 			'slideshow_display_controls':
 			{
-                'type': 'array',
-                'default': ''
-            },
+				'type': 'array',
+				'default': ''
+			},
 			'slideshow_autoplay':
 			{
-                'type': 'string',
-                'default': 'no'
-            },
+				'type': 'string',
+				'default': 'no'
+			},
 			'slideshow_duration':
 			{
-                'type': 'string',
-                'default': '5'
-            },
+				'type': 'string',
+				'default': '5'
+			},
 			'slideshow_fade_duration':
 			{
-                'type': 'string',
-                'default': '400'
-            },
+				'type': 'string',
+				'default': '400'
+			},
 			'slideshow_random':
 			{
-                'type': 'string',
-                'default': ''
-            }
+				'type': 'string',
+				'default': ''
+			}
 		},
 		'supports':
 		{
