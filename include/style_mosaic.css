@@ -1,4 +1,4 @@
-.slideshow.mosaic:not(.has_active)
+.slideshow.mosaic
 {
 	display: grid;
 	gap: 1rem;
@@ -6,7 +6,7 @@
 	grid-auto-rows: 240px;
 }
 
-	.slideshow.mosaic > div
+	.slideshow.mosaic > figure
 	{
 		align-items: center;
 		border-radius: .3em;
@@ -17,43 +17,17 @@
 		position: relative;
 	}
 
-		.slideshow.mosaic > div:hover::before
-		{
-			color: rgba(255, 255, 255, .3);
-			content: "\2716"; /* X */
-			font-family: 'Font Awesome 5 Free';
-			font-size: 5em;
-			right: 50%;
-			position: absolute;
-			top: 50%;
-			text-shadow: .01em .01em .3em rgba(0, 0, 0, .2);
-			transform: translate(60%, -50%) rotate(45deg);
-			transition: all 1s ease;
-		}
-
-		.slideshow.mosaic > div.active
-		{
-			display: block;
-		}
-
-			.slideshow.mosaic > div.active:hover::before
-			{
-				right: 2%;
-				top: 0;
-				transform: rotate(90deg);
-			}
-
-		.slideshow.mosaic > div:nth-child(3n + 1)
+		.slideshow.mosaic > figure:nth-child(3n + 1)
 		{
 			grid-row: span 2 / auto;
 		}
 
-		.slideshow.mosaic > div:nth-child(9n + 1)
+		.slideshow.mosaic > figure:nth-child(9n + 1)
 		{
 			grid-column: span 2 / auto;
 		}
 
-			.slideshow.mosaic > div img
+			.slideshow.mosaic > figure img
 			{
 				display: block;
 				height: 100%;

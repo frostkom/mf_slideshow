@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-12 03:47+0100\n"
+"POT-Creation-Date: 2025-11-28 15:52+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Martin Fors\n"
 "Language-Team: \n"
@@ -49,199 +49,179 @@ msgid "Background"
 msgstr "Bakgrund"
 
 #: ../include/classes.php:47
-#: ../include/classes.php:446
-#: ../include/classes.php:963
-#: ../include/classes.php:964
+#: ../include/classes.php:396
 msgid "Height Ratio"
 msgstr "Höjdförhållande"
 
 #: ../include/classes.php:48
-#: ../include/classes.php:450
-#: ../include/classes.php:976
+#: ../include/classes.php:400
 msgid "Display"
 msgstr "Visa"
 
 #: ../include/classes.php:50
-#: ../include/classes.php:452
-#: ../include/classes.php:986
+#: ../include/classes.php:402
 msgid "Autoplay"
 msgstr "Spela upp automatiskt"
 
-#: ../include/classes.php:262
+#: ../include/classes.php:222
 msgid "Read More"
 msgstr "Läs mer"
 
-#: ../include/classes.php:415
+#: ../include/classes.php:365
 msgid "I could not find any images to load"
 msgstr "Jag kunde inte hitta några bilder att ladda"
 
-#: ../include/classes.php:421
+#: ../include/classes.php:371
 msgid "You have to choose a gallery to be displayed here"
 msgstr "Du behöver välja ett galleri som ska visas här"
 
-#: ../include/classes.php:438
-#: ../include/classes.php:466
-#: ../include/classes.php:467
-#: ../include/classes.php:542
-#: ../include/classes.php:906
+#: ../include/classes.php:388
+#: ../include/classes.php:416
+#: ../include/classes.php:417
+#: ../include/classes.php:459
 msgid "Slideshow"
 msgstr "Bildspel"
 
-#: ../include/classes.php:439
+#: ../include/classes.php:389
 msgid "Display Slideshow"
 msgstr "Visa bildspel"
 
-#: ../include/classes.php:440
-#: ../include/classes.php:945
+#: ../include/classes.php:390
 msgid "Parent"
 msgstr "Förälder"
 
-#: ../include/classes.php:442
-#: ../include/classes.php:946
+#: ../include/classes.php:392
 msgid "Style"
 msgstr "Stil"
 
-#: ../include/classes.php:444
-#: ../include/classes.php:953
+#: ../include/classes.php:394
 msgid "Display Text Background"
 msgstr "Visa textbakgrund"
 
-#: ../include/classes.php:447
-#: ../include/classes.php:964
+#: ../include/classes.php:397
 msgid "Mobile"
 msgstr "Mobil"
 
+#: ../include/classes.php:398
 #: ../include/classes.php:448
-#: ../include/classes.php:505
 msgid "Image Fit"
 msgstr "Bildanpassning"
 
-#: ../include/classes.php:453
-#: ../include/classes.php:996
+#: ../include/classes.php:403
 msgid "Duration"
 msgstr "Tid för bildvisning"
 
-#: ../include/classes.php:454
-#: ../include/classes.php:1007
+#: ../include/classes.php:404
 msgid "Fade Duration"
 msgstr "Tid när bilder tonar"
 
-#: ../include/classes.php:455
-#: ../include/classes.php:1008
+#: ../include/classes.php:405
 msgid "Random"
 msgstr "Slumpvis"
 
-#: ../include/classes.php:465
-#: ../include/classes.php:691
+#: ../include/classes.php:415
+#: ../include/classes.php:499
 msgid "Slideshows"
 msgstr "Bildspel"
 
-#: ../include/classes.php:468
+#: ../include/classes.php:418
 msgid "List"
 msgstr "Lista"
 
-#: ../include/classes.php:469
+#: ../include/classes.php:419
 msgid "Edit"
 msgstr "Redigera"
 
-#: ../include/classes.php:470
-#: ../include/classes.php:820
+#: ../include/classes.php:420
+#: ../include/classes.php:627
 msgid "View"
 msgstr "Visa"
 
-#: ../include/classes.php:471
+#: ../include/classes.php:421
 msgid "Add New"
 msgstr "Lägg till ny"
 
-#: ../include/classes.php:512
+#: ../include/classes.php:449
 msgid "Thumbnail Columns"
 msgstr "Kolumner med miniatyrer"
 
-#: ../include/classes.php:513
+#: ../include/classes.php:450
 msgid "Thumbnail Rows"
 msgstr "Rader med miniatyrer"
 
-#: ../include/classes.php:604
+#: ../include/classes.php:465
 msgid "None"
 msgstr "Inget"
 
-#: ../include/classes.php:605
+#: ../include/classes.php:466
 msgid "Cover"
 msgstr "Fyll ut"
 
-#: ../include/classes.php:606
+#: ../include/classes.php:467
 msgid "Contain"
 msgstr "Anpassa"
 
-#: ../include/classes.php:701
-#: ../include/classes.php:779
+#: ../include/classes.php:509
+#: ../include/classes.php:587
 msgid "Images"
 msgstr "Bilder"
 
-#: ../include/classes.php:721
+#: ../include/classes.php:529
 msgid "Settings"
 msgstr "Inställningar"
 
-#: ../include/classes.php:727
+#: ../include/classes.php:535
 msgid "Content Position"
 msgstr "Textplacering"
 
-#: ../include/classes.php:731
+#: ../include/classes.php:539
 msgid "Choose Here"
 msgstr "Välj här"
 
-#: ../include/classes.php:732
+#: ../include/classes.php:540
 msgid "Left"
 msgstr "Vänster"
 
-#: ../include/classes.php:733
+#: ../include/classes.php:541
 msgid "Center"
 msgstr "Centrera"
 
-#: ../include/classes.php:734
+#: ../include/classes.php:542
 msgid "Bottom"
 msgstr "Botten"
 
-#: ../include/classes.php:735
+#: ../include/classes.php:543
 msgid "Right"
 msgstr "Höger"
 
-#: ../include/classes.php:740
+#: ../include/classes.php:548
 msgid "Content Style"
 msgstr "Stil på innehåll"
 
-#: ../include/classes.php:745
+#: ../include/classes.php:553
 msgid "Page"
 msgstr "Sida"
 
-#: ../include/classes.php:755
+#: ../include/classes.php:563
 msgid "External Link"
 msgstr "Extern länk"
 
-#: ../include/classes.php:819
+#: ../include/classes.php:626
 msgid "Edit Page"
 msgstr "Redigera sida"
 
-#: ../include/classes.php:884
-msgid "Display a slideshow that you have created"
-msgstr "Visa ett bildspel som du har skapat"
+#~ msgid "Display a slideshow that you have created"
+#~ msgstr "Visa ett bildspel som du har skapat"
 
-#: ../include/classes.php:944
-msgid "Heading"
-msgstr "Rubrik"
+#~ msgid "Heading"
+#~ msgstr "Rubrik"
 
-#: ../include/classes.php:963
-#, php-format
-msgid "From %s to %s. %s means the slideshow will be presented in landscape, %s means square format and %s means the slideshow is presented in portrait"
-msgstr "Från %s till %s. %s betyder att bildspelet visas i landskapsläge, %s betyder kvadratisk form och %s betyder att bilspelet visas i porträttläge"
-
-#: ../include/classes.php:996
-msgid "s"
-msgstr ""
-
-#: ../include/classes.php:1007
-msgid "ms"
-msgstr ""
+#~ msgid ""
+#~ "From %s to %s. %s means the slideshow will be presented in landscape, %s "
+#~ "means square format and %s means the slideshow is presented in portrait"
+#~ msgstr ""
+#~ "Från %s till %s. %s betyder att bildspelet visas i landskapsläge, %s "
+#~ "betyder kvadratisk form och %s betyder att bilspelet visas i porträttläge"
 
 #~ msgid "Magnifying Glass"
 #~ msgstr "Förstoringsglas"

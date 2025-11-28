@@ -95,8 +95,6 @@ class mf_slideshow
 
 		if(!isset($attributes['parent'])){							$attributes['parent'] = '';}
 		if(!isset($attributes['slideshow_style'])){					$attributes['slideshow_style'] = 'original';}
-		//if(!isset($attributes['slideshow_background'])){			$attributes['slideshow_background'] = "";}
-		//if(!isset($attributes['slideshow_background_opacity'])){	$attributes['slideshow_background_opacity'] = "";}
 		if(!isset($attributes['slideshow_height_ratio'])){			$attributes['slideshow_height_ratio'] = '0.5';}
 		if(!isset($attributes['slideshow_height_ratio_mobile'])){	$attributes['slideshow_height_ratio_mobile'] = '1';}
 		if(!isset($attributes['slideshow_display_controls'])){		$attributes['slideshow_display_controls'] = [];}
@@ -126,8 +124,8 @@ class mf_slideshow
 			{
 				case 'mosaic':
 					do_action('load_font_awesome');
+					do_action('load_lightbox');
 
-					mf_enqueue_script('script_slideshow_mosaic', $plugin_include_url."script_mosaic.js");
 					mf_enqueue_style('style_slideshow_mosaic', $plugin_include_url."style_mosaic.css");
 				break;
 
@@ -160,24 +158,15 @@ class mf_slideshow
 			if($count_slide_images > 0)
 			{
 				if(!isset($attributes['slideshow_style'])){						$attributes['slideshow_style'] = 'original';}
-				//if($attributes['slideshow_background'] == ''){				$attributes['slideshow_background'] = "#000000";}
-				//if($attributes['slideshow_background_opacity'] == ''){		$attributes['slideshow_background_opacity'] = 100;}
 				if(!isset($attributes['slideshow_display_text_background'])){	$attributes['slideshow_display_text_background'] = get_option_or_default('setting_slideshow_slideshow_display_text_background', 'yes');}
-				if(!isset($attributes['slideshow_display_controls'])){			$attributes['slideshow_display_controls'] = [];} //get_option('setting_slideshow_display_controls')
+				if(!isset($attributes['slideshow_display_controls'])){			$attributes['slideshow_display_controls'] = [];}
 				if(!isset($attributes['slideshow_random'])){					$attributes['slideshow_random'] = 'no';}
-
-
-				/*if(is_array($attributes['slideshow_style']))
-				{
-					$attributes['slideshow_style'] = $attributes['slideshow_style'][0];
-				}*/
 
 				$images_html = $dots_html = "";
 				$i = $active_i = 1;
 
 				if($attributes['slideshow_random'] == 'yes')
 				{
-					//shuffle($arr_slide_images);
 					$arr_slide_images = $this->shuffle_assoc($arr_slide_images);
 				}
 
@@ -186,9 +175,9 @@ class mf_slideshow
 					switch($attributes['slideshow_style'])
 					{
 						case 'mosaic':
-							$images_html .= "<div rel='".$key."'>"
-								.render_image_tag(array('id' => $key, 'src' => $image, 'size' => 'full'))
-							."</div>";
+							$images_html .= "<figure class='wp-block-image'>"
+								.render_image_tag(array('id' => $key, 'size' => 'large')) //, 'src' => $image
+							."</figure>";
 						break;
 
 						default:
@@ -253,18 +242,6 @@ class mf_slideshow
 				{
 					$slideshow_classes .= " display_text_background";
 				}
-
-				/*if($attributes['slideshow_background'] != '')
-				{
-					if($attributes['slideshow_background_opacity'] != '')
-					{
-						list($r, $g, $b) = sscanf($attributes['slideshow_background'], "#%02x%02x%02x");
-
-						$attributes['slideshow_background'] = "rgba(".$r.", ".$g.", ".$b.", ".($attributes['slideshow_background_opacity'] / 100).")";
-					}
-
-					$slideshow_style .= "background-color: ".$attributes['slideshow_background'].";";
-				}*/
 
 				$slideshow_attributes .= " data-random='".$attributes['slideshow_random']."'";
 
@@ -468,22 +445,9 @@ class mf_slideshow
 		add_settings_section($options_area, "", array($this, $options_area."_callback"), BASE_OPTIONS_PAGE);
 
 		$arr_settings = [];
-		//$arr_settings['setting_slideshow_style'] = __("Style", 'lang_slideshow');
-		//$arr_settings['setting_slideshow_allow_widget_override'] = __("Allow Widget Override", 'lang_slideshow');
-		//$arr_settings['setting_slideshow_background_color'] = __("Background Color", 'lang_slideshow');
-		//$arr_settings['setting_slideshow_background_opacity'] = " - ".__("Opacity", 'lang_slideshow');
-		//$arr_settings['setting_slideshow_display_text_background'] = __("Display Text Background", 'lang_slideshow');
-		//$arr_settings['setting_slideshow_height_ratio'] = __("Height Ratio", 'lang_slideshow');
-		//$arr_settings['setting_slideshow_height_ratio_mobile'] = __("Height Ratio", 'lang_slideshow')." (".__("Mobile", 'lang_slideshow').")";
 		$arr_settings['setting_slideshow_image_fit'] = __("Image Fit", 'lang_slideshow');
-		//$arr_settings['setting_slideshow_display_controls'] = __("Display", 'lang_slideshow');
 		$arr_settings['setting_slideshow_thumbnail_columns'] = __("Thumbnail Columns", 'lang_slideshow');
 		$arr_settings['setting_slideshow_thumbnail_rows'] = __("Thumbnail Rows", 'lang_slideshow');
-
-		//$arr_settings['setting_slideshow_autoplay'] = __("Autoplay", 'lang_slideshow');
-		//$arr_settings['setting_slideshow_duration'] = __("Duration", 'lang_slideshow');
-		//$arr_settings['setting_slideshow_fade_duration'] = __("Fade Duration", 'lang_slideshow');
-		//$arr_settings['setting_slideshow_random'] = __("Random", 'lang_slideshow');
 
 		show_settings_fields(array('area' => $options_area, 'object' => $this, 'settings' => $arr_settings));
 	}
