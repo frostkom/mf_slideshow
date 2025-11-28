@@ -653,8 +653,7 @@ class mf_slideshow
 		if(!isset($data['actions'])){	$data['actions'] = [];}
 		if(!isset($data['class'])){		$data['class'] = "";}
 
-		$block_code = '<!-- wp:mf/slideshow {"parent":"'.$post->ID.'"} /-->';
-		$arr_ids = apply_filters('get_page_from_block_code', [], $block_code);
+		$arr_ids = apply_filters('get_page_from_block_code', [], '<!-- wp:mf/slideshow {"parent":"'.$post->ID.'"} /-->');
 
 		if(count($arr_ids) > 0)
 		{
