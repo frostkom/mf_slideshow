@@ -78,7 +78,7 @@ echo ".slideshow.original .slideshow_container
 			}
 
 	/* Content */
-	/* ############################## */
+	/* ##################### */
 	.slideshow.original .content
 	{
 		display: none;
@@ -150,10 +150,10 @@ echo ".slideshow.original .slideshow_container
 				margin-top: 1em;
 				text-align: right;
 			}
-	/* ############################## */
+	/* ##################### */
 
 	/* Controls */
-	/* ############################## */
+	/* ##################### */
 	.slideshow.original .controls_arrows:not(.hide)
 	{
 		display: block;
@@ -268,10 +268,10 @@ echo ".slideshow.original .slideshow_container
 			{
 				background: #666;
 			}
-	/* ############################## */
+	/* ##################### */
 
 	/* Thumbnails */
-	/* ############################## */
+	/* ##################### */
 	.slideshow .slideshow_thumbnails
 	{
 		display: flex;
@@ -313,7 +313,7 @@ echo ".slideshow.original .slideshow_container
 			{
 				display: block;
 			}
-	/* ############################## */";
+	/* ##################### */";
 
 $result = $wpdb->get_results($wpdb->prepare("SELECT ID, post_parent, meta_value FROM ".$wpdb->posts." INNER JOIN ".$wpdb->postmeta." ON ".$wpdb->posts.".ID = ".$wpdb->postmeta.".post_id WHERE post_type = %s AND post_status = %s AND post_parent > '0' ORDER BY post_parent ASC", $obj_slideshow->post_type, 'publish')); //(post_parent > '0' OR meta_key = %s AND meta_value != '') //, $obj_slideshow->meta_prefix.'content_style' // This will load [slide_parent_id] into CSS because parent style is also loaded
 
