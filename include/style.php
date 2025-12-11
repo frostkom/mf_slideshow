@@ -28,9 +28,9 @@ $columns_2_width = (50 - ($column_gap / 2));
 $columns_3_width = (33 - ($column_gap / 2));
 
 echo ".slideshow.original .slideshow_container
-{
-	font-size: 1em;
-	overflow: hidden;
+{";
+	/*font-size: 1em;*/
+	echo "overflow: hidden;
 	position: relative;
 	text-align: center;
 	transition: all .5s ease;
@@ -82,8 +82,11 @@ echo ".slideshow.original .slideshow_container
 	.slideshow.original .content
 	{
 		display: none;
+		margin-left: 10%;
+		margin-right: 10%;
 		position: absolute;
 		top: 50%;
+		transform: translateY(-50%);
 		z-index: 1;
 	}
 
@@ -91,8 +94,13 @@ echo ".slideshow.original .slideshow_container
 		{
 			display: block;
 		}
+		
+		.slideshow.original .content p
+		{
+			margin: 0;
+		}";
 
-		.slideshow.original .content.left
+		/*echo ".slideshow.original .content.left
 		{
 			left: 1em;
 			right: 40%;
@@ -116,25 +124,19 @@ echo ".slideshow.original .slideshow_container
 		{
 			left: 40%;
 			right: 1em;
-		}
+		}";*/
 
-		.slideshow.original .content > div
-		{
-			color: #fff;
-			padding: 1em;
-		}
-
-			.slideshow.original.display_text_background .content > div
+			/*.slideshow.original.display_text_background .content > div
 			{
 				background: rgba(0, 0, 0, .4);
-			}
+			}*/
 
-			.slideshow.original .content:not(.bottom) > div
+			echo ".slideshow.original .content:not(.bottom) > div
 			{
 				transform: translateY(-50%);
-			}
+			}";
 
-			.slideshow.original .content > div h4
+			/*.slideshow.original .content > div h4
 			{
 				text-shadow: 0 0 1em rgba(0, 0, 0, .5);
 			}
@@ -142,9 +144,9 @@ echo ".slideshow.original .slideshow_container
 				.slideshow.original.display_text_background .content > div h4
 				{
 					text-shadow: none;
-				}
+				}*/
 
-			.slideshow.original .content > div > a
+			echo ".slideshow.original .content > div > a
 			{
 				display: block;
 				margin-top: 1em;
@@ -191,11 +193,11 @@ echo ".slideshow.original .slideshow_container
 			}
 
 		.slideshow.original .controls_arrows .fa
-		{
-			background: #000;
+		{";
+			/*background: #000;
 			border-radius: 50%;
-			color: #fff;
-			font-size: 2em;
+			color: #fff;*/
+			echo "font-size: 2em;
 			opacity: .2;
 			position: absolute;
 			top: 50%;

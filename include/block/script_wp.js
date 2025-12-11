@@ -29,11 +29,11 @@
 				'type': 'string',
 				'default': ''
 			},
-			'slideshow_display_text_background':
+			/*'slideshow_display_text_background':
 			{
 				'type': 'string',
 				'default': 'yes'
-			},
+			},*/
 			'slideshow_height_ratio':
 			{
 				'type': 'string',
@@ -135,7 +135,7 @@
 								}
 							}
 						),
-						el(
+						/*el(
 							SelectControl,
 							{
 								label: script_slideshow_block_wp.slideshow_display_text_background_label,
@@ -146,7 +146,7 @@
 									props.setAttributes({slideshow_display_text_background: value});
 								}
 							}
-						),
+						),*/
 						el(
 							TextControl,
 							{

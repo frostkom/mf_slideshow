@@ -236,7 +236,7 @@ jQuery(function($)
 
 			change_slide($(this).attr('rel'));
 
-			$("html, body").animate({scrollTop: (dom_obj_container.offset().top - 40)}, 800);
+			/*$("html, body").animate({scrollTop: (dom_obj_container.offset().top - 40)}, 800);*/
 
 			return false;
 		});
