@@ -234,7 +234,7 @@ class mf_slideshow
 								.($container_class != '' ? " class='".$container_class."'" : "")
 								." rel='".$i."'"
 							.">
-								<img src='".$image."'>";
+								<img src='".$image."' alt='".__("Slideshow Image", 'lang_slideshow')."'>";
 
 								if($has_texts)
 								{
