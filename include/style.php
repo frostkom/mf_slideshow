@@ -94,7 +94,7 @@ echo ".slideshow.original .slideshow_container
 		{
 			display: block;
 		}
-		
+
 		.slideshow.original .content p
 		{
 			margin: 0;
