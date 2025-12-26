@@ -21,16 +21,13 @@ if(!isset($obj_slideshow))
 
 $plugin_images_url = str_replace("/include/", "/images/", plugin_dir_url(__FILE__));
 
-$setting_slideshow_image_fit = get_option('setting_slideshow_image_fit', 'cover');
-
 $column_gap = 0.3;
 $columns_2_width = (50 - ($column_gap / 2));
 $columns_3_width = (33 - ($column_gap / 2));
 
 echo ".slideshow.original .slideshow_container
-{";
-	/*font-size: 1em;*/
-	echo "overflow: hidden;
+{
+	overflow: hidden;
 	position: relative;
 	text-align: center;
 	transition: all .5s ease;
@@ -71,11 +68,20 @@ echo ".slideshow.original .slideshow_container
 			.slideshow.original .slideshow_container .slide_item img
 			{
 				height: 100%;
-				object-fit: ".$setting_slideshow_image_fit.";
 				width: 100%;
 				transition: transform 20s ease;
 				transform: scale(1);
 			}
+
+				.slideshow.original .slideshow_container .slide_item img, .slideshow.original .slideshow_container .slideshow_image_fit_contain .slide_item img
+				{
+					object-fit: contain;
+				}
+
+				.slideshow.original .slideshow_container .slideshow_image_fit_cover .slide_item img
+				{
+					object-fit: cover;
+				}
 
 	/* Content */
 	/* ##################### */
@@ -98,55 +104,14 @@ echo ".slideshow.original .slideshow_container
 		.slideshow.original .content p
 		{
 			margin: 0;
-		}";
-
-		/*echo ".slideshow.original .content.left
-		{
-			left: 1em;
-			right: 40%;
 		}
 
-		.slideshow.original .content.center
-		{
-			left: 20%;
-			right: 20%;
-		}
-
-		.slideshow.original .content.bottom
-		{
-			bottom: 1em;
-			left: 1em;
-			right: 1em;
-			top: auto;
-		}
-
-		.slideshow.original .content.right
-		{
-			left: 40%;
-			right: 1em;
-		}";*/
-
-			/*.slideshow.original.display_text_background .content > div
-			{
-				background: rgba(0, 0, 0, .4);
-			}*/
-
-			echo ".slideshow.original .content:not(.bottom) > div
+			.slideshow.original .content:not(.bottom) > div
 			{
 				transform: translateY(-50%);
-			}";
-
-			/*.slideshow.original .content > div h4
-			{
-				text-shadow: 0 0 1em rgba(0, 0, 0, .5);
 			}
 
-				.slideshow.original.display_text_background .content > div h4
-				{
-					text-shadow: none;
-				}*/
-
-			echo ".slideshow.original .content > div > a
+			.slideshow.original .content > div > a
 			{
 				display: block;
 				margin-top: 1em;
@@ -193,11 +158,8 @@ echo ".slideshow.original .slideshow_container
 			}
 
 		.slideshow.original .controls_arrows .fa
-		{";
-			/*background: #000;
-			border-radius: 50%;
-			color: #fff;*/
-			echo "font-size: 2em;
+		{
+			font-size: 2em;
 			opacity: .2;
 			position: absolute;
 			top: 50%;
@@ -317,7 +279,7 @@ echo ".slideshow.original .slideshow_container
 			}
 	/* ##################### */";
 
-$result = $wpdb->get_results($wpdb->prepare("SELECT ID, post_parent, meta_value FROM ".$wpdb->posts." INNER JOIN ".$wpdb->postmeta." ON ".$wpdb->posts.".ID = ".$wpdb->postmeta.".post_id WHERE post_type = %s AND post_status = %s AND post_parent > '0' ORDER BY post_parent ASC", $obj_slideshow->post_type, 'publish')); //(post_parent > '0' OR meta_key = %s AND meta_value != '') //, $obj_slideshow->meta_prefix.'content_style' // This will load [slide_parent_id] into CSS because parent style is also loaded
+$result = $wpdb->get_results($wpdb->prepare("SELECT ID, post_parent, meta_value FROM ".$wpdb->posts." INNER JOIN ".$wpdb->postmeta." ON ".$wpdb->posts.".ID = ".$wpdb->postmeta.".post_id WHERE post_type = %s AND post_status = %s AND post_parent > '0' ORDER BY post_parent ASC", $obj_slideshow->post_type, 'publish'));
 
 if($wpdb->num_rows > 0)
 {

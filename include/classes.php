@@ -68,7 +68,7 @@ class mf_slideshow
 			replace_post_meta(array('old' => 'mf_slide_images', 'new' => $this->meta_prefix.'images'));
 
 			mf_uninstall_plugin(array(
-				'options' => array('setting_slideshow_show_controls', 'setting_slideshow_image_steps', 'setting_slideshow_image_columns', 'setting_slideshow_animate', 'setting_slideshow_open_links_in_new_tab', 'setting_slideshow_random', 'setting_slideshow_fade_duration', 'setting_slideshow_duration', 'setting_slideshow_autoplay', 'setting_slideshow_height_ratio', 'setting_slideshow_height_ratio_mobile', 'setting_slideshow_display_text_background', 'setting_slideshow_background_opacity', 'setting_slideshow_style', 'setting_slideshow_background_color', 'setting_slideshow_allow_widget_override', 'setting_slideshow_display_controls'),
+				'options' => array('setting_slideshow_show_controls', 'setting_slideshow_image_steps', 'setting_slideshow_image_columns', 'setting_slideshow_animate', 'setting_slideshow_open_links_in_new_tab', 'setting_slideshow_random', 'setting_slideshow_fade_duration', 'setting_slideshow_duration', 'setting_slideshow_autoplay', 'setting_slideshow_height_ratio', 'setting_slideshow_height_ratio_mobile', 'setting_slideshow_display_text_background', 'setting_slideshow_background_opacity', 'setting_slideshow_style', 'setting_slideshow_background_color', 'setting_slideshow_allow_widget_override', 'setting_slideshow_display_controls', 'setting_slideshow_image_fit', 'setting_slideshow_thumbnail_columns', 'setting_slideshow_thumbnail_rows'),
 			));
 		}
 
@@ -97,11 +97,14 @@ class mf_slideshow
 		if(!isset($attributes['slideshow_style'])){					$attributes['slideshow_style'] = 'original';}
 		if(!isset($attributes['slideshow_height_ratio'])){			$attributes['slideshow_height_ratio'] = '0.5';}
 		if(!isset($attributes['slideshow_height_ratio_mobile'])){	$attributes['slideshow_height_ratio_mobile'] = '1';}
+		if(!isset($attributes['slideshow_image_fit'])){				$attributes['slideshow_image_fit'] = '';}
 		if(!isset($attributes['slideshow_display_controls'])){		$attributes['slideshow_display_controls'] = [];}
 		if(!isset($attributes['slideshow_autoplay'])){				$attributes['slideshow_autoplay'] = 'no';}
 		if(!isset($attributes['slideshow_duration'])){				$attributes['slideshow_duration'] = 5;}
 		if(!isset($attributes['slideshow_fade_duration'])){			$attributes['slideshow_fade_duration'] = 400;}
 		if(!isset($attributes['slideshow_random'])){				$attributes['slideshow_random'] = 'no';}
+		if(!isset($attributes['slideshow_thumbnail_columns'])){		$attributes['slideshow_thumbnail_columns'] = 5;}
+		if(!isset($attributes['slideshow_thumbnail_rows'])){		$attributes['slideshow_thumbnail_rows'] = '';}
 
 		if($attributes['parent'] > 0)
 		{
@@ -190,11 +193,6 @@ class mf_slideshow
 
 			if($count_slide_images > 0)
 			{
-				if(!isset($attributes['slideshow_style'])){						$attributes['slideshow_style'] = 'original';}
-				//if(!isset($attributes['slideshow_display_text_background'])){	$attributes['slideshow_display_text_background'] = get_option_or_default('setting_slideshow_slideshow_display_text_background', 'yes');}
-				if(!isset($attributes['slideshow_display_controls'])){			$attributes['slideshow_display_controls'] = [];}
-				if(!isset($attributes['slideshow_random'])){					$attributes['slideshow_random'] = 'no';}
-
 				$images_html = $dots_html = "";
 				$i = $active_i = 1;
 
@@ -217,35 +215,17 @@ class mf_slideshow
 						case 'original':
 							$container_class = "slide_item";
 
-							$has_texts = (count($arr_slide_texts) > 0 && isset($arr_slide_texts[$key]));
-
-							/*if($has_texts)
-							{
-								$container_class .= ($container_class != '' ? " " : "")."slide_parent_".$arr_slide_texts[$key]['parent_id'];
-							}*/
-
 							if($i == $active_i)
 							{
 								$container_class .= ($container_class != '' ? " " : "")."active active_init";
 							}
 
-							$images_html .= "<div"
-								//.($has_texts ? " id='slide_".$arr_slide_texts[$key]['id']."'" : "")
-								.($container_class != '' ? " class='".$container_class."'" : "")
-								." rel='".$i."'"
-							.">
+							$images_html .= "<div class='".$container_class."' rel='".$i."'>
 								<img src='".$image."' alt='".__("Slideshow Image", 'lang_slideshow')."'>";
 
-								if($has_texts)
+								if(count($arr_slide_texts) > 0 && isset($arr_slide_texts[$key]))
 								{
-									$content_class = "";
-
-									/*if($arr_slide_texts[$key]['content_position'] != '')
-									{
-										$content_class .= " ".$arr_slide_texts[$key]['content_position'];
-									}*/
-
-									$images_html .= "<div class='content".$content_class."'>";
+									$images_html .= "<div class='content'>";
 
 										if($arr_slide_texts[$key]['title'] != '')
 										{
@@ -256,11 +236,6 @@ class mf_slideshow
 										{
 											$images_html .= apply_filters('the_content', $arr_slide_texts[$key]['content']);
 										}
-
-										/*if($arr_slide_texts[$key]['url'] != '')
-										{
-											$images_html .= "<a href='".$arr_slide_texts[$key]['url']."'>".__("Read More", 'lang_slideshow')."&hellip;</a>";
-										}*/
 
 									$images_html .= "</div>";
 								}
@@ -274,17 +249,9 @@ class mf_slideshow
 					$i++;
 				}
 
-				$slideshow_classes = "widget slideshow ".$attributes['slideshow_style'];
-				$slideshow_style = $slideshow_attributes = "";
+				$slideshow_attributes = " data-random='".$attributes['slideshow_random']."'";
 
-				/*if($attributes['slideshow_display_text_background'] == 'yes')
-				{
-					$slideshow_classes .= " display_text_background";
-				}*/
-
-				$slideshow_attributes .= " data-random='".$attributes['slideshow_random']."'";
-
-				$arr_attributes = array('autoplay', 'animate', 'duration', 'fade_duration', 'height_ratio', 'height_ratio_mobile'); //, 'display_text_background'
+				$arr_attributes = array('autoplay', 'animate', 'duration', 'fade_duration', 'height_ratio', 'height_ratio_mobile');
 
 				foreach($arr_attributes as $attribute)
 				{
@@ -302,7 +269,7 @@ class mf_slideshow
 				}
 
 				$out = "<div"
-					.parse_block_attributes(array('class' => $slideshow_classes, 'attributes' => $attributes, 'style' => $slideshow_style))
+					.parse_block_attributes(array('class' => "widget slideshow ".$attributes['slideshow_style'], 'attributes' => $attributes)) //, 'style' => $slideshow_style
 					.$slideshow_attributes
 				.">";
 
@@ -320,7 +287,7 @@ class mf_slideshow
 						default:
 						case 'original':
 							$out .= "<div class='slideshow_container'>
-								<div class='slideshow_images columns_1'>";
+								<div class='slideshow_images".($attributes['slideshow_image_fit'] != '' && $attributes['slideshow_image_fit'] != 'none' ? " slideshow_image_fit_".$attributes['slideshow_image_fit'] : "")."'>"; // columns_1
 						break;
 					}
 
@@ -372,10 +339,19 @@ class mf_slideshow
 								$site_url = get_site_url();
 								$i = 1;
 
-								$setting_slideshow_thumbnail_columns = get_option('setting_slideshow_thumbnail_columns', 5);
-								$setting_slideshow_thumbnail_rows = get_option('setting_slideshow_thumbnail_rows');
+								$ul_class = "";
 
-								$out .= "<ul class='slideshow_thumbnails thumbnail_columns_".$setting_slideshow_thumbnail_columns." thumbnail_rows_".$setting_slideshow_thumbnail_rows."'>";
+								if($attributes['slideshow_thumbnail_columns'] != '')
+								{
+									$ul_class .= " thumbnail_columns_".$attributes['slideshow_thumbnail_columns'];
+								}
+
+								if($attributes['slideshow_thumbnail_columns'] != '')
+								{
+									$ul_class .= " thumbnail_rows_".$attributes['slideshow_thumbnail_rows'];
+								}
+
+								$out .= "<ul class='slideshow_thumbnails".$ul_class."'>";
 
 									foreach($arr_slide_images as $key => $image)
 									{
@@ -435,7 +411,6 @@ class mf_slideshow
 			'arr_parents' => $arr_data_parents,
 			'slideshow_style_label' => __("Style", 'lang_slideshow'),
 			'arr_slideshow_style' => $this->get_slideshow_styles_for_select(),
-			//'slideshow_display_text_background_label' => __("Display Text Background", 'lang_slideshow'),
 			'yes_no_for_select' => get_yes_no_for_select(),
 			'slideshow_height_ratio_label' => __("Height Ratio", 'lang_slideshow'),
 			'slideshow_height_ratio_mobile_label' => " - ".__("Mobile", 'lang_slideshow'),
@@ -447,6 +422,9 @@ class mf_slideshow
 			'slideshow_duration_label' => __("Duration", 'lang_slideshow')." (s)",
 			'slideshow_fade_duration_label' => __("Fade Duration", 'lang_slideshow')." (ms)",
 			'slideshow_random_label' => __("Random", 'lang_slideshow'),
+			'slideshow_thumbnail_columns_label' => __("Thumbnail Columns", 'lang_slideshow'),
+			'slideshow_thumbnail_rows_label' => __("Thumbnail Rows", 'lang_slideshow'),
+			'arr_slideshow_thumbnail_rows' => $this->get_thumbnail_rows_for_select(),
 		));
 	}
 
@@ -482,58 +460,13 @@ class mf_slideshow
 		));
 	}
 
-	function settings_slideshow()
-	{
-		$options_area = __FUNCTION__;
-
-		add_settings_section($options_area, "", array($this, $options_area."_callback"), BASE_OPTIONS_PAGE);
-
-		$arr_settings = [];
-		$arr_settings['setting_slideshow_image_fit'] = __("Image Fit", 'lang_slideshow');
-		$arr_settings['setting_slideshow_thumbnail_columns'] = __("Thumbnail Columns", 'lang_slideshow');
-		$arr_settings['setting_slideshow_thumbnail_rows'] = __("Thumbnail Rows", 'lang_slideshow');
-
-		show_settings_fields(array('area' => $options_area, 'object' => $this, 'settings' => $arr_settings));
-	}
-
-	function settings_slideshow_callback()
-	{
-		$setting_key = get_setting_key(__FUNCTION__);
-
-		echo settings_header($setting_key, __("Slideshow", 'lang_slideshow'));
-	}
-
 	function get_image_fit_for_select()
 	{
 		return array(
-			'none' => "-- ".__("None", 'lang_slideshow')." --",
+			//'none' => "-- ".__("None", 'lang_slideshow')." --",
 			'cover' => __("Cover", 'lang_slideshow'),
 			'contain' => __("Contain", 'lang_slideshow'),
 		);
-	}
-
-	function setting_slideshow_image_fit_callback()
-	{
-		$setting_key = get_setting_key(__FUNCTION__);
-		$option = get_option($setting_key, 'cover');
-
-		echo show_select(array('data' => $this->get_image_fit_for_select(), 'name' => $setting_key, 'value' => $option));
-	}
-
-	function setting_slideshow_thumbnail_columns_callback()
-	{
-		$setting_key = get_setting_key(__FUNCTION__);
-		$option = get_option($setting_key, 5);
-
-		echo show_textfield(array('type' => 'number', 'name' => $setting_key, 'value' => $option, 'xtra' => " min='2' max='10'"));
-	}
-
-	function setting_slideshow_thumbnail_rows_callback()
-	{
-		$setting_key = get_setting_key(__FUNCTION__);
-		$option = get_option($setting_key, 'one');
-
-		echo show_select(array('data' => $this->get_thumbnail_rows_for_select(), 'name' => $setting_key, 'value' => $option));
 	}
 
 	function filter_sites_table_pages($arr_pages)
