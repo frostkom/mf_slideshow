@@ -1,0 +1,57 @@
+.slideshow.original .slideshow_container
+{
+	overflow: hidden;
+	position: relative;
+	text-align: center;
+	transition: all .5s ease;
+	width: 100%;
+}
+
+	.full_width > div > .widget > .slideshow.original
+	{
+		padding-left: 0;
+		padding-right: 0;
+	}
+
+	.widget .slideshow.original .slideshow_container
+	{
+		padding: 0 !important;
+		max-width: 100% !important; /* If .full_width, then this has to be specified */
+	}
+
+		.slideshow.original .slideshow_container .slide_item
+		{
+			display: block;
+			height: 100%;
+			padding: inherit; /* This will respect the parents padding */
+			width: 100%;
+		}
+
+			.slideshow.original .slideshow_container .slide_item:not(.active)
+			{
+				display: none;
+			}
+
+			/* This will allow animate to fade in/out correctly */
+			.slideshow.original .slideshow_container .columns_1 .slide_item
+			{
+				position: absolute;
+			}
+
+			.slideshow.original .slideshow_container .slide_item img
+			{
+				height: 100%;
+				width: 100%;
+				transition: transform 20s ease;
+				transform: scale(1);
+			}
+
+				.slideshow.original .slideshow_container .slide_item img, .slideshow.original .slideshow_container .slideshow_image_fit_contain .slide_item img
+				{
+					object-fit: contain;
+				}
+
+				.slideshow.original .slideshow_container .slideshow_image_fit_cover .slide_item img
+				{
+					object-fit: cover;
+				}

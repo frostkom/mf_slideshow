@@ -145,7 +145,7 @@ class mf_slideshow
 
 					$arr_settings['fade_duration'] = 400;
 
-					mf_enqueue_style('style_slideshow', $plugin_include_url."style.php");
+					mf_enqueue_style('style_slideshow_original', $plugin_include_url."style_original.css"); // Former style.php
 					mf_enqueue_script('script_swipe', $plugin_include_url."jquery.touchSwipe.min.js");
 					mf_enqueue_script('script_slideshow', $plugin_include_url."script.js", $arr_settings);
 				break;
@@ -225,6 +225,8 @@ class mf_slideshow
 
 								if(count($arr_slide_texts) > 0 && isset($arr_slide_texts[$key]))
 								{
+									mf_enqueue_style('style_slideshow_content', $plugin_include_url."style_content.css");
+
 									$images_html .= "<div class='content'>";
 
 										if($arr_slide_texts[$key]['title'] != '')
@@ -305,6 +307,8 @@ class mf_slideshow
 
 								if($count_slide_images > 1)
 								{
+									mf_enqueue_style('style_slideshow_controls', $plugin_include_url."style_controls.php");
+
 									$out .= "<div class='controls_arrows'>
 										<div class='panel_arrow_left'>";
 
@@ -336,6 +340,8 @@ class mf_slideshow
 
 							if($count_slide_images > 1 && is_array($attributes['slideshow_display_controls']) && in_array('thumbnails', $attributes['slideshow_display_controls']))
 							{
+								mf_enqueue_style('style_slideshow_thumbnail', $plugin_include_url."style_thumbnail.php");
+
 								$site_url = get_site_url();
 								$i = 1;
 
