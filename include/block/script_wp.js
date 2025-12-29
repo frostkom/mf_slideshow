@@ -109,98 +109,114 @@
 		},
 		edit: function(props)
 		{
-			return el(
-				'div',
-				{className: 'wp_mf_block_container'},
-				[
+			var inspectorControlsChildren = [
+				el(
+					SelectControl,
+					{
+						label: script_slideshow_block_wp.parent_label,
+						value: props.attributes.parent,
+						options: convert_php_array_to_block_js(script_slideshow_block_wp.arr_parents),
+						onChange: function(value)
+						{
+							props.setAttributes({parent: value});
+						}
+					}
+				),
+				el(
+					SelectControl,
+					{
+						label: script_slideshow_block_wp.slideshow_style_label,
+						value: props.attributes.slideshow_style,
+						options: convert_php_array_to_block_js(script_slideshow_block_wp.arr_slideshow_style),
+						onChange: function(value)
+						{
+							props.setAttributes({slideshow_style: value});
+						}
+					}
+				),
+				el(
+					SelectControl,
+					{
+						label: script_slideshow_block_wp.slideshow_random_label,
+						value: props.attributes.slideshow_random,
+						options: convert_php_array_to_block_js(script_slideshow_block_wp.yes_no_for_select),
+						onChange: function(value)
+						{
+							props.setAttributes({slideshow_random: value});
+						}
+					}
+				),
+			];
+
+			if(props.attributes.slideshow_style == 'original')
+			{
+				inspectorControlsChildren.push(
 					el(
-						InspectorControls,
-						'div',
-						el(
-							SelectControl,
+						TextControl,
+						{
+							label: script_slideshow_block_wp.slideshow_height_ratio_label,
+							type: 'text',
+							value: props.attributes.slideshow_height_ratio,
+							onChange: function(value)
 							{
-								label: script_slideshow_block_wp.parent_label,
-								value: props.attributes.parent,
-								options: convert_php_array_to_block_js(script_slideshow_block_wp.arr_parents),
-								onChange: function(value)
-								{
-									props.setAttributes({parent: value});
-								}
+								props.setAttributes({slideshow_height_ratio: value});
 							}
-						),
-						el(
-							SelectControl,
+						}
+					),
+					el(
+						TextControl,
+						{
+							label: script_slideshow_block_wp.slideshow_height_ratio_mobile_label,
+							type: 'text',
+							value: props.attributes.slideshow_height_ratio_mobile,
+							onChange: function(value)
 							{
-								label: script_slideshow_block_wp.slideshow_style_label,
-								value: props.attributes.slideshow_style,
-								options: convert_php_array_to_block_js(script_slideshow_block_wp.arr_slideshow_style),
-								onChange: function(value)
-								{
-									props.setAttributes({slideshow_style: value});
-								}
+								props.setAttributes({slideshow_height_ratio_mobile: value});
 							}
-						),
-						el(
-							TextControl,
+						}
+					),
+					el(
+						SelectControl,
+						{
+							label: script_slideshow_block_wp.slideshow_image_fit_label,
+							value: props.attributes.slideshow_image_fit,
+							options: convert_php_array_to_block_js(script_slideshow_block_wp.arr_slideshow_image_fit),
+							onChange: function(value)
 							{
-								label: script_slideshow_block_wp.slideshow_height_ratio_label,
-								type: 'text',
-								value: props.attributes.slideshow_height_ratio,
-								onChange: function(value)
-								{
-									props.setAttributes({slideshow_height_ratio: value});
-								}
+								props.setAttributes({slideshow_image_fit: value});
 							}
-						),
-						el(
-							TextControl,
+						}
+					),
+					el(
+						SelectControl,
+						{
+							label: script_slideshow_block_wp.slideshow_display_controls_label,
+							value: props.attributes.slideshow_display_controls,
+							options: convert_php_array_to_block_js(script_slideshow_block_wp.arr_slideshow_display_controls),
+							multiple: true,
+							onChange: function(value)
 							{
-								label: script_slideshow_block_wp.slideshow_height_ratio_mobile_label,
-								type: 'text',
-								value: props.attributes.slideshow_height_ratio_mobile,
-								onChange: function(value)
-								{
-									props.setAttributes({slideshow_height_ratio_mobile: value});
-								}
+								props.setAttributes({slideshow_display_controls: value});
 							}
-						),
-						el(
-							SelectControl,
+						}
+					),
+					el(
+						SelectControl,
+						{
+							label: script_slideshow_block_wp.slideshow_autoplay_label,
+							value: props.attributes.slideshow_autoplay,
+							options: convert_php_array_to_block_js(script_slideshow_block_wp.yes_no_for_select),
+							onChange: function(value)
 							{
-								label: script_slideshow_block_wp.slideshow_image_fit_label,
-								value: props.attributes.slideshow_image_fit,
-								options: convert_php_array_to_block_js(script_slideshow_block_wp.arr_slideshow_image_fit),
-								onChange: function(value)
-								{
-									props.setAttributes({slideshow_image_fit: value});
-								}
+								props.setAttributes({slideshow_autoplay: value});
 							}
-						),
-						el(
-							SelectControl,
-							{
-								label: script_slideshow_block_wp.slideshow_display_controls_label,
-								value: props.attributes.slideshow_display_controls,
-								options: convert_php_array_to_block_js(script_slideshow_block_wp.arr_slideshow_display_controls),
-								multiple: true,
-								onChange: function(value)
-								{
-									props.setAttributes({slideshow_display_controls: value});
-								}
-							}
-						),
-						el(
-							SelectControl,
-							{
-								label: script_slideshow_block_wp.slideshow_autoplay_label,
-								value: props.attributes.slideshow_autoplay,
-								options: convert_php_array_to_block_js(script_slideshow_block_wp.yes_no_for_select),
-								onChange: function(value)
-								{
-									props.setAttributes({slideshow_autoplay: value});
-								}
-							}
-						),
+						}
+					),
+				);
+
+				if(props.attributes.slideshow_autoplay == 'yes')
+				{
+					inspectorControlsChildren.push(
 						el(
 							TextControl,
 							{
@@ -213,57 +229,60 @@
 								}
 							}
 						),
-						el(
-							TextControl,
+					);
+				}
+
+				inspectorControlsChildren.push(
+					el(
+						TextControl,
+						{
+							label: script_slideshow_block_wp.slideshow_fade_duration_label,
+							type: 'number',
+							value: props.attributes.slideshow_fade_duration,
+							onChange: function(value)
 							{
-								label: script_slideshow_block_wp.slideshow_fade_duration_label,
-								type: 'number',
-								value: props.attributes.slideshow_fade_duration,
-								onChange: function(value)
-								{
-									props.setAttributes({slideshow_fade_duration: value});
-								}
+								props.setAttributes({slideshow_fade_duration: value});
 							}
-						),
-						el(
-							SelectControl,
+						}
+					),
+					el(
+						TextControl,
+						{
+							label: script_slideshow_block_wp.slideshow_thumbnail_columns_label,
+							type: 'number',
+							value: props.attributes.slideshow_thumbnail_columns,
+							onChange: function(value)
 							{
-								label: script_slideshow_block_wp.slideshow_random_label,
-								value: props.attributes.slideshow_random,
-								options: convert_php_array_to_block_js(script_slideshow_block_wp.yes_no_for_select),
-								onChange: function(value)
-								{
-									props.setAttributes({slideshow_random: value});
-								}
-							}
-						),
-						el(
-							TextControl,
+								props.setAttributes({slideshow_thumbnail_columns: value});
+							},
+							min: 2,
+							max: 10,
+						}
+					),
+					el(
+						SelectControl,
+						{
+							label: script_slideshow_block_wp.slideshow_thumbnail_rows_label,
+							value: props.attributes.slideshow_thumbnail_rows,
+							options: convert_php_array_to_block_js(script_slideshow_block_wp.arr_slideshow_thumbnail_rows),
+							multiple: false,
+							onChange: function(value)
 							{
-								label: script_slideshow_block_wp.slideshow_thumbnail_columns_label,
-								type: 'number',
-								value: props.attributes.slideshow_thumbnail_columns,
-								onChange: function(value)
-								{
-									props.setAttributes({slideshow_thumbnail_columns: value});
-								},
-								min: 2,
-								max: 10,
+								props.setAttributes({slideshow_thumbnail_rows: value});
 							}
-						),
-						el(
-							SelectControl,
-							{
-								label: script_slideshow_block_wp.slideshow_thumbnail_rows_label,
-								value: props.attributes.slideshow_thumbnail_rows,
-								options: convert_php_array_to_block_js(script_slideshow_block_wp.arr_slideshow_thumbnail_rows),
-								multiple: false,
-								onChange: function(value)
-								{
-									props.setAttributes({slideshow_thumbnail_rows: value});
-								}
-							}
-						)
+						}
+					)
+				);
+			}
+
+			return el(
+				'div',
+				{className: 'wp_mf_block_container'},
+				[
+					el(
+						InspectorControls,
+						'div',
+						inspectorControlsChildren,
 					),
 					el(
 						'strong',
