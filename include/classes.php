@@ -145,7 +145,7 @@ class mf_slideshow
 
 					$arr_settings['fade_duration'] = 400;
 
-					mf_enqueue_style('style_slideshow_original', $plugin_include_url."style_original.css"); // Former style.php
+					mf_enqueue_style('style_slideshow_original', $plugin_include_url."style_original.css");
 					mf_enqueue_script('script_swipe', $plugin_include_url."jquery.touchSwipe.min.js");
 					mf_enqueue_script('script_slideshow', $plugin_include_url."script.js", $arr_settings);
 				break;

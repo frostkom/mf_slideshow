@@ -1,6 +1,7 @@
 .slideshow.original .content
 {
 	display: none;
+	font-size: 2vw;
 	margin-left: 10%;
 	margin-right: 10%;
 	position: absolute;
