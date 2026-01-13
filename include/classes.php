@@ -93,7 +93,8 @@ class mf_slideshow
 	{
 		global $wpdb;
 
-		if(!isset($attributes['parent'])){							$attributes['parent'] = '';}
+		if(!isset($attributes['parent'])){							$attributes['parent'] = 0;}
+		if(!isset($attributes['arr_images'])){						$attributes['arr_images'] = [];}
 		if(!isset($attributes['slideshow_style'])){					$attributes['slideshow_style'] = 'original';}
 		if(!isset($attributes['slideshow_height_ratio'])){			$attributes['slideshow_height_ratio'] = '0.5';}
 		if(!isset($attributes['slideshow_height_ratio_mobile'])){	$attributes['slideshow_height_ratio_mobile'] = '1';}
@@ -106,7 +107,7 @@ class mf_slideshow
 		if(!isset($attributes['slideshow_thumbnail_columns'])){		$attributes['slideshow_thumbnail_columns'] = 5;}
 		if(!isset($attributes['slideshow_thumbnail_rows'])){		$attributes['slideshow_thumbnail_rows'] = '';}
 
-		if($attributes['parent'] > 0)
+		if($attributes['parent'] > 0 || count($attributes['arr_images']) > 0)
 		{
 			$attributes['slideshow_height_ratio'] = str_replace(",", ".", $attributes['slideshow_height_ratio']);
 			$attributes['slideshow_height_ratio_mobile'] = str_replace(",", ".", $attributes['slideshow_height_ratio_mobile']);
@@ -153,13 +154,17 @@ class mf_slideshow
 
 			$out = "";
 
-			$arr_slide_images = get_post_meta_file_src(array('post_id' => $attributes['parent'], 'meta_key' => $this->meta_prefix.'images', 'single' => false));
+			if($attributes['parent'] > 0)
+			{
+				$attributes['arr_images'] = get_post_meta_file_src(array('post_id' => $attributes['parent'], 'meta_key' => $this->meta_prefix.'images', 'single' => false));
+			}
+
 			$arr_slide_texts = [];
 
-			$count_slide_images = count($arr_slide_images);
+			$count_slide_images = count($attributes['arr_images']);
 
 			// Find children
-			if($count_slide_images == 0)
+			if($attributes['parent'] > 0 && $count_slide_images == 0)
 			{
 				$result = $wpdb->get_results($wpdb->prepare("SELECT ID, post_title, post_content FROM ".$wpdb->posts." WHERE post_type = %s AND post_status = %s AND post_parent = '%d' ORDER BY menu_order ASC", $this->post_type, 'publish', $attributes['parent']));
 
@@ -173,12 +178,12 @@ class mf_slideshow
 
 					if($img_src != '')
 					{
-						$arr_slide_images[$post_id] = $img_src;
+						$attributes['arr_images'][$post_id] = $img_src;
 					}
 
 					else
 					{
-						$arr_slide_images[$post_id] = apply_filters('get_image_fallback', "", 'url');
+						$attributes['arr_images'][$post_id] = apply_filters('get_image_fallback', "", 'url');
 					}
 
 					$arr_slide_texts[$post_id] = array(
@@ -189,7 +194,7 @@ class mf_slideshow
 				}
 			}
 
-			$count_slide_images = count($arr_slide_images);
+			$count_slide_images = count($attributes['arr_images']);
 
 			if($count_slide_images > 0)
 			{
@@ -198,10 +203,10 @@ class mf_slideshow
 
 				if($attributes['slideshow_random'] == 'yes')
 				{
-					$arr_slide_images = $this->shuffle_assoc($arr_slide_images);
+					$attributes['arr_images'] = $this->shuffle_assoc($attributes['arr_images']);
 				}
 
-				foreach($arr_slide_images as $key => $image)
+				foreach($attributes['arr_images'] as $key => $image)
 				{
 					switch($attributes['slideshow_style'])
 					{
@@ -359,7 +364,7 @@ class mf_slideshow
 
 								$out .= "<ul class='slideshow_thumbnails".$ul_class."'>";
 
-									foreach($arr_slide_images as $key => $image)
+									foreach($attributes['arr_images'] as $key => $image)
 									{
 										$thumbnail_class = "";
 
