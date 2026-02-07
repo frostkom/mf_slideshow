@@ -35,6 +35,7 @@ class mf_slideshow
 		$arr_data = array(
 			'original' => __("Default", 'lang_slideshow'),
 			'mosaic' => __("Mosaic", 'lang_slideshow'),
+			'cluster' => __("Cluster", 'lang_slideshow'),
 		);
 
 		return $arr_data;
@@ -133,6 +134,13 @@ class mf_slideshow
 					mf_enqueue_style('style_slideshow_mosaic', $plugin_include_url."style_mosaic.css");
 				break;
 
+				case 'cluster':
+					do_action('load_font_awesome');
+					do_action('load_lightbox');
+
+					mf_enqueue_style('style_slideshow_cluster', $plugin_include_url."style_cluster.css");
+				break;
+
 				default:
 				case 'original';
 					$arr_settings = array(
@@ -210,6 +218,7 @@ class mf_slideshow
 				{
 					switch($attributes['slideshow_style'])
 					{
+						case 'cluster':
 						case 'mosaic':
 							$images_html .= "<figure class='wp-block-image'>"
 								.render_image_tag(array('id' => $key, 'size' => 'large')) //, 'src' => $image
@@ -226,7 +235,7 @@ class mf_slideshow
 							}
 
 							$images_html .= "<div class='".$container_class."' rel='".$i."'>
-								<img src='".$image."' alt='".__("Slideshow Image", 'lang_slideshow')."'>";
+								<img src='".$image."' alt='".(isset($arr_slide_texts[$key]['title']) ? $arr_slide_texts[$key]['title'] : __("Slideshow Image", 'lang_slideshow'))."'>";
 
 								if(count($arr_slide_texts) > 0 && isset($arr_slide_texts[$key]))
 								{
@@ -287,6 +296,7 @@ class mf_slideshow
 
 					switch($attributes['slideshow_style'])
 					{
+						case 'cluster':
 						case 'mosaic':
 							// Add nothing
 						break;
@@ -302,6 +312,7 @@ class mf_slideshow
 
 					switch($attributes['slideshow_style'])
 					{
+						case 'cluster':
 						case 'mosaic':
 							// Add nothing
 						break;
