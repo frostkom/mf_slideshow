@@ -234,8 +234,22 @@ class mf_slideshow
 								$container_class .= ($container_class != '' ? " " : "")."active active_init";
 							}
 
+							$alt_text = get_post_meta($key, '_wp_attachment_image_alt', true);
+
+							if($alt_text == '' && isset($arr_slide_texts[$key]['title']) && $arr_slide_texts[$key]['title'] != '')
+							{
+								$alt_text = $arr_slide_texts[$key]['title'];
+							}
+
 							$images_html .= "<div class='".$container_class."' rel='".$i."'>
-								<img src='".$image."' alt='".(isset($arr_slide_texts[$key]['title']) ? $arr_slide_texts[$key]['title'] : __("Slideshow Image", 'lang_slideshow'))."'>";
+								<img src='".$image."'";
+
+									if($alt_text != '')
+									{
+										$images_html .= " alt='".$alt_text."'";
+									}
+									
+								$images_html .= ">";
 
 								if(count($arr_slide_texts) > 0 && isset($arr_slide_texts[$key]))
 								{
