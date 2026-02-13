@@ -108,6 +108,8 @@ class mf_slideshow
 		if(!isset($attributes['slideshow_thumbnail_columns'])){		$attributes['slideshow_thumbnail_columns'] = 5;}
 		if(!isset($attributes['slideshow_thumbnail_rows'])){		$attributes['slideshow_thumbnail_rows'] = '';}
 
+		$out = "";
+
 		if($attributes['parent'] > 0 || count($attributes['arr_images']) > 0)
 		{
 			$attributes['slideshow_height_ratio'] = str_replace(",", ".", $attributes['slideshow_height_ratio']);
@@ -159,8 +161,6 @@ class mf_slideshow
 					mf_enqueue_script('script_slideshow', $plugin_include_url."script.js", $arr_settings);
 				break;
 			}
-
-			$out = "";
 
 			if($attributes['parent'] > 0)
 			{
@@ -298,7 +298,7 @@ class mf_slideshow
 					}
 				}
 
-				$out = "<div"
+				$out .= "<div"
 					.parse_block_attributes(array('class' => "widget slideshow ".$attributes['slideshow_style'], 'attributes' => $attributes)) //, 'style' => $slideshow_style
 					.$slideshow_attributes
 				.">";
