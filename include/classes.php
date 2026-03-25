@@ -248,7 +248,7 @@ class mf_slideshow
 									{
 										$images_html .= " alt='".$alt_text."'";
 									}
-									
+
 								$images_html .= ">";
 
 								if(count($arr_slide_texts) > 0 && isset($arr_slide_texts[$key]))
@@ -484,7 +484,7 @@ class mf_slideshow
 			'capability_type' => 'page',
 			'menu_position' => 21,
 			'menu_icon' => 'dashicons-format-gallery',
-			'supports' => array('title', 'editor', 'page-attributes'),
+			'supports' => array('title', 'editor', 'page-attributes', 'revisions'),
 			'hierarchical' => true,
 			'has_archive' => false,
 		));
