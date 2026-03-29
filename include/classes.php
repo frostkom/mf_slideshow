@@ -333,11 +333,25 @@ class mf_slideshow
 
 						default:
 						case 'original':
-								$out .= "</div>";
+							$out .= "</div>";
 
 								if($count_slide_images > 1)
 								{
-									mf_enqueue_style('style_slideshow_controls', $plugin_include_url."style_controls.php");
+									$plugin_images_url = str_replace("/include/", "/images/", plugin_dir_url(__FILE__));
+
+									$out .= "<style>
+										.slideshow.original .controls_arrows .panel_arrow_left
+										{
+											cursor: url(".$plugin_images_url."arrow_left.png), e-resize;
+										}
+
+										.slideshow.original .controls_arrows .panel_arrow_right
+										{
+											cursor: url(".$plugin_images_url."arrow_right.png), e-resize;
+										}
+									</style>";
+
+									mf_enqueue_style('style_slideshow_controls', $plugin_include_url."style_controls.css");
 
 									$out .= "<div class='controls_arrows'>
 										<div class='panel_arrow_left'>";
@@ -370,7 +384,7 @@ class mf_slideshow
 
 							if($count_slide_images > 1 && is_array($attributes['slideshow_display_controls']) && in_array('thumbnails', $attributes['slideshow_display_controls']))
 							{
-								mf_enqueue_style('style_slideshow_thumbnail', $plugin_include_url."style_thumbnail.php");
+								mf_enqueue_style('style_slideshow_thumbnail', $plugin_include_url."style_thumbnail.css");
 
 								$site_url = get_site_url();
 								$i = 1;

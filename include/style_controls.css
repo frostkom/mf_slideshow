@@ -1,17 +1,4 @@
-<?php
-
-if(!defined('ABSPATH'))
-{
-	header("Content-Type: text/css; charset=utf-8");
-
-	$folder = str_replace("/wp-content/plugins/mf_slideshow/include", "/", dirname(__FILE__));
-
-	require_once($folder."wp-load.php");
-}
-
-$plugin_images_url = str_replace("/include/", "/images/", plugin_dir_url(__FILE__));
-
-echo ".slideshow.original .controls_arrows:not(.hide)
+.slideshow.original .controls_arrows:not(.hide)
 {
 	display: block;
 	height: 85%;
@@ -23,7 +10,6 @@ echo ".slideshow.original .controls_arrows:not(.hide)
 
 	.slideshow.original .controls_arrows .panel_arrow_left
 	{
-		cursor: url(".$plugin_images_url."arrow_left.png), e-resize;
 		float: left;
 		height: 100%;
 		width: 50%;
@@ -36,7 +22,6 @@ echo ".slideshow.original .controls_arrows:not(.hide)
 
 	.slideshow.original .controls_arrows .panel_arrow_right
 	{
-		cursor: url(".$plugin_images_url."arrow_right.png), e-resize;
 		float: right;
 		height: 100%;
 		width: 50%;
@@ -121,4 +106,4 @@ echo ".slideshow.original .controls_arrows:not(.hide)
 		.slideshow.original .controls_dots li.active
 		{
 			background: #666;
-		}";
+		}

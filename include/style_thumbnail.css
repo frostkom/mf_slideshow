@@ -1,0 +1,41 @@
+.slideshow .slideshow_thumbnails
+{
+	display: flex;
+	flex-wrap: wrap;
+	list-style: none;
+	margin-top: .3%;
+	overflow: hidden;
+}
+
+	.slideshow .slideshow_thumbnails li
+	{
+		cursor: pointer;
+		margin: 0;
+		opacity: .3;
+	}
+
+		.slideshow .slideshow_thumbnails.thumbnail_columns_2 li{ flex: 0 0 calc(100% / 2); }
+		.slideshow .slideshow_thumbnails.thumbnail_columns_3 li{ flex: 0 0 calc(100% / 3); }
+		.slideshow .slideshow_thumbnails.thumbnail_columns_4 li{ flex: 0 0 calc(100% / 4); }
+		.slideshow .slideshow_thumbnails.thumbnail_columns_5 li{ flex: 0 0 calc(100% / 5); }
+		.slideshow .slideshow_thumbnails.thumbnail_columns_6 li{ flex: 0 0 calc(100% / 6); }
+		.slideshow .slideshow_thumbnails.thumbnail_columns_7 li{ flex: 0 0 calc(100% / 7); }
+		.slideshow .slideshow_thumbnails.thumbnail_columns_8 li{ flex: 0 0 calc(100% / 8); }
+		.slideshow .slideshow_thumbnails.thumbnail_columns_9 li{ flex: 0 0 calc(100% / 9); }
+		.slideshow .slideshow_thumbnails.thumbnail_columns_10 li{ flex: 0 0 calc(100% / 10); }
+
+		.slideshow .slideshow_thumbnails.thumbnail_rows_one
+		{
+			flex-wrap: unset;
+			overflow: auto;
+		}
+
+		.slideshow .slideshow_thumbnails li.active, .slideshow .slideshow_thumbnails li:hover
+		{
+			opacity: 1;
+		}
+
+		.slideshow .slideshow_thumbnails li img
+		{
+			display: block;
+		}
