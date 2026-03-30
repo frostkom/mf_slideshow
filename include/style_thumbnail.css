@@ -3,15 +3,16 @@
 	display: flex;
 	flex-wrap: wrap;
 	list-style: none;
-	margin-top: .3%;
+	margin: 0;
 	overflow: hidden;
+	padding: 0;
 }
 
 	.slideshow .slideshow_thumbnails li
 	{
 		cursor: pointer;
 		margin: 0;
-		opacity: .3;
+		opacity: .5;
 	}
 
 		.slideshow .slideshow_thumbnails.thumbnail_columns_2 li{ flex: 0 0 calc(100% / 2); }

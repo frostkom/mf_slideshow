@@ -92,7 +92,7 @@ class mf_slideshow
 
 	function block_render_callback($attributes)
 	{
-		global $wpdb;
+		global $wpdb, $wp_styles;
 
 		if(!isset($attributes['parent'])){							$attributes['parent'] = 0;}
 		if(!isset($attributes['arr_images'])){						$attributes['arr_images'] = [];}
@@ -337,21 +337,26 @@ class mf_slideshow
 
 								if($count_slide_images > 1)
 								{
-									$plugin_images_url = str_replace("/include/", "/images/", plugin_dir_url(__FILE__));
+									
 
-									$out .= "<style>
-										.slideshow.original .controls_arrows .panel_arrow_left
-										{
-											cursor: url(".$plugin_images_url."arrow_left.png), e-resize;
-										}
+									if(!isset($wp_styles->registered['style_slideshow_controls']))
+									{
+										$plugin_images_url = str_replace("/include/", "/images/", plugin_dir_url(__FILE__));
 
-										.slideshow.original .controls_arrows .panel_arrow_right
-										{
-											cursor: url(".$plugin_images_url."arrow_right.png), e-resize;
-										}
-									</style>";
+										$out .= "<style>
+											.slideshow.original .controls_arrows .panel_arrow_left
+											{
+												cursor: url(".$plugin_images_url."arrow_left.png), e-resize;
+											}
 
-									mf_enqueue_style('style_slideshow_controls', $plugin_include_url."style_controls.css");
+											.slideshow.original .controls_arrows .panel_arrow_right
+											{
+												cursor: url(".$plugin_images_url."arrow_right.png), e-resize;
+											}
+										</style>";
+
+										mf_enqueue_style('style_slideshow_controls', $plugin_include_url."style_controls.css");
+									}
 
 									$out .= "<div class='controls_arrows'>
 										<div class='panel_arrow_left'>";

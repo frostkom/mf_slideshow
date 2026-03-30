@@ -3,7 +3,7 @@
 Plugin Name: MF Slideshow
 Plugin URI: https://github.com/frostkom/mf_slideshow
 Description: Add block to display slideshows or galleries
-Version: 4.12.17
+Version: 4.12.18
 Licence: GPLv2 or later
 Author: Martin Fors
 Author URI: https://martinfors.se
