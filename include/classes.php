@@ -337,8 +337,6 @@ class mf_slideshow
 
 								if($count_slide_images > 1)
 								{
-									
-
 									if(!isset($wp_styles->registered['style_slideshow_controls']))
 									{
 										$plugin_images_url = str_replace("/include/", "/images/", plugin_dir_url(__FILE__));
