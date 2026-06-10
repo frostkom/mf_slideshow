@@ -299,14 +299,9 @@ class mf_slideshow
 				}
 
 				$out .= "<div"
-					.parse_block_attributes(array('class' => "widget slideshow ".$attributes['slideshow_style'], 'attributes' => $attributes)) //, 'style' => $slideshow_style
+					.parse_block_attributes(array('class' => "widget slideshow ".$attributes['slideshow_style'], 'attributes' => $attributes))
 					.$slideshow_attributes
 				.">";
-
-					/*if(IS_SUPER_ADMIN)
-					{
-						$out .= var_export($attributes, true);
-					}*/
 
 					switch($attributes['slideshow_style'])
 					{
@@ -694,5 +689,10 @@ class mf_slideshow
 		}
 
 		return $arr_used;
+	}
+
+	function wp_calculate_image_srcset($sources)
+	{
+		return array_filter($sources, fn($s) => $s['value'] >= 400); // Only allow larger than 400px images in srcset
 	}
 }
