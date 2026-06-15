@@ -8,11 +8,11 @@ jQuery(function($)
 			slider_amount = dom_obj_slide_items.length,
 			slide_now = parseInt(dom_obj_container.find(".slide_item.active").attr('rel')),
 			slide_timeout,
-			setting_autoplay = dom_obj.attr('data-autoplay') || script_slideshow.autoplay,
-			setting_animate = dom_obj.attr('data-animate') || 'no',
-			setting_duration = dom_obj.attr('data-duration') || script_slideshow.duration,
-			setting_fade_duration = parseInt(dom_obj.attr('data-fade_duration') || script_slideshow.fade_duration),
-			setting_random = dom_obj.attr('data-random') || script_slideshow.random,
+			setting_autoplay = (dom_obj.attr('data-autoplay') || script_slideshow.autoplay),
+			setting_animate = (dom_obj.attr('data-animate') || 'no'),
+			setting_duration = (dom_obj.attr('data-duration') || script_slideshow.duration),
+			setting_fade_duration = (parseInt(dom_obj.attr('data-fade_duration') || script_slideshow.fade_duration)),
+			setting_random = (dom_obj.attr('data-random') || script_slideshow.random),
 			setting_image_columns = 1,
 			setting_image_columns_orig = setting_image_columns,
 			setting_image_steps = 1,
@@ -21,7 +21,7 @@ jQuery(function($)
 
 		function disable_autoplay()
 		{
-			setting_autoplay = 0;
+			setting_autoplay = 'no';
 			clearTimeout(slide_timeout);
 		}
 
@@ -129,7 +129,7 @@ jQuery(function($)
 				dom_old.removeClass("animate");
 			}
 
-			if(setting_autoplay == 1)
+			if(setting_autoplay == 'yes')
 			{
 				clearTimeout(slide_timeout);
 			}
@@ -174,7 +174,7 @@ jQuery(function($)
 				highlight_controls(".slideshow_thumbnails", slide_new);
 			}
 
-			if(setting_autoplay == 1)
+			if(setting_autoplay == 'yes')
 			{
 				slide_timeout = setTimeout(function()
 				{
@@ -229,9 +229,9 @@ jQuery(function($)
 
 		if(slider_amount > 1)
 		{
-			if(setting_autoplay == 1)
+			if(setting_autoplay == 'yes')
 			{
-				change_slide(setting_random == 1 ? Math.round(Math.random() * slider_amount) : slide_now);
+				change_slide(setting_random == 'yes' ? Math.round(Math.random() * slider_amount) : slide_now);
 			}
 		}
 
