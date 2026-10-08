@@ -144,7 +144,7 @@ class mf_slideshow
 				break;
 
 				default:
-				case 'original';
+				case 'original':
 					$arr_settings = array(
 						'height_ratio' => $attributes['slideshow_height_ratio'],
 						'height_ratio_mobile' => $attributes['slideshow_height_ratio_mobile'],
