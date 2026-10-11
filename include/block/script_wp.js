@@ -4,6 +4,7 @@
 		registerBlockType = wp.blocks.registerBlockType,
 		SelectControl = wp.components.SelectControl,
 		TextControl = wp.components.TextControl,
+		PanelBody = wp.components.PanelBody,
 		InspectorControls = wp.blockEditor.InspectorControls;
 
 	registerBlockType('mf/slideshow',
@@ -287,8 +288,12 @@
 				[
 					el(
 						InspectorControls,
-						'div',
-						inspectorControlsChildren,
+						{key: 'inspector'},
+						el(
+							PanelBody,
+							{title: script_slideshow_block_wp.block_title, initialOpen: true},
+							inspectorControlsChildren,
+						)
 					),
 					el(
 						'strong',
